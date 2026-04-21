@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Arctic Shop BD — Premium Streetwear Bangladesh</title>
+<title>Arctic Shop BD -- Premium Streetwear Bangladesh</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@0,300;0,400;0,500&display=swap" rel="stylesheet"/>
 <!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -659,7 +659,7 @@ if(!q.trim()){r.innerHTML=””;return;}
 var ms=PRODUCTS.filter(function(p){return p.name.toLowerCase().indexOf(q.toLowerCase())>=0||p.ed.toLowerCase().indexOf(q.toLowerCase())>=0;});
 var h=””;
 for(var i=0;i<ms.length;i++){
-h+=”<div class='sr-item' onclick='closeSearch();openModal("+ms[i].id+")'>”+ms[i].name+(ms[i].price?” — ৳”+ms[i].price:” — Custom”)+”</div>”;
+h+=”<div class='sr-item' onclick='closeSearch();openModal("+ms[i].id+")'>”+ms[i].name+(ms[i].price?” – ৳”+ms[i].price:” – Custom”)+”</div>”;
 }
 r.innerHTML=h||”<div class='sr-item' style='opacity:.5;cursor:default'>No results found</div>”;
 }
@@ -687,7 +687,7 @@ for(var s=0;s<szs.length;s++){ bh+=”<button class='sz"+(szs[s]==="L"?" sel":""
 bh+=”</div></div>”;
 bh+=”<div><div class='m-sec'>Quantity</div><div class='qty-row'><button class='mqb' onclick='chQty(-1)'>−</button><span class='mqn' id='mqn'>1</span><button class='mqb' onclick='chQty(1)'>+</button></div></div>”;
 if(p.stock>0){
-bh+=”<button class='m-add' id='madd' onclick='addFrMod()'>Add to Cart — ৳”+p.price.toLocaleString()+”</button>”;
+bh+=”<button class='m-add' id='madd' onclick='addFrMod()'>Add to Cart – ৳”+p.price.toLocaleString()+”</button>”;
 } else {
 bh+=”<button class='m-add' disabled style='background:rgba(0,204,255,0.2);cursor:not-allowed'>Out of Stock</button>”;
 }
@@ -697,7 +697,7 @@ bh+=”<button class='m-add' onclick='closeModal();openCustom()' style='backgrou
 bh+=”<button class='m-wish' onclick='toast(\"Added to wishlist! &#9825;\",\"success\");closeModal()'>♡ Save to Wishlist</button>”;
 bh+=”<div class='m-feats'>”;
 bh+=”<div class='m-feat'><span class='m-feat-ic'>✓</span><span>180gsm Premium Ring-Spun Cotton</span></div>”;
-bh+=”<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Oversized Fit — size down for regular</span></div>”;
+bh+=”<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Oversized Fit – size down for regular</span></div>”;
 bh+=”<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Free delivery on orders ৳1000+</span></div>”;
 bh+=”<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Instant email confirmation on order</span></div>”;
 bh+=”</div>”;
@@ -712,7 +712,7 @@ mQty=Math.max(1,mQty+d);
 var el=document.getElementById(“mqn”); if(el) el.textContent=mQty;
 var p=PRODUCTS.find(function(x){return x.id===mPid;});
 var btn=document.getElementById(“madd”);
-if(btn&&p) btn.innerHTML=“Add to Cart — ৳”+(p.price*mQty).toLocaleString();
+if(btn&&p) btn.innerHTML=“Add to Cart – ৳”+(p.price*mQty).toLocaleString();
 }
 function addFrMod(){ addToCart(mPid,mSz,mQty); closeModal(); setTimeout(openCart,300); }
 
@@ -771,7 +771,7 @@ for(var i=0;i<cart.length;i++){
 var it=cart[i];
 itemsList += it.name+” (Size: “+it.sz+”) x”+it.qty+” = “+(it.price?”\u09F3”+(it.price*it.qty).toLocaleString():“Custom Quote”)+”\n”;
 }
-itemsList += “—\n”;
+itemsList += “–\n”;
 itemsList += “Delivery: “+(getDelivery()===0?“FREE”:”\u09F3”+getDelivery())+”\n”;
 itemsList += “GRAND TOTAL: \u09F3”+getGrandTotal().toLocaleString();
 
@@ -796,7 +796,7 @@ btn.classList.add(“loading”);
 btn.disabled = true;
 
 // Send email via EmailJS
-if(EMAILJS_PUBLIC_KEY !== “YOUR_PUBLIC_KEY”){
+if(EMAILJS_PUBLIC_KEY !== “sNXcgIvheN6Uvm3bT”){
 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
 .then(function(){
 onOrderSuccess(oid);
