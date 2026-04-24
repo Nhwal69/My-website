@@ -295,6 +295,11 @@ body::after{content:"";position:fixed;top:-50%;left:-50%;width:200%;height:200%;
 .pc-stock{margin-top:4px;}
 .pc-acts{display:flex;gap:7px;margin-top:10px;opacity:0;transform:translateY(7px);transition:opacity .3s .05s,transform .3s .05s;}
 .pc:hover .pc-acts{opacity:1;transform:translateY(0);}
+/* On touch devices (no hover), keep Add-to-Cart buttons visible — users otherwise can't see the primary action */
+@media (hover:none){
+.pc-acts{opacity:1;transform:translateY(0);}
+.pc-body{transform:translateY(0);}
+}
 .pc-btn{flex:1;background:var(--glow);color:var(--ink);font-family:"DM Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 5px;border:none;font-weight:700;transition:background .2s;}
 .pc-btn:hover{background:#00e5ff;}
 .pc-btn:disabled{background:rgba(0,204,255,0.3);cursor:not-allowed;}
@@ -660,22 +665,23 @@ html.entered #intro-replay{display:none;}
 </div>
 <div id="co-modal">
   <div class="co-box">
+    <form id="co-form" novalidate autocomplete="on">
     <div class="co-title">Complete Your Order</div>
     <div class="co-sub">&#128274; Secure &#183; Fast Delivery &#183; Order confirmation via email</div>
     <div class="co-sec"><div class="co-sec-title">Contact Info</div>
       <div class="f-row">
-        <div class="f"><label>Full Name <span class="req">*</span></label><input id="cn" type="text" placeholder="Your full name"/></div>
-        <div class="f"><label>Phone <span class="req">*</span></label><input id="cp" type="tel" placeholder="+880 1XX-XXXXXXX"/></div>
+        <div class="f"><label for="cn">Full Name <span class="req">*</span></label><input id="cn" name="name" type="text" placeholder="Your full name" required minlength="2" maxlength="80" autocomplete="name"/></div>
+        <div class="f"><label for="cp">Phone <span class="req">*</span></label><input id="cp" name="phone" type="tel" placeholder="+880 1XX-XXXXXXX" required inputmode="tel" autocomplete="tel" pattern="[0-9+\-\s()]{7,20}"/></div>
       </div>
-      <div class="f"><label>Email Address <span class="req">*</span></label><input id="ce" type="email" placeholder="your@email.com (for order confirmation)"/></div>
+      <div class="f"><label for="ce">Email Address <span class="req">*</span></label><input id="ce" name="email" type="email" placeholder="your@email.com (for order confirmation)" required maxlength="120" autocomplete="email"/></div>
     </div>
     <div class="co-sec"><div class="co-sec-title">Delivery Address</div>
-      <div class="f"><label>Full Address <span class="req">*</span></label><input id="ca" type="text" placeholder="House No, Road, Area"/></div>
+      <div class="f"><label for="ca">Full Address <span class="req">*</span></label><input id="ca" name="address" type="text" placeholder="House No, Road, Area" required minlength="5" maxlength="200" autocomplete="street-address"/></div>
       <div class="f-row">
-        <div class="f"><label>City <span class="req">*</span></label><input id="cc" type="text" placeholder="Dhaka"/></div>
-        <div class="f"><label>District</label><input id="cdi" type="text" placeholder="Dhaka"/></div>
+        <div class="f"><label for="cc">City <span class="req">*</span></label><input id="cc" name="city" type="text" placeholder="Dhaka" required minlength="2" maxlength="60" autocomplete="address-level2"/></div>
+        <div class="f"><label for="cdi">District</label><input id="cdi" name="district" type="text" placeholder="Dhaka" maxlength="60" autocomplete="address-level1"/></div>
       </div>
-      <div class="f"><label>Delivery Notes</label><textarea id="cn2" placeholder="Any special delivery instructions..."></textarea></div>
+      <div class="f"><label for="cn2">Delivery Notes / Custom Design Details</label><textarea id="cn2" name="notes" placeholder="Delivery instructions — or if this is a custom order, describe your design, preferred colours, size(s) and references here." maxlength="500"></textarea></div>
     </div>
     <div class="co-sec"><div class="co-sec-title">Payment Method</div>
       <div class="pay-opt sel" onclick="selPay(this,'bKash')"><div class="pay-radio"><div class="pay-dot"></div></div><div><div class="pay-name">&#128176; bKash</div><div class="pay-desc">Send payment to: 01XXXXXXXXX (Personal)</div></div></div>
@@ -684,8 +690,9 @@ html.entered #intro-replay{display:none;}
       <div class="pay-opt" onclick="selPay(this,'Cash on Delivery')"><div class="pay-radio"><div class="pay-dot"></div></div><div><div class="pay-name">&#127968; Cash on Delivery</div><div class="pay-desc">Pay when your order arrives at your door</div></div></div>
     </div>
     <div class="co-sec"><div class="co-sec-title">Order Summary</div><div class="ord-mini" id="ord-mini"></div></div>
-    <button class="place-btn" id="place-btn" onclick="placeOrder()"><span class="btn-txt">&#10003; Place Order Now</span><div class="spinner"></div></button>
-    <button class="back-btn" onclick="closeCheckout()">&#8592; Back to Cart</button>
+    <button type="submit" class="place-btn" id="place-btn"><span class="btn-txt">&#10003; Place Order Now</span><div class="spinner"></div></button>
+    <button type="button" class="back-btn" onclick="closeCheckout()">&#8592; Back to Cart</button>
+    </form>
   </div>
 </div>
 <div id="ok-modal">
@@ -721,7 +728,7 @@ html.entered #intro-replay{display:none;}
     <div class="hero-ey a1">Bangladesh&#x27;s Finest Streetwear Brand</div>
     <h1 class="hero-h1 a2"><span class="hero-out">We Make</span>Perfect!</h1>
     <p class="hero-sub a3">Graphic Tees &middot; Oversized Fits &middot; Bold Statements</p>
-    <div class="hero-btns a4"><a href="#products" class="btn-gl">Shop Collection</a><button onclick="openCustom()" class="btn-out">Custom Order</button></div>
+    <div class="hero-btns a4"><a href="#products" class="btn-gl">Shop Collection</a><button onclick="openCustom()" class="btn-out">Request Custom Design</button></div>
   </div>
   <div class="hero-stats a5">
     <div class="hs"><div class="hs-n">6.2K</div><div class="hs-l">Happy Customers</div></div>
@@ -786,8 +793,8 @@ html.entered #intro-replay{display:none;}
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How do I place a custom order? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Use the Custom Order button &mdash; fill the form and we will email you a mockup within 24 hours. Minimum: 1 piece.</div></div>
     </div>
     <div class="faq-contact rv">
-      <div class="fcp-t">Still Have Questions?</div>
-      <div class="fcp-d">Our team responds within 2-4 hours. Reach us on any platform below.</div>
+      <div class="fcp-t">Need Help? Contact Us</div>
+      <div class="fcp-d">Ready to order or have a question? We reply within 2-4 hours. Tap any option below to message us directly.</div>
       <a href="https://facebook.com/ArcticShopBD" target="_blank" class="fcp-m"><div class="fcp-ic">&#128248;</div><div><div class="fcp-lbl">Facebook</div><div class="fcp-val">Arctic Shop BD</div></div></a>
       <a href="https://instagram.com/arcticshopbd" target="_blank" class="fcp-m"><div class="fcp-ic">&#128247;</div><div><div class="fcp-lbl">Instagram</div><div class="fcp-val">@arcticshopbd</div></div></a>
       <a href="mailto:obbhack6@gmail.com" class="fcp-m"><div class="fcp-ic">&#9993;</div><div><div class="fcp-lbl">Email</div><div class="fcp-val">obbhack6@gmail.com</div></div></a>
@@ -1006,7 +1013,10 @@ el.classList.add("sel");
 }
 
 // ── PLACE ORDER + EMAIL ────────────────────────────────
+var placingOrder=false;
 function placeOrder(){
+if(placingOrder) return;
+if(!cart.length){ toast("Your cart is empty. Add an item first.","error"); closeCheckout(); return; }
 // Validate
 var n=document.getElementById("cn").value.trim();
 var p=document.getElementById("cp").value.trim();
@@ -1014,14 +1024,25 @@ var e=document.getElementById("ce").value.trim();
 var a=document.getElementById("ca").value.trim();
 var c=document.getElementById("cc").value.trim();
 
-var ok=true;
+var ok=true, firstBad=null;
 ["cn","cp","ce","ca","cc"].forEach(function(id){
 var el=document.getElementById(id);
-if(!el.value.trim()){ el.classList.add("err"); ok=false; }
+if(!el.value.trim()){ el.classList.add("err"); if(!firstBad) firstBad=el; ok=false; }
 else el.classList.remove("err");
 });
-if(!ok){ toast("Please fill all required fields (*)","error"); return; }
-if(e.indexOf("@")<0){ document.getElementById("ce").classList.add("err"); toast("Please enter a valid email address","error"); return; }
+if(!ok){ toast("Please fill all required fields (*)","error"); if(firstBad) firstBad.focus(); return; }
+
+var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+if(!emailRe.test(e)){ var ee=document.getElementById("ce"); ee.classList.add("err"); ee.focus(); toast("Please enter a valid email address","error"); return; }
+
+var digits=p.replace(/\D/g,"");
+if(digits.length<7 || digits.length>15){ var pe=document.getElementById("cp"); pe.classList.add("err"); pe.focus(); toast("Please enter a valid phone number","error"); return; }
+
+if(n.length<2){ var ne=document.getElementById("cn"); ne.classList.add("err"); ne.focus(); toast("Please enter your full name","error"); return; }
+
+if(a.length<5){ var ae=document.getElementById("ca"); ae.classList.add("err"); ae.focus(); toast("Please enter a complete delivery address","error"); return; }
+
+if(!selPayMethod){ toast("Please choose a payment method","error"); return; }
 
 // Generate order ID
 var oid = "ASB-" + Date.now().toString().slice(-7);
@@ -1053,21 +1074,27 @@ reply_to: e
 };
 
 // Disable button, show spinner
+placingOrder=true;
 var btn = document.getElementById("place-btn");
 btn.classList.add("loading");
 btn.disabled = true;
 
+function finishFail(msg){
+placingOrder=false;
+btn.classList.remove("loading");
+btn.disabled=false;
+toast(msg||"Could not place order. Please try again.","error");
+}
+
 // Send email via EmailJS
-if(EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY"){
+if(typeof emailjs!=="undefined" && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY"){
 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
 .then(function(){
 onOrderSuccess(oid);
 })
 .catch(function(err){
 console.error("EmailJS error:", err);
-// Fallback: still complete order, but note email issue
-onOrderSuccess(oid);
-toast("Order placed! Email may be delayed - we will contact you soon.","warn");
+finishFail("Order could not be submitted. Please check your connection and try again.");
 });
 } else {
 // Demo mode - no EmailJS keys yet
@@ -1079,6 +1106,7 @@ toast("Demo mode: Set up EmailJS to enable real emails","warn");
 }
 
 function onOrderSuccess(oid){
+placingOrder=false;
 var btn=document.getElementById("place-btn");
 btn.classList.remove("loading"); btn.disabled=false;
 closeCheckout();
@@ -1299,6 +1327,12 @@ if(i3&&IMG.sweetvenom) i3.src=IMG.sweetvenom;
 var el=document.getElementById(id);
 if(el) el.addEventListener("input",function(){ this.classList.remove("err"); });
 });
+
+// Submit the checkout via proper form semantics (Enter key works, single handler)
+(function(){
+var f=document.getElementById("co-form");
+if(f) f.addEventListener("submit",function(ev){ ev.preventDefault(); placeOrder(); });
+})();
 
 // ── INIT ──────────────────────────────────────────────
 renderProds("all");
