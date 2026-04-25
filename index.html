@@ -925,6 +925,11 @@ text-transform:uppercase;color:var(--muted);
       <div class="co-step" id="step-4"><div class="co-step-dot">✓</div><div class="co-step-lbl">Review</div></div>
     </div>
     <form id="co-form" novalidate autocomplete="on">
+    <!-- Honeypot: hidden from real users; bots fill this in, we reject the order -->
+    <div style="position:absolute;left:-9999px;top:-9999px;visibility:hidden;pointer-events:none" aria-hidden="true">
+      <label for="website">Leave this blank</label>
+      <input id="hp-website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="0"/>
+    </div>
     <div class="co-title">Complete Your Order</div>
     <div class="co-sub">&#128274; Secure &#183; Fast Delivery &#183; Order confirmation via email</div>
     <div class="co-sec"><div class="co-sec-title">Contact Info</div>
@@ -1118,10 +1123,7 @@ text-transform:uppercase;color:var(--muted);
 var SITE_CONFIG = {
 
 // ── Store owner / email ────────────────────────────────────────────────────
-// EmailJS credentials (emailjs.com — free tier is fine)
-// Template variables: {{order_id}} {{customer_name}} {{customer_phone}}
-//   {{customer_email}} {{delivery_address}} {{items_list}}
-//   {{total_amount}} {{payment_method}} {{order_date}}
+// EmailJS credentials — lock your domain on emailjs.com → Security → Allowed Origins
 emailjs: {
 publicKey:  "sNXcgIvheN6Uvm3bT",
 serviceId:  "service_fw8eikq",
@@ -1167,35 +1169,35 @@ id: 1, name: "Losted Tee", ed: "Featured Piece",
 price: 650, badge: "new", bl: "NEW",
 tags: ["black"], stock: 8,
 desc: "Astronaut lost in space with gothic Losted typography over a cosmic purple nebula. Premium 180gsm oversized cotton.",
-img: "losted.jpg", type: "regular", aboutImg: false
+img: "images/losted.jpg", type: "regular", aboutImg: false
 },
 {
 id: 2, name: "Sweet Venom", ed: "White Edition",
 price: 650, badge: "hot", bl: "HOT",
 tags: ["white"], stock: 5,
 desc: "Dark butterfly on crisp white cotton. Deceptive beauty, fragile wings hide poison, ensnaring souls with delicate allure.",
-img: "sweetvenom.jpg", type: "regular", aboutImg: true
+img: "images/sweetvenom.jpg", type: "regular", aboutImg: true
 },
 {
 id: 3, name: "Wave Tee", ed: "Japanese Series",
 price: 650, badge: null, bl: "",
 tags: ["black"], stock: 12,
 desc: "Hokusai Great Wave on premium black cotton with Japanese kanji. Bold, iconic, timeless streetwear.",
-img: "wave.jpg", type: "regular", aboutImg: true
+img: "images/wave.jpg", type: "regular", aboutImg: true
 },
 {
 id: 4, name: "Pretty Tee", ed: "Limited Edition",
 price: 700, badge: "ltd", bl: "LTD",
 tags: ["black", "limited"], stock: 3,
 desc: "PRETTY on the front in red. Haunting back print with dripping text, cinematic eye photo. Limited run only.",
-img: "pretty.jpg", type: "regular", aboutImg: false
+img: "images/pretty.jpg", type: "regular", aboutImg: false
 },
 {
 id: 5, name: "Paranoia Tee", ed: "Dark Series",
 price: 700, badge: null, bl: "",
 tags: ["black"], stock: 7,
 desc: "Paranoia is the relentless whisper that tells you no one can be trusted. Cinematic vintage photo on premium black tee.",
-img: "paranoia.jpg", type: "regular", aboutImg: true
+img: "images/paranoia.jpg", type: "regular", aboutImg: true
 },
 {
 id: 6, name: "Custom Design", ed: "Bespoke Service",
@@ -1495,17 +1497,57 @@ window.prompt("Copy the Nagad number:", num);
 }
 
 // ── PLACE ORDER + EMAIL ────────────────────────────────
+// Rate-limit helper: max 3 orders per rolling 60-minute window
+function _checkOrderRateLimit(){
+var KEY="arcbd_order_times", WINDOW=60*60*1000, MAX=3;
+var now=Date.now();
+var times=[];
+try{ times=JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){}
+times=times.filter(function(t){ return now-t < WINDOW; });
+if(times.length>=MAX) return false;
+times.push(now);
+try{ localStorage.setItem(KEY,JSON.stringify(times)); }catch(e){}
+return true;
+}
+
+// Sanitize a string for safe insertion into HTML (prevents XSS)
+function _esc(s){
+return String(s)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#x27;");
+}
+
 var placingOrder=false;
 function placeOrder(){
 if(placingOrder) return;
 if(!cart.length){ toast("Your cart is empty. Add an item first.","error"); closeCheckout(); return; }
-// Validate
+
+// ── Honeypot check (bots fill this; real users leave it blank) ──
+var hp=document.getElementById("hp-website");
+if(hp && hp.value.trim()!==""){
+// Silently succeed from the bot's perspective, but do nothing
+console.warn("Order blocked: honeypot triggered");
+setTimeout(function(){ onOrderSuccess("BOT-"+Date.now().toString().slice(-7)); },1200);
+return;
+}
+
+// ── Rate limiting ──────────────────────────────────────────────
+if(!_checkOrderRateLimit()){
+toast("Too many orders submitted. Please wait a while and try again.","error");
+return;
+}
+
+// ── Field collection ───────────────────────────────────────────
 var n=document.getElementById("cn").value.trim();
 var p=document.getElementById("cp").value.trim();
 var e=document.getElementById("ce").value.trim();
 var a=document.getElementById("ca").value.trim();
 var c=document.getElementById("cc").value.trim();
 
+// ── Required-field check ───────────────────────────────────────
 var ok=true, firstBad=null;
 ["cn","cp","ce","ca","cc"].forEach(function(id){
 var el=document.getElementById(id);
@@ -1514,15 +1556,31 @@ else el.classList.remove("err");
 });
 if(!ok){ toast("Please fill all required fields (*)","error"); if(firstBad) firstBad.focus(); return; }
 
-var emailRe=/^[^\s@]+@[^\s@]+.[^\s@]{2,}$/;
-if(!emailRe.test(e)){ var ee=document.getElementById("ce"); ee.classList.add("err"); ee.focus(); toast("Please enter a valid email address","error"); return; }
+// ── Name: 2-80 chars, no script tags ──────────────────────────
+if(n.length<2||n.length>80||/<[^>]*>/.test(n)){
+var ne=document.getElementById("cn"); ne.classList.add("err"); ne.focus();
+toast("Please enter a valid full name (2–80 characters)","error"); return;
+}
 
-var digits=p.replace(/\D/g,"");
-if(digits.length<7 || digits.length>15){ var pe=document.getElementById("cp"); pe.classList.add("err"); pe.focus(); toast("Please enter a valid phone number","error"); return; }
+// ── Email: stricter RFC-like pattern ──────────────────────────
+var emailRe=/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+if(!emailRe.test(e)||e.length>120){
+var ee=document.getElementById("ce"); ee.classList.add("err"); ee.focus();
+toast("Please enter a valid email address","error"); return;
+}
 
-if(n.length<2){ var ne=document.getElementById("cn"); ne.classList.add("err"); ne.focus(); toast("Please enter your full name","error"); return; }
+// ── Phone: digits 7-15, allows +, spaces, dashes, parens ──────
+var digits=p.replace(/[\s\-()]/g,"");
+if(!/^\+?[0-9]{7,15}$/.test(digits)){
+var pe=document.getElementById("cp"); pe.classList.add("err"); pe.focus();
+toast("Please enter a valid phone number (7–15 digits)","error"); return;
+}
 
-if(a.length<5){ var ae=document.getElementById("ca"); ae.classList.add("err"); ae.focus(); toast("Please enter a complete delivery address","error"); return; }
+// ── Address: 5-200 chars ───────────────────────────────────────
+if(a.length<5||a.length>200){
+var ae=document.getElementById("ca"); ae.classList.add("err"); ae.focus();
+toast("Please enter a complete delivery address (at least 5 characters)","error"); return;
+}
 
 if(!selPayMethod){ toast("Please choose a payment method","error"); return; }
 
@@ -1531,7 +1589,7 @@ var nagadTrx = "";
 if(selPayMethod === "bKash"){
 var trxEl = document.getElementById("bkash-trx");
 bkashTrx = (trxEl && trxEl.value ? trxEl.value.trim().toUpperCase() : "");
-if(bkashTrx.length < 6 || !/^[A-Z0-9]+$/.test(bkashTrx)){
+if(bkashTrx.length < 6 || bkashTrx.length > 20 || !/^[A-Z0-9]+$/.test(bkashTrx)){
 if(trxEl){ trxEl.classList.add("err"); trxEl.focus(); }
 toast("Please enter your bKash Transaction ID (from the confirmation SMS)","error");
 return;
@@ -1541,7 +1599,7 @@ if(trxEl) trxEl.classList.remove("err");
 if(selPayMethod === "Nagad"){
 var ntrxEl = document.getElementById("nagad-trx");
 nagadTrx = (ntrxEl && ntrxEl.value ? ntrxEl.value.trim().toUpperCase() : "");
-if(nagadTrx.length < 6 || !/^[A-Z0-9]+$/.test(nagadTrx)){
+if(nagadTrx.length < 6 || nagadTrx.length > 20 || !/^[A-Z0-9]+$/.test(nagadTrx)){
 if(ntrxEl){ ntrxEl.classList.add("err"); ntrxEl.focus(); }
 toast("Please enter your Nagad Transaction ID (from the confirmation SMS)","error");
 return;
@@ -1553,7 +1611,7 @@ if(ntrxEl) ntrxEl.classList.remove("err");
 var oid = "ASB-" + Date.now().toString().slice(-7);
 var orderDate = new Date().toLocaleString("en-BD",{timeZone:"Asia/Dhaka",dateStyle:"full",timeStyle:"short"});
 
-// Build items list
+// Build items list (plain text for email — no HTML injection risk here)
 var itemsList = "";
 for(var i=0;i<cart.length;i++){
 var it=cart[i];
@@ -1565,13 +1623,15 @@ var disc=getDiscount();
 if(disc>0){ itemsList += "Promo ("+activePromo.code+" "+activePromo.pct+"% off): −\u09F3"+disc.toLocaleString()+"\n"; }
 itemsList += "GRAND TOTAL: \u09F3"+getGrandTotal().toLocaleString();
 
+var diEl=document.getElementById("cdi");
+var notesEl=document.getElementById("cn2");
 var templateParams = {
 order_id: oid,
 customer_name: n,
 customer_phone: p,
 customer_email: e,
-delivery_address: a + ", " + c + (document.getElementById("cdi").value?" , "+document.getElementById("cdi").value:""),
-delivery_notes: document.getElementById("cn2").value || "None",
+delivery_address: a + ", " + c + (diEl&&diEl.value?" , "+diEl.value:""),
+delivery_notes: (notesEl&&notesEl.value) ? notesEl.value.slice(0,500) : "None",
 items_list: itemsList,
 total_amount: "\u09F3"+getGrandTotal().toLocaleString(),
 payment_method: selPayMethod + (bkashTrx ? " (TrxID: " + bkashTrx + ", sent to " + BKASH_MERCHANT + ")" : "") + (nagadTrx ? " (TrxID: " + nagadTrx + ", sent to " + NAGAD_MERCHANT + ")" : ""),
@@ -1598,7 +1658,7 @@ toast(msg||"Could not place order. Please try again.","error");
 }
 
 // Send email via EmailJS
-if(typeof emailjs!=="undefined" && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY"){
+if(typeof emailjs!=="undefined" && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== ""){
 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
 .then(function(){
 onOrderSuccess(oid);
@@ -1608,10 +1668,10 @@ console.error("EmailJS error:", err);
 finishFail("Order could not be submitted. Please check your connection and try again.");
 });
 } else {
-// Demo mode - no EmailJS keys yet
+// Demo mode - config.js not set up yet
 setTimeout(function(){
 onOrderSuccess(oid);
-toast("Demo mode: Set up EmailJS to enable real emails","warn");
+toast("Demo mode: EmailJS not configured","warn");
 }, 1200);
 }
 }
