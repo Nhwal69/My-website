@@ -4311,6 +4311,75 @@ inputEl.addEventListener('keydown', function(e) {
   }
 });
 </script>
+<!-- Arctic AI Chat Widget -->
+<div id="arctic-chat-btn" style="position:fixed;bottom:24px;right:24px;z-index:9999;cursor:pointer;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#0f0f0f,#1a1a2e);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.4);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="28" height="28" fill="white" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+</div>
 
+<div id="arctic-chat-box" style="display:none;position:fixed;bottom:100px;right:24px;z-index:9999;width:360px;max-height:520px;border-radius:16px;background:#111;color:#fff;font-family:system-ui,sans-serif;box-shadow:0 8px 32px rgba(0,0,0,0.5);flex-direction:column;overflow:hidden">
+  <div style="padding:16px 20px;background:linear-gradient(135deg,#0f0f0f,#1a1a2e);font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">
+    <span>🧊 Arctic AI Chat</span>
+    <span id="arctic-chat-close" style="cursor:pointer;font-size:20px">&times;</span>
+  </div>
+  <div id="arctic-chat-messages" style="flex:1;overflow-y:auto;padding:16px;max-height:380px;font-size:14px;line-height:1.5"></div>
+  <div style="padding:12px;border-top:1px solid #222;display:flex;gap:8px">
+    <input id="arctic-chat-input" type="text" placeholder="Ask Arctic anything..." style="flex:1;padding:10px 14px;border-radius:10px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:14px;outline:none" />
+    <button id="arctic-chat-send" style="padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,#4a90d9,#357abd);color:#fff;font-weight:600;cursor:pointer">Send</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const WORKER_URL = "https://bekend-worker.mehedinihal89.workers.dev";
+  const btn = document.getElementById("arctic-chat-btn");
+  const box = document.getElementById("arctic-chat-box");
+  const close = document.getElementById("arctic-chat-close");
+  const msgs = document.getElementById("arctic-chat-messages");
+  const input = document.getElementById("arctic-chat-input");
+  const send = document.getElementById("arctic-chat-send");
+  let history = [];
+
+  btn.onclick = () => { box.style.display = "flex"; btn.style.display = "none"; };
+  close.onclick = () => { box.style.display = "none"; btn.style.display = "flex"; };
+
+  function addMsg(text, who) {
+    const d = document.createElement("div");
+    d.style.cssText = "margin-bottom:12px;padding:10px 14px;border-radius:12px;max-width:85%;word-wrap:break-word;" + 
+      (who === "user" ? "background:#4a90d9;margin-left:auto;text-align:right" : "background:#1e1e2e;margin-right:auto");
+    d.textContent = text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  addMsg("Hey! 👋 I'm Arctic, your AI shopping assistant. How can I help you today?", "bot");
+
+  async function sendMsg() {
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    addMsg(text, "user");
+    send.disabled = true;
+    send.textContent = "...";
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history })
+      });
+      const data = await res.json();
+      const reply = data.reply || "Sorry, try again!";
+      addMsg(reply, "bot");
+      history.push({ role: "user", content: text }, { role: "assistant", content: reply });
+    } catch(e) {
+      addMsg("Connection error. Please try again 🙏", "bot");
+    }
+    send.disabled = false;
+    send.textContent = "Send";
+  }
+
+  send.onclick = sendMsg;
+  input.onkeydown = (e) => { if (e.key === "Enter") sendMsg(); };
+})();
+</script>
 </body>
 </html>
