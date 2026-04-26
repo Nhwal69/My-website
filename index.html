@@ -1881,6 +1881,70 @@ text-transform:uppercase;color:var(--muted);
 .exit-box{padding:44px 20px 30px;}
 .exit-offer{flex-direction:column;gap:8px;}
 }
+
+/* ── SIZE GUIDE MODAL ── */
+#size-guide-modal{position:fixed;inset:0;background:rgba(0,0,0,0.87);z-index:890;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+#size-guide-modal.open{opacity:1;visibility:visible;}
+.sg-box{background:rgba(8,14,26,0.97);backdrop-filter:blur(28px);border:1px solid rgba(0,212,255,0.15);width:min(560px,100%);max-height:90vh;overflow-y:auto;padding:32px 28px;animation:scIn .3s ease;position:relative;}
+.sg-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(240,247,255,0.4);font-size:22px;cursor:pointer;transition:color .2s;}
+.sg-close:hover{color:var(--white);}
+.sg-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:900;font-style:italic;margin-bottom:4px;}
+.sg-sub{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--glow);margin-bottom:22px;}
+.sg-table{width:100%;border-collapse:collapse;font-size:13px;}
+.sg-table th{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--glow);padding:10px 12px;border-bottom:1px solid rgba(0,212,255,0.2);text-align:left;}
+.sg-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.05);color:rgba(240,247,255,0.75);}
+.sg-table tr:hover td{background:rgba(0,212,255,0.04);}
+.sg-note{margin-top:18px;padding:14px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);font-size:12px;color:rgba(240,247,255,0.55);line-height:1.7;}
+.sg-note strong{color:var(--glow);}
+/* ── WISHLIST DRAWER ── */
+#wishlist-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:750;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+#wishlist-overlay.open{opacity:1;visibility:visible;}
+#wishlist-drawer{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:100vw;background:rgba(8,14,26,0.96);backdrop-filter:blur(24px);z-index:760;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;border-left:1px solid rgba(0,212,255,0.1);}
+#wishlist-drawer.open{transform:translateX(0);}
+.wl-head{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+.wl-head-title{font-family:"Playfair Display",serif;font-size:22px;font-weight:900;font-style:italic;}
+.wl-close-btn{background:none;border:none;color:rgba(240,247,255,0.4);font-size:20px;cursor:pointer;transition:color .2s;}
+.wl-close-btn:hover{color:var(--white);}
+.wl-body{flex:1;overflow-y:auto;padding:14px 20px;}
+.wl-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;gap:12px;color:var(--muted);}
+.wl-empty-icon{font-size:40px;opacity:.3;}
+.wl-empty-txt{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;}
+.wl-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.wl-thumb{width:60px;height:60px;flex-shrink:0;background:var(--card);overflow:hidden;}
+.wl-thumb img{width:100%;height:100%;object-fit:cover;}
+.wl-info{flex:1;}
+.wl-name{font-size:14px;font-weight:700;}
+.wl-price{font-family:"DM Mono",monospace;font-size:10px;color:var(--gold);margin-top:3px;}
+.wl-acts{display:flex;gap:6px;margin-top:8px;}
+.wl-add{flex:1;background:linear-gradient(135deg,var(--glow),#0099bb);color:var(--ink);font-family:"DM Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:7px;border:none;font-weight:700;cursor:pointer;transition:all .2s;}
+.wl-add:hover{background:linear-gradient(135deg,#22ddff,#00aad4);}
+.wl-rm{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(240,247,255,0.4);font-size:14px;padding:7px 10px;cursor:pointer;transition:all .2s;}
+.wl-rm:hover{border-color:var(--hot);color:var(--hot);}
+/* ── NAV WISHLIST ICON ── */
+.nav-wish-btn{background:none;border:none;color:var(--muted);font-size:16px;padding:8px;transition:color .2s;position:relative;}
+.nav-wish-btn:hover{color:var(--gold);}
+.wl-count{position:absolute;top:-6px;right:-6px;width:17px;height:17px;border-radius:50%;background:var(--gold);color:var(--ink);font-family:"DM Mono",monospace;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;display:none;}
+.wl-count.show{display:flex;}
+/* ── MODAL IMAGE GALLERY ── */
+.modal-gallery{display:flex;flex-direction:column;gap:0;}
+.modal-main-img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:opacity .3s;cursor:zoom-in;}
+.modal-thumbs{display:flex;gap:2px;padding:2px;}
+.modal-thumb{flex:1;aspect-ratio:1;object-fit:cover;cursor:pointer;opacity:0.5;transition:opacity .2s;border:2px solid transparent;}
+.modal-thumb.active{opacity:1;border-color:var(--glow);}
+.modal-thumb:hover{opacity:0.85;}
+/* ── MOBILE STICKY ADD TO CART ── */
+.m-sticky-add{display:none;}
+@media(max-width:768px){
+.m-sticky-add{display:flex;position:sticky;bottom:0;left:0;right:0;z-index:10;padding:10px 18px max(12px,env(safe-area-inset-bottom));background:linear-gradient(to top,rgba(8,14,26,0.98) 70%,transparent);gap:8px;margin:0 -18px -20px;}
+.m-sticky-add-btn{flex:1;background:linear-gradient(135deg,var(--glow),#0099bb);color:var(--ink);font-family:"DM Mono",monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;padding:15px;border:none;font-weight:800;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+.m-sticky-add-msg{flex:1;background:linear-gradient(135deg,var(--green),#009955);color:var(--white);font-family:"DM Mono",monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:15px;border:none;font-weight:700;text-align:center;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+/* Hide duplicate add button in modal body on mobile — sticky takes over */
+.modal-body .m-add{display:none;}
+}
+/* 7: 2-col product grid on all mobile */
+@media(max-width:480px){
+.pg{grid-template-columns:1fr 1fr !important;gap:2px !important;}
+}
 </style>
 
 </head>
@@ -1940,22 +2004,16 @@ text-transform:uppercase;color:var(--muted);
       </div>
       <div id="gold-rule"></div>
       <div id="tagline">Wear the Frost. Rule the Night.</div>
-      <div id="cats">
-        <div class="cat-pill">Hoodies</div>
-        <div class="cat-pill">Outerwear</div>
-        <div class="cat-pill">Tees</div>
-        <div class="cat-pill">Caps</div>
-        <div class="cat-pill">Accessories</div>
-      </div>
+      <div id="cats" style="display:none"></div>
       <div id="bd-badge">Made in Dhaka &middot; Est. BD</div>
       <button id="cta">Enter the Drop</button>
     </div>
     <div id="stats-strip">
-      <div class="stat-item"><div class="stat-val"><em>240</em>+</div><div class="stat-label">SKUs Live</div></div>
+      <div class="stat-item"><div class="stat-val"><em>5</em></div><div class="stat-label">Designs Live</div></div>
       <div class="stat-divider"></div>
-      <div class="stat-item"><div class="stat-val"><em>7K</em>+</div><div class="stat-label">Orders Shipped</div></div>
+      <div class="stat-item"><div class="stat-val"><em>500</em>+</div><div class="stat-label">Orders Shipped</div></div>
       <div class="stat-divider"></div>
-      <div class="stat-item"><div class="stat-val"><em>36H</em></div><div class="stat-label">Dhaka Delivery</div></div>
+      <div class="stat-item"><div class="stat-val"><em>48H</em></div><div class="stat-label">Dhaka Delivery</div></div>
     </div>
     <div id="intro-ticker">
       <div id="intro-ticker-inner">
@@ -1975,6 +2033,34 @@ text-transform:uppercase;color:var(--muted);
     </div>
   </div>
   <button id="intro-replay">&#x21BA; Replay</button>
+</div>
+<!-- ── SIZE GUIDE MODAL ── -->
+<div id="size-guide-modal">
+  <div class="sg-box">
+    <button class="sg-close" onclick="closeSizeGuide()" aria-label="Close size guide">&#10005;</button>
+    <div class="sg-title">Size Guide</div>
+    <div class="sg-sub">All measurements in centimetres &middot; Oversized fit</div>
+    <table class="sg-table">
+      <thead><tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th></tr></thead>
+      <tbody>
+        <tr><td><strong>S</strong></td><td>96 cm</td><td>67 cm</td><td>46 cm</td></tr>
+        <tr><td><strong>M</strong></td><td>102 cm</td><td>70 cm</td><td>49 cm</td></tr>
+        <tr><td><strong>L</strong></td><td>108 cm</td><td>73 cm</td><td>52 cm</td></tr>
+        <tr><td><strong>XL</strong></td><td>114 cm</td><td>76 cm</td><td>55 cm</td></tr>
+        <tr><td><strong>XXL</strong></td><td>120 cm</td><td>79 cm</td><td>58 cm</td></tr>
+      </tbody>
+    </table>
+    <div class="sg-note">
+      <strong>Oversized Fit:</strong> These tees are designed oversized. If you prefer a more regular/fitted look, <strong>size down one</strong>.<br>
+      Measurements are of the garment laid flat &mdash; double the chest for circumference. Minor ±2 cm variation is normal.
+    </div>
+  </div>
+</div>
+<!-- ── WISHLIST DRAWER ── -->
+<div id="wishlist-overlay" onclick="closeWishlist()"></div>
+<div id="wishlist-drawer">
+  <div class="wl-head"><div class="wl-head-title">&#9825; Wishlist</div><button class="wl-close-btn" onclick="closeWishlist()">&#10005;</button></div>
+  <div class="wl-body" id="wl-body"></div>
 </div>
 <div id="sp-wrap"></div>
 <div id="loader"><div class="ld-title">Arctic <em>Shop BD</em></div><div class="ld-track"><div class="ld-bar"></div></div><div class="ld-txt">Loading Collection...</div></div>
@@ -2047,6 +2133,12 @@ text-transform:uppercase;color:var(--muted);
       <div class="pay-opt" onclick="selPay(this,'Nagad')"><div class="pay-radio"><div class="pay-dot"></div></div><div><div class="pay-name">&#128241; Nagad</div><div class="pay-desc">Send Money &middot; secure personal transfer</div></div></div>
       <div class="pay-opt" onclick="selPay(this,'Rocket')"><div class="pay-radio"><div class="pay-dot"></div></div><div><div class="pay-name">&#128640; Rocket</div><div class="pay-desc">Send payment to: 01XXXXXXXXX</div></div></div>
       <div class="pay-opt" onclick="selPay(this,'Cash on Delivery')"><div class="pay-radio"><div class="pay-dot"></div></div><div><div class="pay-name">&#127968; Cash on Delivery</div><div class="pay-desc">Pay when your order arrives at your door</div></div></div>
+      <div id="cod-details" class="pay-details" style="border:1px solid rgba(0,204,136,0.3);background:linear-gradient(135deg,rgba(0,204,136,0.07),rgba(0,204,136,0.02));border-left:3px solid var(--green);">
+        <div class="pay-details-title" style="color:var(--green);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">Cash on Delivery — Important Note</div>
+        <p style="font-size:12px;color:rgba(240,247,255,0.7);line-height:1.7;margin:0 0 10px;">For orders <strong style="color:var(--white)">under ৳2,000</strong>: Pay the full amount when your parcel arrives.</p>
+        <p style="font-size:12px;color:rgba(240,247,255,0.7);line-height:1.7;margin:0 0 10px;">For orders <strong style="color:var(--gold)">৳2,000 and above</strong>: A <strong style="color:var(--gold)">৳200–৳300 advance</strong> via bKash/Nagad is required to confirm your order. We'll contact you within 2–4 hours after you place the order.</p>
+        <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,204,136,0.8);margin:0;">✓ Remaining balance paid on delivery</p>
+      </div>
       <div id="bkash-details" class="pay-details show">
         <div class="pay-details-title">bKash Payment Instructions</div>
         <div class="bkash-amount-row"><span>Amount to Send</span><strong id="bkash-amt">&#2547;0</strong></div>
@@ -2141,6 +2233,9 @@ text-transform:uppercase;color:var(--muted);
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span class="cart-label">Cart</span> <span class="cart-count" id="cart-count">0</span>
     </button>
+    <button class="nav-wish-btn" onclick="openWishlist()" title="Wishlist" aria-label="Open wishlist">
+      &#9825;<span class="wl-count" id="wl-count">0</span>
+    </button>
     <button class="hamburger" id="ham" onclick="togMob()"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -2163,7 +2258,7 @@ text-transform:uppercase;color:var(--muted);
     </div>
   </div>
   <div class="hero-stats a5">
-    <div class="hs"><div class="hs-n">6.2K</div><div class="hs-l">Happy Customers</div></div>
+    <div class="hs"><div class="hs-n">500+</div><div class="hs-l">Happy Customers</div></div>
     <div class="hs"><div class="hs-n">100%</div><div class="hs-l">Premium Cotton</div></div>
     <div class="hs"><div class="hs-n">48H</div><div class="hs-l">Delivery</div></div>
     <div class="hs"><div class="hs-n">&#9733;4.9</div><div class="hs-l">Rating</div></div>
@@ -2321,7 +2416,7 @@ text-transform:uppercase;color:var(--muted);
   <div><div class="foot-ct">Shop</div><ul class="foot-links"><li><a href="#products">New Arrivals</a></li><li><a href="#products">Black Tees</a></li><li><a href="#products">White Tees</a></li><li><a href="#products">Limited Edition</a></li><li><a href="#" onclick="openCustom();return false">Custom Orders</a></li></ul></div>
   <div><div class="foot-ct">Help</div><ul class="foot-links"><li><a href="#faq">FAQ</a></li><li><a href="#faq">Shipping Info</a></li><li><a href="#faq">Returns Policy</a></li><li><a href="#faq">Size Guide</a></li><li><a href="mailto:obbhack6@gmail.com">Email Us</a></li></ul></div>
   <div><div class="foot-ct">Contact</div><ul class="foot-links"><li><a href="https://facebook.com/ArcticShopBD" target="_blank">&#128248; Facebook</a></li><li><a href="#">&#128247; Instagram</a></li><li><a href="mailto:obbhack6@gmail.com">&#9993; obbhack6@gmail.com</a></li></ul></div>
-</div><div class="foot-bot"><div class="foot-copy">&#169; 2024 Arctic Shop BD &middot; All Rights Reserved</div><div class="trust-bs"><span class="trust-b">&#9993; Auto Emails</span><span class="trust-b">Secure Checkout</span><span class="trust-b">Fast Delivery</span></div></div></footer>
+</div><div class="foot-bot"><div class="foot-copy">&#169; <span id="copy-year">2024</span> Arctic Shop BD &middot; All Rights Reserved</div><div class="trust-bs"><span class="trust-b">&#9993; Auto Emails</span><span class="trust-b">Secure Checkout</span><span class="trust-b">Fast Delivery</span></div></div></footer>
 <script>
 // ═══════════════════════════════════════════════════════════════════
 //  SITE CONFIG — edit everything here, no need to touch code below
@@ -2376,7 +2471,7 @@ price: 650, badge: "new", bl: "NEW",
 tags: ["black"], stock: 8,
 desc: "An astronaut drifts through a cosmic purple nebula, surrounded by gothic <em>Losted</em> typography that bleeds across the chest like a transmission from deep space. This piece captures the feeling of being unmoored from reality — present but unreachable.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"High-opacity DTG front print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "losted.jpg", type: "regular", aboutImg: false
+img: "images/losted.jpg", images: ["images/losted.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 2, name: "Sweet Venom", ed: "White Edition",
@@ -2384,7 +2479,7 @@ price: 650, badge: "hot", bl: "HOT",
 tags: ["white"], stock: 5,
 desc: "A dark butterfly rests on crisp white cotton — deceptive beauty in its purest form. Fragile wings hide poison, drawing you in with delicate allure before the sting sets in. The contrast of dark ink on white is intentional: danger dressed as innocence.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Precision DTG chest print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "sweetvenom.jpg", type: "regular", aboutImg: true
+img: "images/sweetvenom.jpg", images: ["images/sweetvenom.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 3, name: "Wave Tee", ed: "Japanese Series",
@@ -2392,7 +2487,7 @@ price: 650, badge: null, bl: "",
 tags: ["black"], stock: 12,
 desc: "Hokusai's Great Wave reimagined for the streets of Dhaka. Bold Japanese kanji runs beneath the iconic crest, grounding an 18th-century masterpiece in contemporary streetwear. Timeless art. Modern silhouette. A piece that speaks two centuries at once.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Full-chest DTG print with kanji detail",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "wave.jpg", type: "regular", aboutImg: true
+img: "images/wave.jpg", images: ["images/wave.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 4, name: "Pretty Tee", ed: "Limited Edition",
@@ -2400,7 +2495,7 @@ price: 700, badge: "ltd", bl: "LTD",
 tags: ["black", "limited"], stock: 3,
 desc: "<em>PRETTY</em> on the front in blood red — a word that cuts. Flip it around and the back tells the real story: dripping distressed text over a cinematic eye photograph, haunting and unforgettable. This is a limited run. When it is gone, it is gone.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Dual-sided DTG print, front + back",wash:"Machine wash cold, inside out",origin:"Made in Dhaka — limited run only"},
-img: "pretty.jpg", type: "regular", aboutImg: false
+img: "images/pretty.jpg", images: ["images/pretty.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 5, name: "Paranoia Tee", ed: "Dark Series",
@@ -2408,7 +2503,7 @@ price: 700, badge: null, bl: "",
 tags: ["black"], stock: 7,
 desc: "Paranoia is the relentless whisper that tells you no one can be trusted — not even yourself. A cinematic vintage photograph printed across premium black cotton, aged and grainy like a memory you can't quite place. Wear the feeling. Own the unease.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Large-format vintage DTG print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "paranoia.jpg", type: "regular", aboutImg: true
+img: "images/paranoia.jpg", images: ["images/paranoia.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 6, name: "Custom Design", ed: "Bespoke Service",
@@ -2453,6 +2548,10 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 } catch(e) {
 console.log("EmailJS init - will use fallback mailto");
 }
+
+// Dynamic copyright year
+(function(){ var el=document.getElementById("copy-year"); if(el) el.textContent=new Date().getFullYear(); })();
+
 
 function stockLabel(s) {
 if(s<=0) return "out";
@@ -2594,7 +2693,18 @@ var p=PRODUCTS.find(function(x){return x.id===pid;}); if(!p) return;
 mPid=pid; mSz="L"; mQty=1;
 var src=getImg(p);
 var ah="<button class='m-close' onclick='closeModal()'>✕</button>";
-if(src){
+var imgs=p.images&&p.images.length?p.images:(src?[src]:[]);
+if(imgs.length>1){
+// Gallery view
+ah+="<div class='modal-gallery'>";
+ah+="<img class='modal-main-img' id='modal-main-img' src='"+imgs[0]+"' alt='"+p.name+"' loading='lazy' onclick='openZoom(\""+imgs[0]+"\",\""+p.name+"\")'/>";
+ah+="<div class='modal-thumbs'>";
+for(var gi=0;gi<imgs.length;gi++){
+ah+="<img class='modal-thumb"+(gi===0?" active":"")+"' src='"+imgs[gi]+"' alt='"+p.name+" view "+(gi+1)+"' loading='lazy' onclick='switchModalImg(this,\""+imgs[gi]+"\")'\/>";
+}
+ah+="</div></div>";
+ah+="<button class='zoom-btn' onclick='openZoom(document.getElementById(\"modal-main-img\").src,\""+p.name+"\")' title='Zoom'>🔍 Zoom</button>";
+} else if(src){
 ah+="<img src='"+src+"' alt='"+p.name+"' loading='lazy' decoding='async' onclick='openZoom(\""+src+"\",\""+p.name+"\")'/>";
 ah+="<button class='zoom-btn' onclick='openZoom(\""+src+"\",\""+p.name+"\")' title='Zoom image'>🔍 Zoom</button>";
 } else {
@@ -2630,7 +2740,7 @@ bh+="<div class='m-desc-details'>"+rows+"</div>";
 }
 
 if(!isCustom(p)){
-bh+="<div><div class='m-sec'>Select Size</div><div class='size-grid' id='szg'>";
+bh+="<div><div class='m-sec' style='display:flex;align-items:center;justify-content:space-between;'>Select Size <button onclick=\'openSizeGuide()\' style=\'background:none;border:none;color:var(--glow);font-family:\"DM Mono\",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:0;\'>&#128207; Size Guide</button></div><div class='size-grid' id='szg'>";
 var szs=["S","M","L","XL","XXL"];
 for(var s=0;s<szs.length;s++){ bh+="<button class='sz"+(szs[s]==="L"?" sel":"")+"' onclick='selSz(\""+szs[s]+"\",this)'>"+szs[s]+"</button>"; }
 bh+="</div></div>";
@@ -2643,7 +2753,13 @@ bh+="<button class='m-add' disabled style='background:rgba(0,204,255,0.2);cursor
 } else {
 bh+="<button class='m-add' onclick='closeModal();openCustom()' style='background:var(--gold);color:var(--ink)'>Request Custom Quote ✦</button>";
 }
-bh+="<button class='m-wish' onclick='toast(\"Added to wishlist! &#9825;\",\"success\");closeModal()'>&#9825; Save to Wishlist</button>";
+bh+="<button class='m-wish' onclick=\'addToWishlist("+p.id+")\'>&#9825; Save to Wishlist</button>";
+// Sticky add-to-cart for mobile
+if(!isCustom(p) && p.stock>0){
+bh+="<div class='m-sticky-add'><button class='m-sticky-add-btn' onclick=\'addFrMod()\'>&#9889; Order Now &mdash; ৳"+p.price.toLocaleString()+"</button></div>";
+} else if(isCustom(p)){
+bh+="<div class='m-sticky-add'><button class='m-sticky-add-btn' style=\'background:var(--gold)\' onclick=\'closeModal();openCustom()\'>Request Quote &#10022;</button></div>";
+}
 bh+="<a href='https://m.me/ArcticShopBD' target='_blank' rel='noopener' style='display:block;text-align:center;margin-top:8px;padding:12px;background:linear-gradient(135deg,#0084ff,#0060dd);color:#fff;font-family:\"DM Mono\",monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;text-decoration:none;'>&#128172; Order via Messenger</a>";
 bh+="<div class='m-feats'>";
 bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>180gsm Premium Ring-Spun Cotton</span></div>";
@@ -2655,6 +2771,12 @@ document.getElementById("modal-body").innerHTML=bh;
 document.getElementById("modal-bg").classList.add("open");
 }
 function closeModal(){ document.getElementById("modal-bg").classList.remove("open"); }
+function switchModalImg(thumb,src){
+var main=document.getElementById("modal-main-img");
+if(main){ main.src=src; main.onclick=function(){ openZoom(src,"Product image"); }; }
+document.querySelectorAll(".modal-thumb").forEach(function(t){ t.classList.remove("active"); });
+thumb.classList.add("active");
+}
 function handleMBG(e){ if(e.target===document.getElementById("modal-bg")) closeModal(); }
 function selSz(s,el){ mSz=s; document.querySelectorAll(".sz").forEach(function(b){b.classList.remove("sel");}); el.classList.add("sel"); }
 function chQty(d){
@@ -2696,6 +2818,7 @@ document.querySelectorAll(".pay-opt").forEach(function(o){o.classList.remove("se
 el.classList.add("sel");
 var bd=document.getElementById("bkash-details");
 var nd=document.getElementById("nagad-details");
+var cd=document.getElementById("cod-details");
 if(bd){
 if(method==="bKash"){ bd.classList.add("show"); updateBkashPanel(); }
 else{ bd.classList.remove("show"); }
@@ -2703,6 +2826,10 @@ else{ bd.classList.remove("show"); }
 if(nd){
 if(method==="Nagad"){ nd.classList.add("show"); updateNagadPanel(); }
 else{ nd.classList.remove("show"); }
+}
+if(cd){
+if(method==="Cash on Delivery"){ cd.classList.add("show"); }
+else{ cd.classList.remove("show"); }
 }
 }
 
@@ -3265,7 +3392,7 @@ setTimeout(updateProgress,50);
 updateProgress();
 })();
 
-document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ closeZoom();closeSearch();closeModal();closeCart();closeCheckout(); } });
+document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ closeZoom();closeSearch();closeModal();closeCart();closeCheckout();closeSizeGuide();closeWishlist(); } });
 
 // ── LOADER ────────────────────────────────────────────
 (function(){
@@ -3323,6 +3450,94 @@ var el=document.getElementById(slots[i]);
 if(el && imgProducts[i]) el.src=imgProducts[i].img;
 }
 }
+
+// ── INDIVIDUAL PRODUCT URLs (Issue 1) ──
+function openModalBySlug(){
+var hash=window.location.hash;
+if(!hash) return;
+var m=hash.match(/^#product-(\d+)$/);
+if(m){ var pid=parseInt(m[1],10); if(pid) openModal(pid); }
+}
+var _origOpenModal=window.openModal;
+window.openModal=function(pid){
+_origOpenModal(pid);
+// Push state so URL reflects product
+if(history.pushState){ history.pushState(null,'','#product-'+pid); }
+};
+var _origCloseModal=window.closeModal;
+window.closeModal=function(){
+_origCloseModal();
+if(history.pushState){ history.pushState(null,'',window.location.pathname); }
+};
+window.addEventListener('popstate',function(){
+var hash=window.location.hash;
+if(!hash || !hash.match(/^#product-\d+$/)){ var mb=document.getElementById("modal-bg"); if(mb) mb.classList.remove("open"); }
+else { openModalBySlug(); }
+});
+setTimeout(openModalBySlug,600);
+
+// ── PERSISTENT WISHLIST (Issue 3) ──
+var wishlist=[];
+try{ wishlist=JSON.parse(localStorage.getItem("arcbd_wishlist")||"[]"); }catch(e){ wishlist=[]; }
+
+function saveWishlist(){ try{ localStorage.setItem("arcbd_wishlist",JSON.stringify(wishlist)); }catch(e){} }
+
+function updWLBadge(){
+var cnt=wishlist.length, el=document.getElementById("wl-count");
+if(!el) return;
+el.textContent=cnt;
+el.classList.toggle("show",cnt>0);
+}
+
+function addToWishlist(pid){
+var p=PRODUCTS.find(function(x){return x.id===pid;}); if(!p) return;
+if(wishlist.find(function(w){return w.pid===pid;})){
+toast("Already in your wishlist ♥","warn");
+} else {
+wishlist.push({pid:p.id,name:p.name,price:p.price,img:p.img});
+saveWishlist(); updWLBadge();
+toast("♥ "+p.name+" saved to wishlist","success");
+}
+closeModal();
+}
+
+function rmFromWishlist(pid){
+wishlist=wishlist.filter(function(w){return w.pid!==pid;});
+saveWishlist(); updWLBadge(); renderWishlist();
+}
+
+function renderWishlist(){
+var b=document.getElementById("wl-body");
+if(!b) return;
+if(!wishlist.length){
+b.innerHTML="<div class=\'wl-empty\'><div class=\'wl-empty-icon\'>&#9825;</div><div class=\'wl-empty-txt\'>Your wishlist is empty</div></div>";
+return;
+}
+var h="";
+for(var i=0;i<wishlist.length;i++){
+var it=wishlist[i], src=it.img;
+var th=src?"<img src=\'"+src+"\'/>":"";
+h+="<div class=\'wl-item\'><div class=\'wl-thumb\'>"+th+"</div><div class=\'wl-info\'>";
+h+="<div class=\'wl-name\'>"+it.name+"</div>";
+h+="<div class=\'wl-price\'>&#2547;"+(it.price?it.price.toLocaleString():"Quote")+"</div>";
+h+="<div class=\'wl-acts\'>";
+h+="<button class=\'wl-add\' onclick=\'addToCart("+it.pid+",\"L\",1);renderWishlist()\'>&#9889; Add to Cart</button>";
+h+="<button class=\'wl-rm\' onclick=\'rmFromWishlist("+it.pid+")\'>&#10005;</button>";
+h+="</div></div></div>";
+}
+b.innerHTML=h;
+}
+
+function openWishlist(){ renderWishlist(); document.getElementById("wishlist-overlay").classList.add("open"); document.getElementById("wishlist-drawer").classList.add("open"); }
+function closeWishlist(){ document.getElementById("wishlist-overlay").classList.remove("open"); document.getElementById("wishlist-drawer").classList.remove("open"); }
+
+updWLBadge();
+
+// ── SIZE GUIDE (Issue 5) ──
+function openSizeGuide(){ document.getElementById("size-guide-modal").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeSizeGuide(){ document.getElementById("size-guide-modal").classList.remove("open"); document.body.style.overflow=""; }
+document.getElementById("size-guide-modal").addEventListener("click",function(e){ if(e.target===this) closeSizeGuide(); });
+
 
 // ── INPUT VALIDATION LIVE ─────────────────────────────
 ["cn","cp","ce","ca","cc","bkash-trx","nagad-trx"].forEach(function(id){
@@ -4310,6 +4525,25 @@ function sendChat() {
   sendMessage(msg);
 }
 
+function buildArcticContext(){
+  var prods = PRODUCTS.filter(function(p){ return !p.type || p.type !== "custom"; });
+  var lines = prods.map(function(p){
+    var s = p.stock <= 0 ? "out of stock" : p.stock <= 3 ? "low stock ("+p.stock+" left)" : "in stock ("+p.stock+" units)";
+    return p.name+" [৳"+p.price+", "+s+", tags: "+p.tags.join("/")+"]";
+  });
+  return "You are Arctic AI, the friendly assistant for Arctic Shop BD — a premium streetwear brand based in Dhaka, Bangladesh. "
+  + "You help customers with product info, sizing, delivery, and payments. Be concise, warm, and on-brand (cool/streetwear tone). "
+  + "Current products: " + lines.join("; ") + ". "
+  + "Sizes: S, M, L, XL, XXL — all oversized fit (size down for regular look). "
+  + "Prices: ৳650-700. Free delivery inside Dhaka on orders ৳1000+. Outside Dhaka ৳80 delivery fee. "
+  + "Payment: bKash, Nagad, Rocket, Cash on Delivery. COD advance of ৳200-300 required for orders above ৳2000. "
+  + "Promo codes: WELCOME10 and ARCTIC10 (10% off). "
+  + "Exchange policy: 7-day hassle-free exchange (unused, unwashed). "
+  + "Contact: Facebook /ArcticShopBD, email obbhack6@gmail.com. Response time 2-4 hours. "
+  + "For custom tees: minimum 1 piece, 5-7 day turnaround, send design to Facebook or email. "
+  + "DO NOT make up information. If unsure, direct to Facebook or email.";
+}
+
 async function sendMessage(userText) {
   if (!userText || chatTyping) return;
   chatTyping = true;
@@ -4326,7 +4560,8 @@ async function sendMessage(userText) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: userText,
-        history: chatHistory.slice(-6) // send last 6 turns for context
+        history: chatHistory.slice(-6), // send last 6 turns for context
+        context: buildArcticContext()
       })
     });
 
@@ -4343,8 +4578,9 @@ async function sendMessage(userText) {
     removeTyping();
     // Fallback responses when worker isn't deployed yet
     var fallbacks = [
-      "I'm still being set up! For now, reach us on Facebook (Arctic Shop BD) or email obbhack6@gmail.com — we reply within 2-4 hours 🙏",
-      "Still warming up! Check our FAQ section below or message us on Facebook for instant help 💬",
+      "Our AI is warming up 🧊 For instant help: message us on Facebook (Arctic Shop BD) or email obbhack6@gmail.com — we reply within 2–4 hours!",
+      "Connection issue — but we've got you! Check the FAQ below or hit us up on Facebook @ArcticShopBD 💬",
+      "Oops, can't reach the server right now. Try again or message us directly on Facebook — we're always there! 🙏",
     ];
     var fb = fallbacks[Math.floor(Math.random() * fallbacks.length)];
     addBotMsg(fb);
