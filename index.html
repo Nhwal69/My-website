@@ -1945,6 +1945,44 @@ text-transform:uppercase;color:var(--muted);
 @media(max-width:480px){
 .pg{grid-template-columns:1fr 1fr !important;gap:2px !important;}
 }
+
+/* ═══════════════════════════════════════════════════
+   HOW TO ORDER — SECTION STYLES
+═══════════════════════════════════════════════════ */
+.hto-section{position:relative;background:var(--ink);padding:100px 0;overflow:hidden;}
+.hto-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hto-glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:0.18;}
+.hto-orb1{width:500px;height:500px;background:radial-gradient(circle,#00d4ff,transparent 70%);top:-100px;right:-100px;}
+.hto-orb2{width:400px;height:400px;background:radial-gradient(circle,#d4a84c,transparent 70%);bottom:-80px;left:-80px;}
+.hto-inner{position:relative;z-index:1;}
+.hto-header{text-align:center;margin-bottom:72px;}
+.hto-sub{font-family:"DM Mono",monospace;font-size:13px;color:var(--muted);margin-top:16px;letter-spacing:1px;max-width:460px;margin-left:auto;margin-right:auto;}
+.hto-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;margin-bottom:72px;}
+.hto-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 32px;position:relative;border:1px solid var(--border);background:rgba(11,20,32,0.6);backdrop-filter:blur(10px);transition:border-color .3s,transform .3s,background .3s;}
+.hto-step:hover{border-color:rgba(0,212,255,0.4);background:rgba(16,26,40,0.9);transform:translateY(-6px);}
+.hto-step:not(:last-child){border-right:none;}
+.hto-step-num{font-family:"Playfair Display",serif;font-size:72px;font-weight:900;font-style:italic;line-height:1;color:rgba(0,212,255,0.08);position:absolute;top:20px;right:20px;pointer-events:none;transition:color .3s;}
+.hto-step:hover .hto-step-num{color:rgba(0,212,255,0.15);}
+.hto-step-icon{width:72px;height:72px;border-radius:50%;border:1px solid rgba(0,212,255,0.25);display:flex;align-items:center;justify-content:center;color:var(--glow);margin-bottom:24px;position:relative;z-index:1;transition:border-color .3s,box-shadow .3s;}
+.hto-step:hover .hto-step-icon{border-color:var(--glow);box-shadow:0 0 30px rgba(0,212,255,0.2);}
+.hto-step-title{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;margin-bottom:12px;position:relative;z-index:1;}
+.hto-step-desc{font-size:14px;color:var(--muted);line-height:1.7;position:relative;z-index:1;}
+.hto-connector{display:none;}
+
+/* WhatsApp strip */
+.hto-wa-strip{display:flex;align-items:center;justify-content:space-between;gap:24px;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);padding:28px 36px;flex-wrap:wrap;}
+.hto-wa-left{display:flex;align-items:center;gap:20px;}
+.hto-wa-pulse{width:14px;height:14px;border-radius:50%;background:#25d366;flex-shrink:0;animation:waPulse 1.6s ease-in-out infinite;box-shadow:0 0 0 0 rgba(37,211,102,0.4);}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}70%{box-shadow:0 0 0 12px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+.hto-wa-text{}
+.hto-wa-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.hto-wa-sub{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:1px;}
+.hto-wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;font-family:"DM Mono",monospace;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;text-decoration:none;transition:background .2s,transform .2s,box-shadow .2s;flex-shrink:0;}
+.hto-wa-btn:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,0.35);}
+
+
+#wa-float{border-radius:50%;width:54px;height:54px;justify-content:center;}
+}
 </style>
 
 </head>
@@ -2224,7 +2262,7 @@ text-transform:uppercase;color:var(--muted);
 </div>
 <nav id="nav">
   <a class="nav-brand" href="#"><span class="nav-brand-top">Arctic <em>Shop BD</em></span><span class="nav-brand-bot">&#10052; We Make Perfect</span></a>
-  <ul class="nav-links"><li><a href="#products">Collection</a></li><li><a href="#about">Story</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li><li><a href="#footer">Contact</a></li></ul>
+  <ul class="nav-links"><li><a href="#products">Collection</a></li><li><a href="#how-to-order">How to Order</a></li><li><a href="#about">Story</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li></ul>
   <div class="nav-right">
     <button class="nav-search-btn" onclick="openSearch()" title="Search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -2254,7 +2292,7 @@ text-transform:uppercase;color:var(--muted);
         <span>Order Now</span>
         <svg style="width:14px;height:14px;margin-left:8px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </a>
-      <a href="https://m.me/ArcticShopBD" target="_blank" rel="noopener" class="btn-out">&#128172; Order via Messenger</a>
+      
     </div>
   </div>
   <div class="hero-stats a5">
@@ -2349,10 +2387,72 @@ text-transform:uppercase;color:var(--muted);
     <div class="feat-icon">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--glow)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
     </div>
-    <div class="feat-title">Auto Notifications</div>
-    <div class="feat-desc">Instant email confirmation when you place your order.</div>
+    <div class="feat-title">WhatsApp Updates</div>
+    <div class="feat-desc">Real-time order updates straight to your WhatsApp — no app needed.</div>
   </div>
 </div></div>
+<!-- ── HOW TO ORDER — UNIQUE SECTION ── -->
+<section id="how-to-order" class="hto-section">
+  <div class="hto-bg-grid"></div>
+  <div class="hto-glow-orb hto-orb1"></div>
+  <div class="hto-glow-orb hto-orb2"></div>
+  <div class="sw hto-inner">
+    <div class="hto-header rv">
+      <div class="sl">Zero Confusion</div>
+      <h2 class="sh2">Order in <em>3 Steps</em></h2>
+      <p class="hto-sub">No account needed. No complicated checkout. Just pick, order, and flex.</p>
+    </div>
+    <div class="hto-steps">
+      <div class="hto-step rv" data-step="1">
+        <div class="hto-step-num">01</div>
+        <div class="hto-step-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="hto-step-body">
+          <div class="hto-step-title">Pick Your Tee</div>
+          <div class="hto-step-desc">Browse the collection. Tap any piece to zoom in, check the vibe, pick your size. Use the size guide — we have you covered.</div>
+        </div>
+        <div class="hto-connector"></div>
+      </div>
+      <div class="hto-step rv" data-step="2">
+        <div class="hto-step-num">02</div>
+        <div class="hto-step-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9A16 16 0 0 0 12 13.09l.37-.37a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 19 15h3a2 2 0 0 1 2 1.92z"/></svg>
+        </div>
+        <div class="hto-step-body">
+          <div class="hto-step-title">Place Your Order</div>
+          <div class="hto-step-desc">Add to cart and checkout — or tap WhatsApp to order directly. Our team confirms within 2 to 4 hours. Personal, fast, human.</div>
+        </div>
+        <div class="hto-connector"></div>
+      </div>
+      <div class="hto-step rv" data-step="3">
+        <div class="hto-step-num">03</div>
+        <div class="hto-step-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="hto-step-body">
+          <div class="hto-step-title">Receive &amp; Flex</div>
+          <div class="hto-step-desc">Dhaka next day. Rest of Bangladesh in 2 to 4 days. Cash on delivery — pay only when it arrives at your door. Zero risk. Full drip.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hto-wa-strip rv">
+      <div class="hto-wa-left">
+        <div class="hto-wa-pulse"></div>
+        <div class="hto-wa-text">
+          <div class="hto-wa-title">Prefer to order on WhatsApp?</div>
+          <div class="hto-wa-sub">Message us directly — we will handle everything for you personally.</div>
+        </div>
+      </div>
+      <a href="https://wa.me/8801925838830?text=Hi%20Arctic%20Shop%20BD!%20I%20want%20to%20place%20an%20order%20%F0%9F%94%A5" target="_blank" class="hto-wa-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.849L0 24l6.335-1.508A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.6-.478-5.122-1.317l-.362-.215-3.76.895.952-3.665-.235-.375A9.969 9.969 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Order on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+
 <section id="about" style="background:var(--deep)"><div class="sw"><div class="about-layout">
   <div class="about-imgs rv"><img id="ai1" class="span2" alt="Wave Tee" src=""/><img id="ai2" alt="Losted Tee" src=""/><img id="ai3" alt="Sweet Venom" src=""/></div>
   <div class="rv">
@@ -2364,7 +2464,7 @@ text-transform:uppercase;color:var(--muted);
       <div class="af"><div class="af-icon">&#129525;</div><div class="af-title">Premium Cotton</div><div class="af-desc">100% ring-spun for max comfort</div></div>
       <div class="af"><div class="af-icon">&#127912;</div><div class="af-title">Bold Prints</div><div class="af-desc">Vibrant long-lasting graphics</div></div>
       <div class="af"><div class="af-icon">&#128640;</div><div class="af-title">Fast Delivery</div><div class="af-desc">Across Bangladesh in 24-48h</div></div>
-      <div class="af"><div class="af-icon">&#9993;</div><div class="af-title">Auto Emails</div><div class="af-desc">Instant order confirmations</div></div>
+      <div class="af"><div class="af-icon">🤝</div><div class="af-title">Easy Exchange</div><div class="af-desc">7-day hassle-free swap</div></div>
     </div>
   </div>
 </div></div></section>
@@ -2397,8 +2497,8 @@ text-transform:uppercase;color:var(--muted);
     <div class="rv">
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How long does delivery take? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Dhaka Metro: next business day. Rest of Bangladesh: 2-4 business days. You will receive a tracking number once your order ships.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">What sizes are available? <span class="faq-chv">&#9660;</span></div><div class="faq-a">We carry S, M, L, XL, and XXL. Our tees are oversized fit &mdash; if you prefer regular fit, size down one.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How do I pay? <span class="faq-chv">&#9660;</span></div><div class="faq-a">We accept bKash, Nagad, Rocket, and Cash on Delivery. For COD, a small advance may be required for orders above &#2547;2000.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">Will I get an email confirmation? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Yes! You will receive an automatic email confirmation the moment you place your order. The shop owner is also instantly notified by email with your full order details.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How do I pay? <span class="faq-chv">&#9660;</span></div><div class="faq-a">We accept Cash on Delivery (pay when your parcel arrives), bKash, Nagad, and Rocket. COD is available nationwide — no advance needed for most orders.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How will I know my order is confirmed? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Once you place your order, our team personally confirms it via WhatsApp or Facebook message within 2–4 hours. You'll get your delivery update the same way — easy, personal, no fuss.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">Can I return or exchange? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Yes! 7-day exchange policy. Defect or wrong item gets a free replacement. Size exchange accepted within 7 days (unused, unwashed).</div></div>
       <div class="faq-item"><div class="faq-q" onclick="tFaq(this)">How do I place a custom order? <span class="faq-chv">&#9660;</span></div><div class="faq-a">Use the Custom Order button &mdash; fill the form and we will email you a mockup within 24 hours. Minimum: 1 piece.</div></div>
     </div>
@@ -2407,16 +2507,16 @@ text-transform:uppercase;color:var(--muted);
       <div class="fcp-d">Ready to order or have a question? We reply within 2-4 hours. Tap any option below to message us directly.</div>
       <a href="https://facebook.com/ArcticShopBD" target="_blank" class="fcp-m"><div class="fcp-ic">&#128248;</div><div><div class="fcp-lbl">Facebook</div><div class="fcp-val">Arctic Shop BD</div></div></a>
       <a href="https://instagram.com/arcticshopbd" target="_blank" class="fcp-m"><div class="fcp-ic">&#128247;</div><div><div class="fcp-lbl">Instagram</div><div class="fcp-val">@arcticshopbd</div></div></a>
-      <a href="mailto:obbhack6@gmail.com" class="fcp-m"><div class="fcp-ic">&#9993;</div><div><div class="fcp-lbl">Email</div><div class="fcp-val">obbhack6@gmail.com</div></div></a>
+      <a href="https://wa.me/8801925838830?text=Hi%20Arctic%20Shop%20BD!%20I%20have%20a%20question" target="_blank" class="fcp-m"><div class="fcp-ic">💬</div><div><div class="fcp-lbl">WhatsApp</div><div class="fcp-val">+880 1925-838830</div></div></a>
     </div>
   </div>
 </div></section>
 <footer id="footer"><div class="foot-main">
   <div><div class="foot-brand">Arctic <em>Shop BD</em></div><div class="foot-tag">&#10052; We Make Perfect</div><p class="foot-desc">Bangladesh&#x27;s premium graphic tee brand. Bold, expressive, perfectly crafted streetwear since 2024.</p><div class="foot-soc"><a class="fsoc" href="https://facebook.com/ArcticShopBD" target="_blank">Fb</a><a class="fsoc" href="#">Ig</a><a class="fsoc" href="#">Tt</a></div></div>
   <div><div class="foot-ct">Shop</div><ul class="foot-links"><li><a href="#products">New Arrivals</a></li><li><a href="#products">Black Tees</a></li><li><a href="#products">White Tees</a></li><li><a href="#products">Limited Edition</a></li><li><a href="#" onclick="openCustom();return false">Custom Orders</a></li></ul></div>
-  <div><div class="foot-ct">Help</div><ul class="foot-links"><li><a href="#faq">FAQ</a></li><li><a href="#faq">Shipping Info</a></li><li><a href="#faq">Returns Policy</a></li><li><a href="#faq">Size Guide</a></li><li><a href="mailto:obbhack6@gmail.com">Email Us</a></li></ul></div>
-  <div><div class="foot-ct">Contact</div><ul class="foot-links"><li><a href="https://facebook.com/ArcticShopBD" target="_blank">&#128248; Facebook</a></li><li><a href="#">&#128247; Instagram</a></li><li><a href="mailto:obbhack6@gmail.com">&#9993; obbhack6@gmail.com</a></li></ul></div>
-</div><div class="foot-bot"><div class="foot-copy">&#169; <span id="copy-year">2024</span> Arctic Shop BD &middot; All Rights Reserved</div><div class="trust-bs"><span class="trust-b">&#9993; Auto Emails</span><span class="trust-b">Secure Checkout</span><span class="trust-b">Fast Delivery</span></div></div></footer>
+  <div><div class="foot-ct">Help</div><ul class="foot-links"><li><a href="#faq">FAQ</a></li><li><a href="#faq">Shipping Info</a></li><li><a href="#faq">Returns Policy</a></li><li><a href="#faq">Size Guide</a></li><li><a href="https://wa.me/8801925838830" target="_blank">WhatsApp Us</a></li></ul></div>
+  <div><div class="foot-ct">Contact</div><ul class="foot-links"><li><a href="https://facebook.com/ArcticShopBD" target="_blank">&#128248; Facebook</a></li><li><a href="#">&#128247; Instagram</a></li><li><a href="https://wa.me/8801925838830" target="_blank">💬 WhatsApp Us</a></li></ul></div>
+</div><div class="foot-bot"><div class="foot-copy">&#169; <span id="copy-year">2024</span> Arctic Shop BD &middot; All Rights Reserved</div><div class="trust-bs"><span class="trust-b">💬 WhatsApp Support</span><span class="trust-b">Secure Checkout</span><span class="trust-b">Fast Delivery</span></div></div></footer>
 <script>
 // ═══════════════════════════════════════════════════════════════════
 //  SITE CONFIG — edit everything here, no need to touch code below
@@ -2471,7 +2571,7 @@ price: 650, badge: "new", bl: "NEW",
 tags: ["black"], stock: 8,
 desc: "An astronaut drifts through a cosmic purple nebula, surrounded by gothic <em>Losted</em> typography that bleeds across the chest like a transmission from deep space. This piece captures the feeling of being unmoored from reality — present but unreachable.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"High-opacity DTG front print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "losted.jpg", images: ["images/losted.jpg"], type: "regular", aboutImg: false
+img: "images/losted.jpg", images: ["images/losted.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 2, name: "Sweet Venom", ed: "White Edition",
@@ -2479,7 +2579,7 @@ price: 650, badge: "hot", bl: "HOT",
 tags: ["white"], stock: 5,
 desc: "A dark butterfly rests on crisp white cotton — deceptive beauty in its purest form. Fragile wings hide poison, drawing you in with delicate allure before the sting sets in. The contrast of dark ink on white is intentional: danger dressed as innocence.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Precision DTG chest print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "sweetvenom.jpg", images: ["images/sweetvenom.jpg"], type: "regular", aboutImg: true
+img: "images/sweetvenom.jpg", images: ["images/sweetvenom.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 3, name: "Wave Tee", ed: "Japanese Series",
@@ -2487,7 +2587,7 @@ price: 650, badge: null, bl: "",
 tags: ["black"], stock: 12,
 desc: "Hokusai's Great Wave reimagined for the streets of Dhaka. Bold Japanese kanji runs beneath the iconic crest, grounding an 18th-century masterpiece in contemporary streetwear. Timeless art. Modern silhouette. A piece that speaks two centuries at once.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Full-chest DTG print with kanji detail",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "wave.jpg", images: ["images/wave.jpg"], type: "regular", aboutImg: true
+img: "images/wave.jpg", images: ["images/wave.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 4, name: "Pretty Tee", ed: "Limited Edition",
@@ -2495,7 +2595,7 @@ price: 700, badge: "ltd", bl: "LTD",
 tags: ["black", "limited"], stock: 3,
 desc: "<em>PRETTY</em> on the front in blood red — a word that cuts. Flip it around and the back tells the real story: dripping distressed text over a cinematic eye photograph, haunting and unforgettable. This is a limited run. When it is gone, it is gone.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Dual-sided DTG print, front + back",wash:"Machine wash cold, inside out",origin:"Made in Dhaka — limited run only"},
-img: "pretty.jpg", images: ["images/pretty.jpg"], type: "regular", aboutImg: false
+img: "images/pretty.jpg", images: ["images/pretty.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 5, name: "Paranoia Tee", ed: "Dark Series",
@@ -2503,7 +2603,7 @@ price: 700, badge: null, bl: "",
 tags: ["black"], stock: 7,
 desc: "Paranoia is the relentless whisper that tells you no one can be trusted — not even yourself. A cinematic vintage photograph printed across premium black cotton, aged and grainy like a memory you can't quite place. Wear the feeling. Own the unease.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Large-format vintage DTG print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "paranoia.jpg", images: ["images/paranoia.jpg"], type: "regular", aboutImg: true
+img: "images/paranoia.jpg", images: ["images/paranoia.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 6, name: "Custom Design", ed: "Bespoke Service",
@@ -2760,12 +2860,11 @@ bh+="<div class='m-sticky-add'><button class='m-sticky-add-btn' onclick=\'addFrM
 } else if(isCustom(p)){
 bh+="<div class='m-sticky-add'><button class='m-sticky-add-btn' style=\'background:var(--gold)\' onclick=\'closeModal();openCustom()\'>Request Quote &#10022;</button></div>";
 }
-bh+="<a href='https://m.me/ArcticShopBD' target='_blank' rel='noopener' style='display:block;text-align:center;margin-top:8px;padding:12px;background:linear-gradient(135deg,#0084ff,#0060dd);color:#fff;font-family:\"DM Mono\",monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;text-decoration:none;'>&#128172; Order via Messenger</a>";
 bh+="<div class='m-feats'>";
 bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>180gsm Premium Ring-Spun Cotton</span></div>";
 bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Oversized Fit — size down for regular</span></div>";
 bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Free delivery on orders ৳1000+</span></div>";
-bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Instant email confirmation on order</span></div>";
+bh+="<div class='m-feat'><span class='m-feat-ic'>✓</span><span>WhatsApp order confirmation & updates</span></div>";
 bh+="</div>";
 document.getElementById("modal-body").innerHTML=bh;
 document.getElementById("modal-bg").classList.add("open");
@@ -3120,7 +3219,7 @@ h+=bdg;
 h+="<div class='pc-body'><div class='pc-ed'>"+p.ed+"</div><div class='pc-name'>"+p.name+"</div><div class='pc-price'>"+(p.price?"৳"+p.price.toLocaleString():"Price on Request")+"</div>";
 h+=stockH;
 h+=countLine;
-h+="<div class='pc-acts'>"+addB+"<a class='pc-btn pc-btn-msg' href='https://m.me/ArcticShopBD' target='_blank' rel='noopener' title='Order via Messenger'>&#128172;</a><button class='pc-qv' onclick='openModal("+p.id+")'>&#128065;</button></div></div></div>";
+h+="<div class='pc-acts'>"+addB+"<button class='pc-qv' onclick='openModal("+p.id+")'>&#128065;</button></div></div></div>";
 }
 grid.innerHTML=h;
 }
