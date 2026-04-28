@@ -3220,7 +3220,7 @@ setTimeout(function(){ t.classList.remove("show"); setTimeout(function(){ t.remo
 function renderProds(f){
 f=f||"all";
 var grid=document.getElementById("pg");
-var list=f==="all"?PRODUCTS:PRODUCTS.filter(function(p){return p.tags.indexOf(f)>=0;});
+var list=f==="all"?PRODUCTS:PRODUCTS.filter(function(p){var pt=p.tags?(Array.isArray(p.tags)?p.tags:p.tags.split(",").map(function(t){return t.trim();})):[];return pt.indexOf(f)>=0;});
 var h="";
 for(var i=0;i<list.length;i++){
 var p=list[i], src=getImg(p), isC=isCustom(p);
@@ -3271,12 +3271,14 @@ function buildFilters(){
 var wrap = document.getElementById("filters");
 if(!wrap) return;
 
-// Count products per tag
+// Count products per tag — handles tags as string (from D1) or array (hardcoded)
 var tagCounts = {};
 for(var i=0;i<PRODUCTS.length;i++){
-for(var j=0;j<PRODUCTS[i].tags.length;j++){
-var t=PRODUCTS[i].tags[j];
-tagCounts[t]=(tagCounts[t]||0)+1;
+var p=PRODUCTS[i];
+var pTags=p.tags?(Array.isArray(p.tags)?p.tags:p.tags.split(",")):[]; 
+for(var j=0;j<pTags.length;j++){
+var t=pTags[j].trim();
+if(t){tagCounts[t]=(tagCounts[t]||0)+1;}
 }
 }
 var totalCount = PRODUCTS.length;
@@ -3284,9 +3286,11 @@ var totalCount = PRODUCTS.length;
 // Collect all unique tags from products (preserving order of first appearance)
 var seen = {}, tags = [];
 for(var i=0;i<PRODUCTS.length;i++){
-for(var j=0;j<PRODUCTS[i].tags.length;j++){
-var t=PRODUCTS[i].tags[j];
-if(!seen[t]){ seen[t]=true; tags.push(t); }
+var p=PRODUCTS[i];
+var pTags=p.tags?(Array.isArray(p.tags)?p.tags:p.tags.split(",")):[]; 
+for(var j=0;j<pTags.length;j++){
+var t=pTags[j].trim();
+if(t&&!seen[t]){seen[t]=true;tags.push(t);}
 }
 }
 
@@ -3715,7 +3719,7 @@ window.addEventListener('arctic:entered', tryPlay, {once:true});
       ed: ap.category || "New Arrival",
       price: ap.price || 0,
       badge: null, bl: "",
-      tags: ["black"],
+      tags: ap.tags ? (Array.isArray(ap.tags) ? ap.tags : ap.tags.split(",").map(function(t){return t.trim();}).filter(Boolean)) : ["black"],
       stock: ap.stock || 0,
       desc: ap.description || "",
       descDetails: {
