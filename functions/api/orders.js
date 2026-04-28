@@ -1,14 +1,12 @@
-export async function onRequestPost(context) {
+export async function onRequestGet(context) {
+  const { env } = context;
+  const { results } = await env.DB.prepare("SELECT * FROM orders ORDER BY created_at DESC").all();
+  return Response.json({ orders: results });
+}
+
+export async function onRequestPut(context) {
   const { env, request } = context;
-  const token = request.headers.get("Authorization")?.replace("Bearer ","");
-  const session = token ? await env.KV.get(`session:${token}`) : null;
-  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  const user = JSON.parse(session);
-  const { items, total } = await request.json();
-  const order = await env.DB.prepare("INSERT INTO orders (user_id, total, status) VALUES (?, ?, 'pending') RETURNING id").bind(user.id, total).first();
-  for (const item of items) {
-    await env.DB.prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)").bind(order.id, item.productId, item.quantity, item.price).run();
-  }
-  await env.KV.delete(`cart:${token}`);
-  return Response.json({ order });
+  const { id, status } = await request.json();
+  await env.DB.prepare("UPDATE orders SET status = ? WHERE id = ?").bind(status, id).run();
+  return Response.json({ success: true });
 }
