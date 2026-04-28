@@ -1989,6 +1989,27 @@ text-transform:uppercase;color:var(--muted);
 
 #wa-float{border-radius:50%;width:54px;height:54px;justify-content:center;}
 }
+
+/* ── Language Toggle ── */
+#lang-toggle{
+  background:none;
+  border:1px solid rgba(0,0,0,0.22);
+  color:#111;
+  font-family:"DM Mono",monospace;
+  font-size:10px;
+  letter-spacing:1.5px;
+  padding:7px 11px;
+  cursor:pointer;
+  border-radius:3px;
+  transition:all .2s;
+  white-space:nowrap;
+  font-weight:600;
+}
+#lang-toggle:hover{border-color:var(--glow,#111);color:var(--glow,#111);}
+html.lang-bn #lang-toggle{background:#111;color:#fff;border-color:#111;}
+/* Bangla font load */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+html.lang-bn [data-bn]{font-family:"Hind Siliguri",sans-serif!important;line-height:1.7;}
 </style>
 
 </head>
@@ -2268,7 +2289,7 @@ text-transform:uppercase;color:var(--muted);
 </div>
 <nav id="nav">
   <a class="nav-brand" href="#"><span class="nav-brand-top">Arctic <em>Shop BD</em></span><span class="nav-brand-bot">&#10052; We Make Perfect</span></a>
-  <ul class="nav-links"><li><a href="#products">Collection</a></li><li><a href="#how-to-order">How to Order</a></li><li><a href="#about">Story</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li></ul>
+  <ul class="nav-links"><li><a href="#products" data-bn="কালেকশন">Collection</a></li><li><a href="#how-to-order" data-bn="অর্ডার করবেন যেভাবে">How to Order</a></li><li><a href="#about" data-bn="আমাদের গল্প">Story</a></li><li><a href="#reviews" data-bn="রিভিউ">Reviews</a></li><li><a href="#faq" data-bn="প্রশ্নোত্তর">FAQ</a></li></ul>
   <div class="nav-right">
     <button class="nav-search-btn" onclick="openSearch()" title="Search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -2280,6 +2301,7 @@ text-transform:uppercase;color:var(--muted);
     <button class="nav-wish-btn" onclick="openWishlist()" title="Wishlist" aria-label="Open wishlist">
       &#9825;<span class="wl-count" id="wl-count">0</span>
     </button>
+    <button id="lang-toggle" onclick="toggleLang()" title="Switch Language / ভাষা পরিবর্তন" aria-label="Switch to Bangla">বাং</button>
     <button class="hamburger" id="ham" onclick="togMob()"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -2577,7 +2599,7 @@ price: 650, badge: "new", bl: "NEW",
 tags: ["black"], stock: 8,
 desc: "An astronaut drifts through a cosmic purple nebula, surrounded by gothic <em>Losted</em> typography that bleeds across the chest like a transmission from deep space. This piece captures the feeling of being unmoored from reality — present but unreachable.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"High-opacity DTG front print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "losted.jpg", images: ["images/losted.jpg"], type: "regular", aboutImg: false
+img: "images/losted.jpg", images: ["images/losted.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 2, name: "Sweet Venom", ed: "White Edition",
@@ -2585,7 +2607,7 @@ price: 650, badge: "hot", bl: "HOT",
 tags: ["white"], stock: 5,
 desc: "A dark butterfly rests on crisp white cotton — deceptive beauty in its purest form. Fragile wings hide poison, drawing you in with delicate allure before the sting sets in. The contrast of dark ink on white is intentional: danger dressed as innocence.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Precision DTG chest print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "sweetvenom.jpg", images: ["images/sweetvenom.jpg"], type: "regular", aboutImg: true
+img: "images/sweetvenom.jpg", images: ["images/sweetvenom.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 3, name: "Wave Tee", ed: "Japanese Series",
@@ -2593,7 +2615,7 @@ price: 650, badge: null, bl: "",
 tags: ["black"], stock: 12,
 desc: "Hokusai's Great Wave reimagined for the streets of Dhaka. Bold Japanese kanji runs beneath the iconic crest, grounding an 18th-century masterpiece in contemporary streetwear. Timeless art. Modern silhouette. A piece that speaks two centuries at once.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Full-chest DTG print with kanji detail",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "wave.jpg", images: ["images/wave.jpg"], type: "regular", aboutImg: true
+img: "images/wave.jpg", images: ["images/wave.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 4, name: "Pretty Tee", ed: "Limited Edition",
@@ -2601,7 +2623,7 @@ price: 700, badge: "ltd", bl: "LTD",
 tags: ["black", "limited"], stock: 3,
 desc: "<em>PRETTY</em> on the front in blood red — a word that cuts. Flip it around and the back tells the real story: dripping distressed text over a cinematic eye photograph, haunting and unforgettable. This is a limited run. When it is gone, it is gone.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Dual-sided DTG print, front + back",wash:"Machine wash cold, inside out",origin:"Made in Dhaka — limited run only"},
-img: "pretty.jpg", images: ["images/pretty.jpg"], type: "regular", aboutImg: false
+img: "images/pretty.jpg", images: ["images/pretty.jpg"], type: "regular", aboutImg: false
 },
 {
 id: 5, name: "Paranoia Tee", ed: "Dark Series",
@@ -2609,7 +2631,7 @@ price: 700, badge: null, bl: "",
 tags: ["black"], stock: 7,
 desc: "Paranoia is the relentless whisper that tells you no one can be trusted — not even yourself. A cinematic vintage photograph printed across premium black cotton, aged and grainy like a memory you can't quite place. Wear the feeling. Own the unease.",
 descDetails: {fabric:"180gsm ring-spun cotton",fit:"Oversized unisex cut",print:"Large-format vintage DTG print",wash:"Machine wash cold, inside out",origin:"Made in Dhaka, Bangladesh"},
-img: "paranoia.jpg", images: ["images/paranoia.jpg"], type: "regular", aboutImg: true
+img: "images/paranoia.jpg", images: ["images/paranoia.jpg"], type: "regular", aboutImg: true
 },
 {
 id: 6, name: "Custom Design", ed: "Bespoke Service",
@@ -3669,13 +3691,69 @@ setTimeout(tryPlay, 500);
 window.addEventListener('arctic:entered', tryPlay, {once:true});
 });
 })();
-// ── INIT ─────────────────────────────────────────────
-renderProds("all");
-buildFilters();
-buildCountLabel();
-buildTicker();
-updBadge();
-renderCart();
+// ── LOAD PRODUCTS FROM API ───────────────────────────
+(function loadProductsFromAPI() {
+  // Map API product to the rich format the site expects
+  function mapAPIProduct(ap) {
+    // Try to match with existing SITE_CONFIG product for rich fields
+    var existing = SITE_CONFIG.products.find(function(p) {
+      return p.id === ap.id || p.name.toLowerCase() === ap.name.toLowerCase();
+    });
+    if (existing) {
+      // Update stock and price from live DB, keep all rich fields
+      existing.stock = (ap.stock !== undefined && ap.stock !== null) ? ap.stock : existing.stock;
+      existing.price = ap.price || existing.price;
+      return existing;
+    }
+    // New product not in config — build from API data
+    return {
+      id: ap.id,
+      name: ap.name,
+      ed: ap.category || "New Arrival",
+      price: ap.price || 0,
+      badge: null, bl: "",
+      tags: ["black"],
+      stock: ap.stock || 0,
+      desc: ap.description || "",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit: "Oversized unisex cut",
+        print: "High-opacity DTG print",
+        wash: "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh"
+      },
+      img: ap.image || null,
+      images: ap.image ? [ap.image] : [],
+      type: "regular",
+      aboutImg: false
+    };
+  }
+
+  fetch("/api/products")
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data && data.products && data.products.length > 0) {
+        var mapped = data.products.map(mapAPIProduct);
+        // Keep custom design product if present
+        var custom = SITE_CONFIG.products.find(function(p) { return p.type === "custom"; });
+        if (custom) mapped.push(custom);
+        PRODUCTS = mapped;
+        SITE_CONFIG.products = mapped;
+      }
+    })
+    .catch(function() {
+      // API failed — use local products (already set)
+    })
+    .finally(function() {
+      renderProds("all");
+      buildFilters();
+      buildCountLabel();
+      buildTicker();
+      updBadge();
+      renderCart();
+    });
+})();
+// ── INIT (skipped — handled by API loader above) ─────
 initImgs();
 
 // ── SMOOTH SCROLL (Lenis) ─────────────────────────────
@@ -4712,5 +4790,190 @@ inputEl.addEventListener('keydown', function(e) {
 });
 </script>
 
+<!-- ── BANGLA LANGUAGE SYSTEM ── -->
+<script>
+(function(){
+  // ── Translation map: selector → [en, bn] ──────────────────────────────
+  var T = [
+    // Announcement bar
+    ['#sticky-bar > span:nth-child(2)',
+      "Winter '26 Drop Live \u00a0\u2014\u00a0 Free Delivery Inside Dhaka on orders over <a href=\"#products\">\u09f3 1,500</a>",
+      "\u09b6\u09c0\u09a4\u0995\u09be\u09b2\u09c0\u09a8 \u09b8\u0982\u0997\u09cd\u09b0\u09b9 \u09b2\u09be\u0987\u09ad \u2014 \u09e7,\u09eb\u09e6\u09e6+ \u099f\u09be\u0995\u09be\u09b0 \u0985\u09b0\u09cd\u09a1\u09be\u09b0\u09c7 \u09a2\u09be\u0995\u09be\u09df \u09ab\u09cd\u09b0\u09bf \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf <a href=\"#products\">\u09b8\u09cd\u09a4\u09b0</a>"],
+    ['#sticky-bar > span:nth-child(4)',
+      "Offer ends in <span id=\"sb-countdown\">--:--:--</span>",
+      "\u09b8\u09ae\u09df \u09b6\u09c7\u09b7 <span id=\"sb-countdown\">--:--:--</span>"],
+
+    // Hero section
+    ['.hero-ey', "Bangladesh's Finest Streetwear Brand", "\u09ac\u09be\u0982\u09b2\u09be\u09a6\u09c7\u09b6\u09c7\u09b0 \u09b8\u09cd\u099f\u09cd\u09b0\u09bf\u099f\u0993\u09df\u09be\u09b0 \u09ac\u09cd\u09b0\u09cd\u09af\u09be\u09a8\u09cd\u09a1"],
+    ['.hero-sub', "Graphic Tees \u00b7 Oversized Fits \u00b7 Bold Statements", "\u0997\u09cd\u09b0\u09be\u09ab\u09bf\u0995 \u099f\u09bf \u00b7 \u0993\u09ad\u09be\u09b0\u09b8\u09be\u0987\u099c \u09ab\u09bf\u099f \u00b7 \u09ac\u09cb\u09b2\u09cd\u09a1 \u09b8\u09cd\u099f\u09c7\u099f\u09ae\u09c7\u09a8\u09cd\u099f"],
+    ['.btn-gl span', "Order Now", "\u098f\u0996\u09a8\u09bf \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09c1\u09a8"],
+
+    // Hero stats
+    ['.hs:nth-child(1) .hs-l', "Happy Customers", "\u09b8\u09a8\u09cd\u09a4\u09c1\u09b7\u09cd\u099f \u0995\u09be\u09b8\u09cd\u099f\u09ae\u09be\u09b0"],
+    ['.hs:nth-child(2) .hs-l', "Premium Cotton", "\u09aa\u09cd\u09b0\u09bf\u09ae\u09bf\u09af\u09bc\u09be\u09ae \u0995\u099f\u09a8"],
+    ['.hs:nth-child(3) .hs-l', "Delivery", "\u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf"],
+    ['.hs:nth-child(4) .hs-l', "Rating", "\u09b0\u09c7\u099f\u09bf\u0982"],
+
+    // Trust badges
+    ['.tb:nth-child(1) .tb-title', "Cash on Delivery", "\u0995\u09cd\u09af\u09be\u09b6 \u0985\u09a8 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf"],
+    ['.tb:nth-child(1) .tb-sub', "Pay when you receive", "\u09aa\u09b0\u09bf\u09a3\u09be\u09ae \u09aa\u09c7\u09b2\u09c7 \u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u0995\u09b0\u09c1\u09a8"],
+    ['.tb:nth-child(3) .tb-title', "2\u20133 Day Delivery", "\u09e8\u20133 \u09a6\u09bf\u09a8\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf"],
+    ['.tb:nth-child(3) .tb-sub', "Nationwide fast shipping", "\u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7 \u09a6\u09cd\u09b0\u09c1\u09a4 \u09b6\u09bf\u09aa\u09bf\u0982"],
+    ['.tb:nth-child(5) .tb-title', "Easy Exchange", "\u09b8\u09b9\u099c \u098f\u0995\u09cd\u09b8\u099a\u09c7\u099e\u09cd\u099c"],
+    ['.tb:nth-child(5) .tb-sub', "7-day hassle-free exchange", "\u09e7 \u09b8\u09aa\u09cd\u09a4\u09be\u09b9\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u099d\u09be\u09ae\u09c7\u09b2\u09be\u09ae\u09c1\u0995\u09cd\u09a4 \u098f\u0995\u09cd\u09b8\u099a\u09c7\u099e\u09cd\u099c"],
+    ['.tb:nth-child(7) .tb-title', "Premium Quality", "\u09aa\u09cd\u09b0\u09bf\u09ae\u09bf\u09af\u09bc\u09be\u09ae \u09ae\u09be\u09a8"],
+    ['.tb:nth-child(7) .tb-sub', "180gsm ring-spun cotton", "180 \u099c\u09bf\u098f\u09b8\u098f\u09ae \u09b0\u09bf\u0982 \u09b8\u09cd\u09aa\u09be\u09a8 \u0995\u099f\u09a8"],
+
+    // Products section
+    ['.sl:first-of-type', "New Arrivals \u00b7 Season 01", "\u09a8\u09a4\u09c1\u09a8 \u0995\u09be\u09b2\u09c7\u0995\u09b6\u09a8 \u00b7 \u09b8\u09c0\u099c\u09a8 \u09e7"],
+    ['#products .sh2', "The <em>Collection</em>", "\u0986\u09ae\u09be\u09a6\u09c7\u09b0 <em>\u0995\u09be\u09b2\u09c7\u0995\u09b6\u09a8</em>"],
+
+    // Feature band
+    ['.feat-item:nth-child(1) .feat-title', "Premium Cotton", "\u09aa\u09cd\u09b0\u09bf\u09ae\u09bf\u09af\u09bc\u09be\u09ae \u0995\u099f\u09a8"],
+    ['.feat-item:nth-child(1) .feat-desc', "180gsm ring-spun cotton, pre-shrunk for perfect fit every wash.", "180\u099c\u09bf\u098f\u09b8\u098f\u09ae \u09b0\u09bf\u0982-\u09b8\u09cd\u09aa\u09be\u09a8 \u0995\u099f\u09a8, \u09aa\u09cd\u09b0\u09bf-\u09b6\u09cd\u09b0\u09be\u0999\u09cd\u0995 \u09ab\u09c1\u09b2 \u09ab\u09bf\u099f \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4\u0964"],
+    ['.feat-item:nth-child(2) .feat-title', "Bold Prints", "\u0989\u099c\u09cd\u099c\u09cd\u09ac\u09b2 \u09aa\u09cd\u09b0\u09bf\u09a8\u09cd\u099f"],
+    ['.feat-item:nth-child(2) .feat-desc', "DTG printed graphics that stay vibrant after 100+ washes.", "100+ \u0993\u09df\u09be\u09b6\u09c7\u09b0 \u09aa\u09b0\u09c7\u0993 \u09b0\u0999 \u09a5\u09be\u0995\u09c7 \u09ab\u09be\u0995\u09be\u0964"],
+    ['.feat-item:nth-child(3) .feat-title', "Fast Delivery", "\u09a6\u09cd\u09b0\u09c1\u09a4 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf"],
+    ['.feat-item:nth-child(3) .feat-desc', "Dhaka next-day, nationwide 2-4 days. Tracked every step.", "\u09a2\u09be\u0995\u09be\u09df \u09aa\u09b0\u09a6\u09bf\u09a8, \u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7 \u09e8-\u09ea \u09a6\u09bf\u09a8\u0964 \u09aa\u09cd\u09b0\u09a4\u09bf \u09aa\u09a6\u0995\u09cd\u09b7\u09c7\u09aa \u099f\u09cd\u09b0\u09cd\u09af\u09be\u0995\u09bf\u0982\u0964"],
+    ['.feat-item:nth-child(4) .feat-title', "WhatsApp Updates", "\u09b9\u09cb\u09af\u09bc\u09be\u099f\u09b8\u0985\u09cd\u09af\u09be\u09aa \u0986\u09aa\u09a1\u09c7\u099f"],
+    ['.feat-item:nth-child(4) .feat-desc', "Real-time order updates straight to your WhatsApp \u2014 no app needed.", "\u0986\u09aa\u09a8\u09be\u09b0 \u09b9\u09cb\u09af\u09bc\u09be\u099f\u09b8\u0985\u09cd\u09af\u09be\u09aa\u09c7 \u09b0\u09bf\u09df\u09c7\u09b2-\u099f\u09be\u0987\u09ae \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0986\u09aa\u09a1\u09c7\u099f\u0964"],
+
+    // How to order
+    ['.hto-header .sl', "Zero Confusion", "\u09b8\u09b9\u099c \u0985\u09b0\u09cd\u09a1\u09be\u09b0"],
+    ['#how-to-order .sh2', "Order in <em>3 Steps</em>", "<em>\u09e3 \u09b8\u09cd\u099f\u09c7\u09aa\u09c7</em> \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09c1\u09a8"],
+    ['.hto-sub', "No account needed. No complicated checkout. Just pick, order, and flex.", "\u0995\u09cb\u09a8\u09cb \u0985\u09cd\u09af\u09be\u0995\u09be\u0989\u09a8\u09cd\u099f \u09a6\u09b0\u0995\u09be\u09b0 \u09a8\u09c7\u0987\u0964 \u09b6\u09c1\u09a7\u09c1 \u09ac\u09c7\u099b\u09c7 \u09a8\u09bf\u09a8, \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u0993 \u09aa\u09b0\u09c7 \u09ab\u09c7\u09b2\u09c1\u09a8\u0964"],
+    ['.hto-step[data-step="1"] .hto-step-title', "Pick Your Tee", "\u0986\u09aa\u09a8\u09be\u09b0 \u099f\u09bf \u09ac\u09c7\u099b\u09c7 \u09a8\u09bf\u09a8"],
+    ['.hto-step[data-step="1"] .hto-step-desc', "Browse the collection. Tap any piece to zoom in, check the vibe, pick your size. Use the size guide \u2014 we have you covered.", "\u0995\u09be\u09b2\u09c7\u0995\u09b6\u09a8 \u09a6\u09c7\u0996\u09c1\u09a8\u0964 \u09af\u09c7\u0995\u09cb\u09a8\u09cb \u09aa\u09cd\u09b0\u09cb\u09a1\u09be\u0995\u09cd\u099f \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09c1\u09a8, \u09b8\u09be\u0987\u099c \u0997\u09be\u0987\u09a1 \u09a6\u09c7\u0996\u09c1\u09a8\u0964"],
+    ['.hto-step[data-step="2"] .hto-step-title', "Place Your Order", "\u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09a6\u09bf\u09a8"],
+    ['.hto-step[data-step="2"] .hto-step-desc', "Add to cart and checkout \u2014 or tap WhatsApp to order directly. Our team confirms within 2 to 4 hours. Personal, fast, human.", "\u0995\u09be\u09b0\u09cd\u099f\u09c7 \u09af\u09cb\u0997 \u0995\u09b0\u09c1\u09a8 \u0993 \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09a6\u09bf\u09a8\u0964 \u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u099f\u09bf\u09ae 2-4 \u0998\u09a3\u09cd\u099f\u09be\u09df \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09b0\u09be\u09df\u0964"],
+    ['.hto-step[data-step="3"] .hto-step-title', "Receive & Flex", "\u09aa\u09c7\u09df\u09c7 \u09ab\u09c7\u09b2\u09c1\u09a8 \u0993 \u09aa\u09b0\u09c1\u09a8"],
+    ['.hto-step[data-step="3"] .hto-step-desc', "Dhaka next day. Rest of Bangladesh in 2 to 4 days. Cash on delivery \u2014 pay only when it arrives at your door. Zero risk. Full drip.", "\u09a2\u09be\u0995\u09be\u09df \u09aa\u09b0\u09a6\u09bf\u09a8\u0964 \u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7 2-4 \u09a6\u09bf\u09a8\u0964 \u09a6\u09b0\u099c\u09be\u09df \u09aa\u09c7\u09b2\u09c7 \u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u0995\u09b0\u09c1\u09a8\u0964 \u09b6\u09c2\u09a8\u09cd\u09af \u09b0\u09bf\u09b8\u09cd\u0995\u0964"],
+    ['.hto-wa-title', "Prefer to order on WhatsApp?", "\u09b9\u09cb\u09af\u09bc\u09be\u099f\u09b8\u0985\u09cd\u09af\u09be\u09aa\u09c7 \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09a4\u09c7 \u099a\u09be\u09a8?"],
+    ['.hto-wa-sub', "Message us directly \u2014 we will handle everything for you personally.", "\u09b8\u09b0\u09be\u09b8\u09b0\u09bf \u09ae\u09c7\u09b8\u09c7\u099c \u0995\u09b0\u09c1\u09a8 \u2014 \u0986\u09ae\u09b0\u09be \u09b8\u09ac \u09b8\u09be\u09ae\u09b2\u09be\u09df\u09c7 \u09a8\u09c7\u09ac\u09cb\u0964"],
+    ['.hto-wa-btn', '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.849L0 24l6.335-1.508A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.6-.478-5.122-1.317l-.362-.215-3.76.895.952-3.665-.235-.375A9.969 9.969 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg> Order on WhatsApp',
+     '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.849L0 24l6.335-1.508A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.6-.478-5.122-1.317l-.362-.215-3.76.895.952-3.665-.235-.375A9.969 9.969 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg> \u09b9\u09cb\u09af\u09bc\u09be\u099f\u09b8\u0985\u09cd\u09af\u09be\u09aa\u09c7 \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09c1\u09a8'],
+
+    // About
+    ['#about .sl', "Our Story", "\u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0997\u09b2\u09cd\u09aa"],
+    ['#about .sh2', "Crafted with <em>Ice Cold</em> Precision", "<em>\u09b0\u09be\u09ab \u09a0\u09be\u09a3\u09cd\u09a1\u09be</em> \u09af\u09a4\u09cd\u09a8\u09c7 \u09a4\u09c8\u09b0\u09bf"],
+    ['#about .ab-body:nth-child(3)', "Arctic Shop BD was born from one belief: streetwear in Bangladesh should be as bold and expressive as the people who wear it. Every piece is a statement \u2014 raw, unapologetic, and made to last.",
+      "\u0986\u09b0\u0995\u09cd\u099f\u09bf\u0995 \u09b6\u09aa \u09ac\u09bf\u09a1\u09bf \u099c\u09a8\u09cd\u09ae \u09a8\u09bf\u09df\u09c7\u099b\u09c7 \u098f\u0995\u099f\u09be \u09ac\u09bf\u09b6\u09cd\u09ac\u09be\u09b8 \u09a5\u09c7\u0995\u09c7: \u09ac\u09be\u0982\u09b2\u09be\u09a6\u09c7\u09b6\u09c7\u09b0 \u09b8\u09cd\u099f\u09cd\u09b0\u09bf\u099f\u0993\u09df\u09be\u09b0 \u09b9\u09ac\u09c7 \u09b8\u09be\u09b9\u09b8\u09c0 \u0993 \u09ac\u09cd\u09af\u0995\u09cd\u09a4\u09bf\u09b6\u09c0\u09b2\u0964 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09aa\u09cb\u09b6\u09be\u0995 \u098f\u0995\u099f\u09be \u09ac\u09be\u09b0\u09cd\u09a4\u09be \u09ac\u09b9\u09a8 \u0995\u09b0\u09c7\u0964"],
+    ['#about .ab-body:nth-child(4)', "From Japanese wave aesthetics to dark cinematic graphics \u2014 each drop is crafted with intentionality. We don't follow trends. We set them.",
+      "\u099c\u09be\u09aa\u09be\u09a8\u09bf\u099c \u09a4\u09b0\u0999\u09cd\u0997 \u09a5\u09c7\u0995\u09c7 \u09b8\u09bf\u09a8\u09c7\u09ae\u09cd\u09af\u09be\u099f\u09bf\u0995 \u09a1\u09bf\u099c\u09be\u0987\u09a8 \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u09a1\u09cd\u09b0\u09aa \u09a4\u09c8\u09b0\u09bf \u09b9\u09df \u0989\u09a6\u09cd\u09a6\u09c7\u09b6\u09cd\u09af\u09ae\u09c2\u09b2\u0995\u09ad\u09be\u09ac\u09c7\u0964 \u0986\u09ae\u09b0\u09be \u099f\u09cd\u09b0\u09c7\u09a8\u09cd\u09a1 \u0985\u09a8\u09c1\u09b8\u09b0\u09a3 \u0995\u09b0\u09bf \u09a8\u09be\u0964 \u0986\u09ae\u09b0\u09be \u099f\u09cd\u09b0\u09c7\u09a8\u09cd\u09a1 \u09a4\u09c8\u09b0\u09bf \u0995\u09b0\u09bf\u0964"],
+    ['.af:nth-child(1) .af-title', "Premium Cotton", "\u09aa\u09cd\u09b0\u09bf\u09ae\u09bf\u09af\u09bc\u09be\u09ae \u0995\u099f\u09a8"],
+    ['.af:nth-child(1) .af-desc', "100% ring-spun for max comfort", "\u09b8\u09b0\u09cd\u09ac\u09cb\u099a\u09cd\u099a \u0986\u09b0\u09be\u09ae\u09a6\u09be\u09df\u0995"],
+    ['.af:nth-child(2) .af-title', "Bold Prints", "\u0989\u099c\u09cd\u099c\u09cd\u09ac\u09b2 \u09aa\u09cd\u09b0\u09bf\u09a8\u09cd\u099f"],
+    ['.af:nth-child(2) .af-desc', "Vibrant long-lasting graphics", "\u09a6\u09c0\u09b0\u09cd\u0998\u09b8\u09cd\u09a5\u09be\u09df\u09c0 \u0989\u099c\u09cd\u099c\u09cd\u09ac\u09b2 \u0997\u09cd\u09b0\u09be\u09ab\u09bf\u0995\u09b8"],
+    ['.af:nth-child(3) .af-title', "Fast Delivery", "\u09a6\u09cd\u09b0\u09c1\u09a4 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf"],
+    ['.af:nth-child(3) .af-desc', "Across Bangladesh in 24-48h", "\u09e8\u09ea-\u09ea\u09ee \u0998\u09a3\u09cd\u099f\u09be\u09df \u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7"],
+    ['.af:nth-child(4) .af-title', "Easy Exchange", "\u09b8\u09b9\u099c \u098f\u0995\u09cd\u09b8\u099a\u09c7\u099e\u09cd\u099c"],
+    ['.af:nth-child(4) .af-desc', "7-day hassle-free swap", "\u09e7 \u09b8\u09aa\u09cd\u09a4\u09be\u09b9\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09ac\u09bf\u09a8\u09be \u099d\u09be\u09ae\u09c7\u09b2\u09be\u09df \u09ac\u09a6\u09b2"],
+
+    // Reviews
+    ['#reviews .sl', "What Customers Say", "\u0995\u09be\u09b8\u09cd\u099f\u09ae\u09be\u09b0\u09a6\u09c7\u09b0 \u09ae\u09a4\u09be\u09ae\u09a4"],
+    ['#reviews .sh2', "Real <em>Reviews</em>", "\u09b8\u09a4\u09cd\u09af\u09bf\u0995\u09be\u09b0\u09c7\u09b0 <em>\u09b0\u09bf\u09ad\u09bf\u0989</em>"],
+    ['.rev-card:nth-child(1) .rev-text', "Absolutely love my Losted Tee. Print quality is insane \u2014 after 15 washes it still looks fresh. Next day delivery to Dhaka!",
+      "\u09b2\u09cb\u09b8\u09cd\u099f\u09c7\u09a1 \u099f\u09bf \u0985\u09b8\u09be\u09a7\u09be\u09b0\u09a3! \u09e7\u09eb \u09ac\u09be\u09b0 \u09a7\u09cb\u09df\u09be\u09b0 \u09aa\u09b0\u09c7\u0993 \u09aa\u09cd\u09b0\u09bf\u09a8\u09cd\u099f \u09a4\u09be\u099c\u09be\u0964 \u09a2\u09be\u0995\u09be\u09df \u09aa\u09b0\u09a6\u09bf\u09a8 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf!"],
+    ['.rev-card:nth-child(2) .rev-text', "Ordered Sweet Venom and Paranoia together. Both arrived perfectly packed, colours exactly as pictured. Arctic Shop BD is the real deal.",
+      "\u09b8\u09cd\u09ac\u09bf\u099f \u09ad\u09c7\u09a8\u09ae \u0993 \u09aa\u09cd\u09af\u09be\u09b0\u09be\u09a8\u09df\u09be \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09a6\u09bf\u09df\u09c7\u099b\u09bf\u09b2\u09be\u09ae\u0964 \u09a6\u09c1\u099f\u09cb\u0987 \u09a0\u09bf\u0995\u09a0\u09be\u0995 \u09aa\u09cd\u09af\u09be\u0995\u09c7\u099c\u09c7, \u09b0\u0999 \u09ac\u09bf\u09b2\u0995\u09c1\u09b2 \u099b\u09ac\u09bf\u09b0 \u09ae\u09a4\u09cb\u0964"],
+    ['.rev-card:nth-child(3) .rev-text', "Got a custom order done \u2014 they turned my concept into reality perfectly. Communication was great and result blew my mind!",
+      "\u0995\u09be\u09b8\u09cd\u099f\u09ae \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09b2\u09be\u09ae \u2014 \u0986\u09ae\u09be\u09b0 \u09a7\u09be\u09b0\u09a3\u09be\u0995\u09c7 \u09a8\u09bf\u0996\u09c1\u0981\u09a4\u09ad\u09be\u09ac\u09c7 \u09ac\u09be\u09b8\u09cd\u09a4\u09ac\u09c7 \u09b0\u09c2\u09aa \u09a6\u09bf\u09df\u09c7\u099b\u09c7\u0964 \u0985\u09ac\u09be\u0995 \u09b9\u09df\u09c7 \u0997\u09c7\u099b\u09bf!"],
+    ['.rev-auth:nth-child(5) .rev-meta', "Verified \u00b7 Dhaka", "\u09b8\u09a4\u09cd\u09af\u09be\u09df\u09bf\u09a4 \u00b7 \u09a2\u09be\u0995\u09be"],
+    ['.rev-auth:nth-child(5) .rev-prod', "Losted Tee", "\u09b2\u09cb\u09b8\u09cd\u099f\u09c7\u09a1 \u099f\u09bf"],
+
+    // FAQ
+    ['#faq .sl', "Got Questions?", "\u09aa\u09cd\u09b0\u09b6\u09cd\u09a8 \u0986\u099b\u09c7?"],
+    ['#faq .sh2', "Frequently <em>Asked</em>", "\u09b8\u09be\u09a7\u09be\u09b0\u09a3 <em>\u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be</em>"],
+    ['.faq-item:nth-child(1) .faq-q', "How long does delivery take? <span class=\"faq-chv\">\u25bc</span>", "\u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf \u0995\u09a4\u0995\u09cd\u09b7\u09a3 \u09b2\u09be\u0997\u09c7? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(1) .faq-a', "Dhaka Metro: next business day. Rest of Bangladesh: 2-4 business days. You will receive a tracking number once your order ships.",
+      "\u09a2\u09be\u0995\u09be\u09df: \u09aa\u09b0\u09a6\u09bf\u09a8\u0964 \u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7: 2-4 \u0995\u09be\u09b0\u09cd\u09af\u09a6\u09bf\u09ac\u09b8\u0964 \u099f\u09cd\u09b0\u09cd\u09af\u09be\u0995\u09bf\u0982 \u09a8\u09ae\u09cd\u09ac\u09b0 \u09aa\u09be\u09a0\u09be\u09a8\u09cb \u09b9\u09ac\u09c7\u0964"],
+    ['.faq-item:nth-child(2) .faq-q', "What sizes are available? <span class=\"faq-chv\">\u25bc</span>", "\u0995\u09cb\u09a8 \u09b8\u09be\u0987\u099c \u09aa\u09be\u0993\u09af\u09bc\u09be \u09af\u09be\u09df? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(2) .faq-a', "We carry S, M, L, XL, and XXL. Our tees are oversized fit \u2014 if you prefer regular fit, size down one.",
+      "\u0986\u09ae\u09b0\u09be S, M, L, XL \u0993 XXL \u09b0\u09be\u0996\u09bf\u0964 \u0993\u09ad\u09be\u09b0\u09b8\u09be\u0987\u099c \u09ab\u09bf\u099f \u2014 \u09b0\u09c7\u0997\u09c1\u09b2\u09be\u09b0 \u09ab\u09bf\u099f\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u098f\u0995 \u09b8\u09be\u0987\u099c \u09a8\u09bf\u099a\u09c7 \u09a8\u09bf\u09a8\u0964"],
+    ['.faq-item:nth-child(3) .faq-q', "How do I pay? <span class=\"faq-chv\">\u25bc</span>", "\u0995\u09bf\u09ad\u09be\u09ac\u09c7 \u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u0995\u09b0\u09ac? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(3) .faq-a', "We accept Cash on Delivery (pay when your parcel arrives), bKash, Nagad, and Rocket. COD is available nationwide \u2014 no advance needed for most orders.",
+      "\u0995\u09cd\u09af\u09be\u09b6 \u0985\u09a8 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf, \u09ac\u09bf\u0995\u09be\u09b6, \u09a8\u0997\u09a6 \u0993 \u09b0\u0995\u09c7\u099f \u0997\u09cd\u09b0\u09b9\u09a3 \u0995\u09b0\u09be \u09b9\u09df\u0964 \u09b8\u09be\u09b0\u09be\u09a6\u09c7\u09b6\u09c7 \u0995\u09cd\u09af\u09be\u09b6 \u0985\u09a8 \u09a1\u09bf\u09b2\u09bf\u09ad\u09be\u09b0\u09bf \u09aa\u09be\u0993\u09af\u09bc\u09be \u09af\u09be\u09df\u0964"],
+    ['.faq-item:nth-child(4) .faq-q', "How will I know my order is confirmed? <span class=\"faq-chv\">\u25bc</span>", "\u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u09b9\u09b2\u09c7 \u099c\u09be\u09a8\u09ac \u0995\u09bf\u09ad\u09be\u09ac\u09c7? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(4) .faq-a', "Once you place your order, our team personally confirms it via WhatsApp or Facebook message within 2\u20134 hours. You\u2019ll get your delivery update the same way \u2014 easy, personal, no fuss.",
+      "\u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09a6\u09bf\u09b2\u09c7 2-4 \u0998\u09a3\u09cd\u099f\u09be\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09b9\u09cb\u09df\u09be\u099f\u09b8\u0985\u09cd\u09af\u09be\u09aa \u09ac\u09be \u09ab\u09c7\u09b8\u09ac\u09c1\u0995\u09c7 \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09b0\u09be \u09b9\u09ac\u09c7\u0964"],
+    ['.faq-item:nth-child(5) .faq-q', "Can I return or exchange? <span class=\"faq-chv\">\u25bc</span>", "\u09b0\u09bf\u099f\u09be\u09b0\u09cd\u09a8 \u09ac\u09be \u098f\u0995\u09cd\u09b8\u099a\u09c7\u099e\u09cd\u099c \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(5) .faq-a', "Yes! 7-day exchange policy. Defect or wrong item gets a free replacement. Size exchange accepted within 7 days (unused, unwashed).",
+      "\u09b9\u09cd\u09af\u09be\u0981! 7 \u09a6\u09bf\u09a8\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u098f\u0995\u09cd\u09b8\u099a\u09c7\u099e\u09cd\u099c \u0995\u09b0\u09be \u09af\u09be\u09df\u0964 \u09a4\u09cd\u09b0\u09c1\u099f\u09bf \u09ac\u09be \u09ad\u09c1\u09b2 \u09aa\u09a3\u09cd\u09af\u09c7 \u09ac\u09bf\u09a8\u09be\u09ae\u09c2\u09b2\u09cd\u09af\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u09b8\u09cd\u09a5\u09be\u09aa\u09a8 \u09a6\u09c7\u0993\u09df\u09be \u09b9\u09df\u0964"],
+    ['.faq-item:nth-child(6) .faq-q', "How do I place a custom order? <span class=\"faq-chv\">\u25bc</span>", "\u0995\u09be\u09b8\u09cd\u099f\u09ae \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09bf\u09ad\u09be\u09ac\u09c7 \u09a6\u09bf\u09ac? <span class=\"faq-chv\">\u25bc</span>"],
+    ['.faq-item:nth-child(6) .faq-a', "Use the Custom Order button \u2014 fill the form and we will email you a mockup within 24 hours. Minimum: 1 piece.",
+      "\u0995\u09be\u09b8\u09cd\u099f\u09ae \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u09ac\u09be\u099f\u09a8 \u09a6\u09bf\u09df\u09c7 \u09ab\u09b0\u09cd\u09ae \u09aa\u09c2\u09b0\u09a3 \u0995\u09b0\u09c1\u09a8\u0964 24 \u0998\u09a3\u09cd\u099f\u09be\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u09ae\u0995\u0986\u09aa \u09aa\u09be\u09a0\u09be\u09a8\u09cb \u09b9\u09ac\u09c7\u0964"],
+
+    // Footer
+    ['.foot-tag', "\u2744\ufe0f We Make Perfect", "\u2744\ufe0f \u0986\u09ae\u09b0\u09be \u09b8\u09a6\u09be \u09b8\u09c7\u09b0\u09be"],
+    ['.foot-desc', "Bangladesh's premium graphic tee brand. Bold, expressive, perfectly crafted streetwear since 2024.",
+      "\u09ac\u09be\u0982\u09b2\u09be\u09a6\u09c7\u09b6\u09c7\u09b0 \u09aa\u09cd\u09b0\u09bf\u09ae\u09bf\u09af\u09bc\u09be\u09ae \u09b8\u09cd\u099f\u09cd\u09b0\u09bf\u099f\u0993\u09df\u09be\u09b0 \u09ac\u09cd\u09b0\u09cd\u09af\u09be\u09a8\u09cd\u09a1\u0964 \u09e8\u09e6\u09e8\u09ea \u09b8\u09be\u09b2 \u09a5\u09c7\u0995\u09c7 \u09b8\u09be\u09b9\u09b8\u09c0 \u09b8\u09cd\u099f\u09cd\u09b0\u09bf\u099f\u0993\u09df\u09be\u09b0\u0964"],
+    ['.foot-ct:nth-child(1)', "Shop", "\u09b6\u09aa"],
+    ['.foot-ct:nth-child(2)', "Help", "\u09b8\u09b9\u09be\u09af\u09bc\u09a4\u09be"],
+    ['.foot-ct:nth-child(3)', "Contact", "\u09af\u09cb\u0997\u09be\u09af\u09cb\u0997"],
+
+    // Cart
+    ['.cart-head-title', "Your Cart", "\u0986\u09aa\u09a8\u09be\u09b0 \u0995\u09be\u09b0\u09cd\u099f"],
+    ['.co-btn span', "Checkout", "\u099a\u09c7\u0995\u0986\u0989\u099f"],
+    ['.cont-btn', "Continue Shopping", "\u0995\u09c7\u09a8\u09be\u0995\u09be\u099f\u09be \u099c\u09be\u09b0\u09bf \u09b0\u09be\u0996\u09c1\u09a8"],
+
+    // Mobile menu links
+    ['.mob-link[href="#products"]', "Collection", "\u0995\u09be\u09b2\u09c7\u0995\u09b6\u09a8"],
+    ['.mob-link[href="#about"]', "Story", "\u0986\u09ae\u09be\u09a6\u09c7\u09b0 \u0997\u09b2\u09cd\u09aa"],
+    ['.mob-link[href="#reviews"]', "Reviews", "\u09b0\u09bf\u09ad\u09bf\u0989"],
+    ['.mob-link[href="#faq"]', "FAQ", "\u099c\u09bf\u099c\u09cd\u099e\u09be\u09b8\u09be"],
+    ['.mob-link[href="#footer"]', "Contact", "\u09af\u09cb\u0997\u09be\u09af\u09cb\u0997"],
+
+    // Exit popup
+    ['.exit-tag', "Wait \u2014 Before You Go", "\u09af\u09be\u0993\u09df\u09be\u09b0 \u0986\u0997\u09c7 \u09a6\u09c7\u0996\u09c1\u09a8!"],
+    ['#exit-headline', "Don't Freeze<br>On This <em>Deal.</em>", "\u098f\u0987 \u09b8\u09c1\u09af\u09cb\u0997<br>\u09ae\u09bf\u09b8 <em>\u0995\u09b0\u09ac\u09c7\u09a8 \u09a8\u09be!</em>"],
+    ['.exit-sub', "Grab 10% off your first order. Use the code below at checkout \u2014 valid for the next 24 hours only.",
+      "\u09aa\u09cd\u09b0\u09a5\u09ae \u0985\u09b0\u09cd\u09a1\u09be\u09b0\u09c7 10% \u099b\u09be\u09a1\u09bc \u09aa\u09be\u09a8\u0964 \u09a8\u09bf\u099a\u09c7\u09b0 \u0995\u09cb\u09a1\u09c7\u09b0 \u09ae\u09be\u09a7\u09cd\u09af\u09ae\u09c7 \u09aa\u09be\u09a8\u0964 \u09ae\u09be\u09a4\u09cd\u09b0 24 \u0998\u09a3\u09cd\u099f\u09be \u09aa\u09cd\u09b0\u09af\u09cb\u099c\u09cd\u09af\u0964"],
+    ['#exit-copy-btn', "Copy", "\u0995\u09aa\u09bf"],
+    ['#exit-cta-btn', "Shop the Drop \u2192", "\u098f\u0996\u09a8\u09bf \u0985\u09b0\u09cd\u09a1\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2192"],
+    ['#exit-dismiss-btn', "No thanks, I'll pay full price", "\u09a7\u09a8\u09cd\u09af\u09ac\u09be\u09a6, \u09aa\u09b0\u09c7 \u0995\u09bf\u09a8\u09b0"],
+
+    // Wishlist
+    ['.wl-head-title', "\u2665 Wishlist", "\u2665 \u0993\u09af\u09bc\u09bf\u09b6\u09b2\u09bf\u09b8\u09cd\u099f"],
+
+    // Search
+    ['.search-hint', "Type to search products", "\u09aa\u09a3\u09cd\u09af \u0996\u09c1\u0981\u099c\u09a4\u09c7 \u099f\u09be\u0987\u09aa \u0995\u09b0\u09c1\u09a8"],
+  ];
+
+  var currentLang = localStorage.getItem('asbd_lang') || 'en';
+
+  function applyLang(lang){
+    currentLang = lang;
+    localStorage.setItem('asbd_lang', lang);
+    var isBn = lang === 'bn';
+    document.documentElement.classList.toggle('lang-bn', isBn);
+    var btn = document.getElementById('lang-toggle');
+    if(btn) btn.textContent = isBn ? 'EN' : '\u09ac\u09be\u0982';
+
+    T.forEach(function(item){
+      var sel = item[0], en = item[1], bn = item[2];
+      var els = document.querySelectorAll(sel);
+      els.forEach(function(el){
+        el.innerHTML = isBn ? bn : en;
+      });
+    });
+
+    // also toggle data-bn attrs
+    document.querySelectorAll('[data-bn]').forEach(function(el){
+      var orig = el.getAttribute('data-en') || el.textContent;
+      if(!el.getAttribute('data-en')) el.setAttribute('data-en', orig);
+      el.textContent = isBn ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+    });
+  }
+
+  window.toggleLang = function(){
+    applyLang(currentLang === 'en' ? 'bn' : 'en');
+  };
+
+  // Apply on load
+  document.addEventListener('DOMContentLoaded', function(){
+    if(currentLang === 'bn') applyLang('bn');
+  });
+})();
+</script>
 </body>
 </html>
