@@ -2704,7 +2704,7 @@ return "stock-in";
 
 // ── CART ──────────────────────────────────────────────
 var cart = [];
-try { cart = JSON.parse(localStorage.getItem("arcbd_cart") || "[]"); } catch(e) { cart = []; }
+try { cart = JSON.parse(sessionStorage.getItem("arcbd_cart") || "[]"); } catch(e) { cart = []; }
 var mSz = "L", mQty = 1, mPid = null, selPayMethod = "bKash";
 
 // ── PROMO CODES ───────────────────────────────────────
@@ -2731,7 +2731,7 @@ renderOrdMini(); updateBkashPanel(); updateNagadPanel();
 
 function getDiscount(){ return activePromo ? Math.round(gTotal() * activePromo.pct / 100) : 0; }
 
-function saveC() { try { localStorage.setItem("arcbd_cart", JSON.stringify(cart)); } catch(e) {} }
+function saveC() { try { sessionStorage.setItem("arcbd_cart", JSON.stringify(cart)); } catch(e) {} }
 function gTotal() { return cart.reduce(function(s,i){ return s+(i.price*i.qty); }, 0); }
 function gCount() { return cart.reduce(function(s,i){ return s+i.qty; }, 0); }
 function getDelivery() { var t=gTotal(); return (t===0||t>=1000)?0:80; }
@@ -2788,7 +2788,21 @@ saveC(); updBadge(); renderCart();
 toast("✓ "+p.name+" ("+sz+") added to cart","success");
 }
 function rmItem(cid){ cart=cart.filter(function(i){return i.cid!==cid;}); saveC(); updBadge(); renderCart(); }
-function updQty(cid,d){ var it=cart.find(function(i){return i.cid===cid;}); if(it){ it.qty=Math.max(1,it.qty+d); } saveC(); renderCart(); }
+function updQty(cid,d){
+  var it=cart.find(function(i){return i.cid===cid;});
+  if(it){
+    var newQty = it.qty + d;
+    if(d > 0 && it.pid !== 6){
+      // Check stock before allowing qty increase
+      var cp = PRODUCTS.find(function(x){return x.id===it.pid;});
+      if(cp && newQty > cp.stock){
+        toast("Only "+cp.stock+" units available for "+it.name,"warn"); return;
+      }
+    }
+    it.qty = Math.max(1, newQty);
+  }
+  saveC(); renderCart();
+}
 
 function openCart(){ document.getElementById("cart-overlay").classList.add("open"); document.getElementById("cart-drawer").classList.add("open"); renderCart(); }
 function closeCart(){ document.getElementById("cart-overlay").classList.remove("open"); document.getElementById("cart-drawer").classList.remove("open"); }
@@ -3036,6 +3050,31 @@ function placeOrder(){
 if(placingOrder) return;
 if(!cart.length){ toast("Your cart is empty. Add an item first.","error"); closeCheckout(); return; }
 
+// ── Live stock re-validation ───────────────────────────────────────────
+// Cart items may have been added when stock was available; re-check now.
+var outOfStockItems = [];
+for(var ci=0; ci<cart.length; ci++){
+  var cit = cart[ci];
+  if(cit.pid === 6) continue;
+  var cprod = PRODUCTS.find(function(x){ return x.id === cit.pid; });
+  if(cprod && cprod.stock <= 0){
+    outOfStockItems.push(cit.name);
+  } else if(cprod && cit.qty > cprod.stock){
+    cit.qty = cprod.stock; saveC();
+  }
+}
+if(outOfStockItems.length > 0){
+  toast("Sorry, these items sold out: " + outOfStockItems.join(", ") + ". They have been removed from your cart.","error");
+  cart = cart.filter(function(i){
+    if(i.pid === 6) return true;
+    var p2 = PRODUCTS.find(function(x){ return x.id === i.pid; });
+    return p2 && p2.stock > 0;
+  });
+  saveC(); updBadge(); renderCart();
+  if(!cart.length){ closeCheckout(); return; }
+  return;
+}
+
 // ── Honeypot check (bots fill this; real users leave it blank) ──
 var hp=document.getElementById("hp-website");
 if(hp && hp.value.trim()!==""){
@@ -3227,6 +3266,17 @@ var el=document.getElementById(id); if(el){ el.value=""; el.classList.remove("er
 });
 var pm=document.getElementById("promo-msg"); if(pm){ pm.textContent=""; pm.className="promo-msg"; }
 activePromo=null;
+// ── Refresh stock counts from server after order ───────────────────
+// This keeps the in-memory PRODUCTS list accurate for the next purchase check.
+fetch("/api/products").then(function(r){return r.json();}).then(function(data){
+  if(data && data.products){
+    data.products.forEach(function(ap){
+      var p=PRODUCTS.find(function(x){return x.id===ap.id;});
+      if(p) p.stock = (ap.stock !== undefined && ap.stock !== null) ? ap.stock : p.stock;
+    });
+    renderProds && renderProds(document.getElementById("filter-active") ? (document.getElementById("filter-active").dataset.f||"all") : "all");
+  }
+}).catch(function(){});
 }
 
 function closeOK(){ document.getElementById("ok-modal").classList.remove("open"); }
