@@ -274,7 +274,7 @@ body::after{content:"";position:fixed;top:-50%;left:-50%;width:200%;height:200%;
 .sp-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--glow),var(--gold));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ink);flex-shrink:0;font-family:"Inter",sans-serif;}
 .sp-txt{flex:1;}
 .sp-txt-main{font-size:12px;font-weight:600;line-height:1.3;}
-.sp-txt-meta{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:2px;}
+.sp-txt-meta{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,0.55);margin-top:2px;}
 .sp-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;animation:spPulse 1.4s ease-in-out infinite;}
 @keyframes spPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
 @media(max-width:600px){#sp-wrap{left:12px;bottom:12px;}}
@@ -1069,10 +1069,12 @@ footer{background:var(--ink);border-top:1px solid rgba(0,0,0,0.08);}
 .trust-b{border-color:rgba(0,0,0,0.12);color:rgba(17,17,17,0.4);font-size:7.5px;}
 
 /* ── TOAST / NOTIFICATIONS PREMIUM ── */
-.toast{background:rgba(11,20,32,0.95);border:1px solid rgba(0,0,0,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.toast{background:rgba(11,20,32,0.95);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.5);color:#ffffff !important;}
 .toast.success{border-left-color:var(--green);}
 .toast.error{border-left-color:var(--hot);}
-.sp-notif{background:rgba(11,20,32,0.92);border:1px solid rgba(255,255,255,0.07);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.sp-notif{background:rgba(11,20,32,0.92);border:1px solid rgba(255,255,255,0.07);box-shadow:0 8px 32px rgba(0,0,0,0.5);color:#ffffff !important;}
+.sp-txt-main{color:#ffffff !important;}
+.sp-av{color:#ffffff !important;}
 
 /* ── PLACE ORDER BUTTON PREMIUM ── */
 .place-btn{
