@@ -3043,6 +3043,12 @@ setTimeout(function(){ onOrderSuccess("BOT-"+Date.now().toString().slice(-7)); }
 return;
 }
 
+// ── Rate limiting ──────────────────────────────────────────────
+if(!_checkOrderRateLimit()){
+toast("Too many orders submitted. Please wait a while and try again.","error");
+return;
+}
+
 // ── Field collection ───────────────────────────────────────────
 var n=document.getElementById("cn").value.trim();
 var p=document.getElementById("cp").value.trim();
@@ -3146,12 +3152,6 @@ order_date: orderDate,
 to_email: OWNER_EMAIL,
 reply_to: e
 };
-
-// ── Rate limiting (checked here so failed validations don't consume a slot) ──
-if(!_checkOrderRateLimit()){
-toast("Too many orders submitted. Please wait a while and try again.","error");
-return;
-}
 
 // Disable button, show spinner
 placingOrder=true;
@@ -3733,7 +3733,8 @@ window.addEventListener('arctic:entered', tryPlay, {once:true});
       return p.id === ap.id || p.name.toLowerCase() === ap.name.toLowerCase();
     });
     if (existing) {
-      // Update stock and price from live DB, keep all rich fields
+      // Update id, stock and price from live DB, keep all rich fields
+      existing.id = ap.id;
       existing.stock = (ap.stock !== undefined && ap.stock !== null) ? ap.stock : existing.stock;
       existing.price = ap.price || existing.price;
       return existing;
