@@ -538,28 +538,45 @@ tr:hover td{background:rgba(255,255,255,0.015);}
 // ─────────────────────────────────────────────────
 const SITE = "https://arctic-shop.pages.dev";
 
-// Admin password (stored locally, never sent to server)
-// Change this to whatever password you want
-const ADMIN_PASSWORD = "Nihal67890@";
-
 let editingId = null;
 let allProducts = [];
 let allOrders = [];
 
 // ─────────────────────────────────────────────────
-//  AUTH  (password checked locally — no server needed)
+//  AUTH  (password verified server-side via /api/admin-login)
 // ─────────────────────────────────────────────────
-function doLogin() {
+async function doLogin() {
   const pw = document.getElementById("pw-input").value.trim();
-  if (pw === ADMIN_PASSWORD) {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("app").style.display = "block";
-    loadProducts();
-  } else {
+  const btn = document.querySelector(".login-btn");
+  btn.disabled = true;
+  btn.textContent = "Checking…";
+
+  try {
+    const response = await fetch("/api/admin-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pw })
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      loadProducts();
+    } else {
+      const err = document.getElementById("login-err");
+      err.style.display = "block";
+      document.getElementById("pw-input").value = "";
+      document.getElementById("pw-input").focus();
+    }
+  } catch (e) {
+    console.error("Login error:", e);
     const err = document.getElementById("login-err");
     err.style.display = "block";
-    document.getElementById("pw-input").value = "";
-    document.getElementById("pw-input").focus();
+    err.textContent = "❌ Network error. Please try again.";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Enter Dashboard";
   }
 }
 

@@ -206,8 +206,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <!-- Preload hero poster for faster LCP -->
 <link rel="preload" as="image" href="paranoia.jpg" fetchpriority="high"/>
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" crossorigin="anonymous"></script>
+<!-- EmailJS SDK removed — email sending is now handled server-side via /api/send-email -->
 <!-- GSAP -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" crossorigin="anonymous" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
@@ -2557,11 +2556,9 @@ html.lang-bn [data-bn]{font-family:"Hind Siliguri",sans-serif!important;line-hei
 var SITE_CONFIG = {
 
 // ── Store owner / email ────────────────────────────────────────────────────
-// EmailJS credentials — lock your domain on emailjs.com → Security → Allowed Origins
+// EmailJS credentials are stored securely in Cloudflare environment variables.
+// Email sending is handled server-side via /api/send-email
 emailjs: {
-publicKey:  "sNXcgIvheN6Uvm3bT",
-serviceId:  "service_fw8eikq",
-templateId: "template_a7n7nmb",
 ownerEmail: "obbhack6@gmail.com"
 },
 
@@ -2666,21 +2663,11 @@ actions: ["just ordered","just purchased","just added to cart"]
 // ═══════════════════════════════════════════════════════════════════
 var PRODUCTS         = SITE_CONFIG.products;
 var PROMO_CODES      = SITE_CONFIG.promoCodes;
-var EMAILJS_PUBLIC_KEY  = SITE_CONFIG.emailjs.publicKey;
-var EMAILJS_SERVICE_ID  = SITE_CONFIG.emailjs.serviceId;
-var EMAILJS_TEMPLATE_ID = SITE_CONFIG.emailjs.templateId;
 var OWNER_EMAIL         = SITE_CONFIG.emailjs.ownerEmail;
 var BKASH_MERCHANT      = SITE_CONFIG.payment.bkash.number;
 var BKASH_ACCOUNT_TYPE  = SITE_CONFIG.payment.bkash.accountType;
 var NAGAD_MERCHANT      = SITE_CONFIG.payment.nagad.number;
 var NAGAD_ACCOUNT_TYPE  = SITE_CONFIG.payment.nagad.accountType;
-
-// Init EmailJS
-try {
-emailjs.init(EMAILJS_PUBLIC_KEY);
-} catch(e) {
-console.log("EmailJS init - will use fallback mailto");
-}
 
 // Dynamic copyright year
 (function(){ var el=document.getElementById("copy-year"); if(el) el.textContent=new Date().getFullYear(); })();
@@ -3231,25 +3218,26 @@ function saveOrderToAPI(orderId) {
   });
 }
 
-// Send email via EmailJS
-if(typeof emailjs!=="undefined" && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== ""){
-emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-.then(function(){
-saveOrderToAPI(oid);
-onOrderSuccess(oid);
+// Send email via server-side proxy (secrets stay in Cloudflare)
+fetch("/api/send-email", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ templateParams: templateParams })
+})
+.then(function(r){ return r.json(); })
+.then(function(result){
+  if(result.success){
+    saveOrderToAPI(oid);
+    onOrderSuccess(oid);
+  } else {
+    console.error("Email send failed");
+    finishFail("Order could not be submitted. Please check your connection and try again.");
+  }
 })
 .catch(function(err){
-console.error("EmailJS error:", err);
-finishFail("Order could not be submitted. Please check your connection and try again.");
+  console.error("Email send error:", err);
+  finishFail("Order could not be submitted. Please check your connection and try again.");
 });
-} else {
-// Demo mode - config.js not set up yet
-setTimeout(function(){
-saveOrderToAPI(oid);
-onOrderSuccess(oid);
-toast("Demo mode: EmailJS not configured","warn");
-}, 1200);
-}
 }
 
 function onOrderSuccess(oid){
