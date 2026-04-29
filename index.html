@@ -3166,10 +3166,35 @@ btn.disabled=false;
 toast(msg||"Could not place order. Please try again.","error");
 }
 
+// ── Save order to D1 and decrement stock ─────────────────────────
+function saveOrderToAPI(orderId) {
+  var apiItems = cart.map(function(it) {
+    return { pid: it.pid, name: it.name, sz: it.sz, qty: it.qty, price: it.price };
+  });
+  fetch("/api/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id:             orderId,
+      name:           n,
+      phone:          p,
+      email:          e,
+      address:        a + ", " + c,
+      items:          apiItems,
+      total:          getGrandTotal(),
+      payment_method: selPayMethod,
+      status:         "pending"
+    })
+  }).catch(function(err) {
+    console.warn("Order DB save failed (email still sent):", err);
+  });
+}
+
 // Send email via EmailJS
 if(typeof emailjs!=="undefined" && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== ""){
 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
 .then(function(){
+saveOrderToAPI(oid);
 onOrderSuccess(oid);
 })
 .catch(function(err){
@@ -3179,6 +3204,7 @@ finishFail("Order could not be submitted. Please check your connection and try a
 } else {
 // Demo mode - config.js not set up yet
 setTimeout(function(){
+saveOrderToAPI(oid);
 onOrderSuccess(oid);
 toast("Demo mode: EmailJS not configured","warn");
 }, 1200);

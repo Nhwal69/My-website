@@ -395,6 +395,7 @@ tr:hover td{background:rgba(255,255,255,0.015);}
   th,td{padding:12px 14px;}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -422,6 +423,7 @@ tr:hover td{background:rgba(255,255,255,0.015);}
     <div class="topbar-nav">
       <button class="nav-tab active" onclick="showTab('products',this)">Products</button>
       <button class="nav-tab" onclick="showTab('orders',this)">Orders</button>
+      <button class="nav-tab" onclick="showTab('analytics',this)">Analytics</button>
     </div>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
@@ -467,6 +469,39 @@ tr:hover td{background:rgba(255,255,255,0.015);}
       </div>
     </div>
 
+
+    <!-- ANALYTICS TAB -->
+    <div id="tab-analytics" style="display:none">
+      <div class="page-title">Sales <em>Analytics</em></div>
+      <div class="page-sub">Revenue trends and order performance over time</div>
+      <div class="stats-row" id="analytics-stats"></div>
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-head">
+          <div class="card-head-title">Revenue Over Time</div>
+          <div style="display:flex;gap:8px">
+            <button class="act-btn" onclick="setChartPeriod('7d',this)" id="btn-7d">7 Days</button>
+            <button class="act-btn active" onclick="setChartPeriod('30d',this)" id="btn-30d" style="border-color:var(--accent);color:var(--accent)">30 Days</button>
+            <button class="act-btn" onclick="setChartPeriod('90d',this)" id="btn-90d">90 Days</button>
+          </div>
+        </div>
+        <div style="padding:24px;position:relative;height:320px">
+          <canvas id="revenue-chart"></canvas>
+          <div id="chart-empty" style="display:none;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px">NO DATA YET</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px">
+        <div class="card">
+          <div class="card-head"><div class="card-head-title">Orders by Status</div></div>
+          <div style="padding:24px;position:relative;height:260px">
+            <canvas id="status-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-head-title">Top Products by Revenue</div></div>
+          <div id="top-products-list" style="padding:16px"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -505,7 +540,7 @@ const SITE = "https://arctic-shop.pages.dev";
 
 // Admin password (stored locally, never sent to server)
 // Change this to whatever password you want
-const ADMIN_PASSWORD = "Nihal67890@";
+const ADMIN_PASSWORD = "arcticadmin2024";
 
 let editingId = null;
 let allProducts = [];
@@ -538,12 +573,186 @@ function logout() {
 // ─────────────────────────────────────────────────
 //  TABS
 // ─────────────────────────────────────────────────
+// ─────────────────────────────────────────────────
+//  ANALYTICS
+// ─────────────────────────────────────────────────
+let revenueChart = null;
+let statusChart  = null;
+let chartPeriod  = "30d";
+let analyticsLoaded = false;
+
 function showTab(name, btn) {
-  document.getElementById("tab-products").style.display = name === "products" ? "block" : "none";
-  document.getElementById("tab-orders").style.display   = name === "orders"   ? "block" : "none";
+  ["products","orders","analytics"].forEach(t => {
+    document.getElementById("tab-"+t).style.display = t === name ? "block" : "none";
+  });
   document.querySelectorAll(".nav-tab").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
-  if (name === "orders") loadOrders();
+  if (name === "orders")    loadOrders();
+  if (name === "analytics") loadAnalytics();
+}
+
+function loadAnalytics() {
+  analyticsLoaded = false;
+  fetch(`${SITE}/api/orders`)
+    .then(r => r.json())
+    .then(data => {
+      allOrders = data.orders || [];
+      renderAnalytics(chartPeriod);
+    })
+    .catch(() => showToast("Could not load analytics", true));
+}
+
+function setChartPeriod(period, btn) {
+  chartPeriod = period;
+  document.querySelectorAll("#btn-7d,#btn-30d,#btn-90d").forEach(b => {
+    b.style.borderColor = ""; b.style.color = "";
+  });
+  btn.style.borderColor = "var(--accent)"; btn.style.color = "var(--accent)";
+  renderAnalytics(period);
+}
+
+function renderAnalytics(period) {
+  const days = period === "7d" ? 7 : period === "90d" ? 90 : 30;
+  const now  = new Date();
+  const cutoff = new Date(now - days * 86400000);
+
+  const filtered = allOrders.filter(o => {
+    if (!o.created_at) return false;
+    return new Date(o.created_at) >= cutoff;
+  });
+
+  // ── Summary stats ──────────────────────────────────────────────
+  const revenue  = filtered.filter(o => o.status !== "cancelled")
+                            .reduce((s,o) => s + Number(o.total||0), 0);
+  const avgOrder = filtered.length ? Math.round(revenue / filtered.length) : 0;
+  const cancelled= filtered.filter(o => o.status === "cancelled").length;
+
+  document.getElementById("analytics-stats").innerHTML = `
+    <div class="stat"><div class="stat-label">Period Revenue</div><div class="stat-val c-gold" style="font-size:26px">৳${revenue.toLocaleString()}</div></div>
+    <div class="stat"><div class="stat-label">Orders</div><div class="stat-val c-accent">${filtered.length}</div></div>
+    <div class="stat"><div class="stat-label">Avg Order Value</div><div class="stat-val c-green" style="font-size:26px">৳${avgOrder.toLocaleString()}</div></div>
+    <div class="stat"><div class="stat-label">Cancelled</div><div class="stat-val c-red">${cancelled}</div></div>
+  `;
+
+  // ── Revenue by day ─────────────────────────────────────────────
+  const buckets = {};
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(now - i * 86400000);
+    const key = d.toLocaleDateString("en-CA"); // YYYY-MM-DD
+    buckets[key] = 0;
+  }
+  filtered.filter(o => o.status !== "cancelled").forEach(o => {
+    const key = new Date(o.created_at).toLocaleDateString("en-CA");
+    if (buckets[key] !== undefined) buckets[key] += Number(o.total||0);
+  });
+
+  const labels = Object.keys(buckets).map(k => {
+    const [,m,d] = k.split("-");
+    return `${d}/${m}`;
+  });
+  const values = Object.values(buckets);
+
+  const ctx = document.getElementById("revenue-chart").getContext("2d");
+  if (revenueChart) revenueChart.destroy();
+  revenueChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Revenue (৳)",
+        data: values,
+        borderColor: "#00c8ff",
+        backgroundColor: "rgba(0,200,255,0.08)",
+        borderWidth: 2,
+        pointBackgroundColor: "#00c8ff",
+        pointRadius: 3,
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => "৳" + ctx.parsed.y.toLocaleString()
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: "rgba(255,255,255,0.4)", font: { size: 10 } }, grid: { color: "rgba(255,255,255,0.05)" } },
+        y: { ticks: { color: "rgba(255,255,255,0.4)", font: { size: 10 },
+               callback: v => "৳" + v.toLocaleString() },
+             grid: { color: "rgba(255,255,255,0.05)" }, beginAtZero: true }
+      }
+    }
+  });
+
+  // ── Orders by status donut ─────────────────────────────────────
+  const statusMap = {};
+  filtered.forEach(o => { const s = o.status||"pending"; statusMap[s]=(statusMap[s]||0)+1; });
+  const sLabels = Object.keys(statusMap);
+  const sValues = Object.values(statusMap);
+  const sColors = sLabels.map(s => ({
+    pending:"#c9a84c", confirmed:"#00c8ff", shipped:"#c39bd3",
+    delivered:"#00c896", cancelled:"#ff4757"
+  }[s] || "#888"));
+
+  const ctx2 = document.getElementById("status-chart").getContext("2d");
+  if (statusChart) statusChart.destroy();
+  if (!sLabels.length) {
+    ctx2.clearRect(0,0,999,999);
+  } else {
+    statusChart = new Chart(ctx2, {
+      type: "doughnut",
+      data: {
+        labels: sLabels.map(s => s.charAt(0).toUpperCase()+s.slice(1)),
+        datasets: [{ data: sValues, backgroundColor: sColors, borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { color: "rgba(255,255,255,0.5)", font: { size: 10 }, padding: 14, boxWidth: 10 }
+          }
+        }
+      }
+    });
+  }
+
+  // ── Top products by revenue ────────────────────────────────────
+  const prodRev = {};
+  filtered.filter(o => o.status !== "cancelled").forEach(o => {
+    let items = [];
+    try { items = typeof o.items === "string" ? JSON.parse(o.items) : (o.items||[]); } catch {}
+    items.forEach(it => {
+      const key = it.name || "Unknown";
+      prodRev[key] = (prodRev[key]||0) + (Number(it.price||0) * Number(it.qty||1));
+    });
+  });
+
+  const sorted = Object.entries(prodRev).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxRev = sorted[0] ? sorted[0][1] : 1;
+  const tpEl = document.getElementById("top-products-list");
+  if (!sorted.length) {
+    tpEl.innerHTML = `<div class="empty"><div class="empty-icon">📊</div><div class="empty-text" style="font-size:12px">No sales data yet</div></div>`;
+  } else {
+    tpEl.innerHTML = sorted.map(([name, rev]) => `
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="font-size:12px;font-weight:600">${name}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold)">৳${rev.toLocaleString()}</span>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden">
+          <div style="height:100%;width:${Math.round(rev/maxRev*100)}%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:2px"></div>
+        </div>
+      </div>
+    `).join("");
+  }
 }
 
 // ─────────────────────────────────────────────────
