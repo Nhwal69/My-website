@@ -4,8 +4,8 @@
 # ============================================================
 
 # Admin panel shortcut
-/admin               /src/pages/admin.html   200
-/admin/              /src/pages/admin.html   200
+/admin               /admin.html   200
+/admin/              /admin.html   200
 
 # Legacy URL support (in case any links exist)
 /shop                /                        301
