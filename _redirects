@@ -1,0 +1,15 @@
+# ============================================================
+#  ARCTIC SHOP BD — Cloudflare Pages Redirects
+#  Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+# ============================================================
+
+# Serve index from root
+/                    /src/pages/index.html   200
+
+# Admin panel shortcut
+/admin               /src/pages/admin.html   200
+/admin/              /src/pages/admin.html   200
+
+# Legacy URL support (in case any links exist)
+/shop                /                        301
+/products            /                        301

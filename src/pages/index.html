@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+
+  <!-- ── SEO ─────────────────────────────────────────────── -->
+  <title>Arctic Shop BD — Premium Graphic Tees | Dhaka</title>
+  <meta name="description" content="Premium oversized graphic tees made in Dhaka. Bold designs, 180gsm ring-spun cotton, same-day bKash/Nagad checkout. Free delivery on orders ৳1000+."/>
+  <meta name="keywords"    content="graphic tee bangladesh, oversized tshirt dhaka, arctic shop bd, premium tee dhaka, streetwear bangladesh"/>
+  <meta name="robots"      content="index, follow"/>
+  <link rel="canonical"    href="https://arcticshopbd.pages.dev/"/>
+
+  <!-- ── Open Graph ───────────────────────────────────────── -->
+  <meta property="og:title"       content="Arctic Shop BD — Premium Graphic Tees"/>
+  <meta property="og:description" content="Bold oversized graphic tees. Made in Dhaka. Free delivery ৳1000+."/>
+  <meta property="og:image"       content="/images/og-cover.jpg"/>
+  <meta property="og:url"         content="https://arcticshopbd.pages.dev/"/>
+  <meta property="og:type"        content="website"/>
+  <meta name="twitter:card"       content="summary_large_image"/>
+
+  <!-- ── Fonts ────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet"  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap"/>
+
+  <!-- ── Icons ────────────────────────────────────────────── -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+
+  <!-- ── Stylesheet ───────────────────────────────────────── -->
+  <link rel="stylesheet" href="/src/css/style.css"/>
+  <link rel="stylesheet" href="/src/css/loading.css"/>
+
+  <!-- ── Structured data (JSON-LD) ────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "Arctic Shop BD",
+    "description": "Premium oversized graphic tees made in Dhaka, Bangladesh.",
+    "url": "https://arcticshopbd.pages.dev",
+    "currenciesAccepted": "BDT",
+    "paymentAccepted": "bKash, Nagad, Cash on Delivery",
+    "areaServed": "BD"
+  }
+  </script>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     OVERLAYS  (rendered first so z-index stacking is correct)
+════════════════════════════════════════════════════════ -->
+
+<!-- Announcement bar -->
+<div id="sticky-bar" role="banner" aria-label="Promotion">
+  <span class="sb-dot"></span>
+  <span>⚡ FREE delivery on orders ৳1000+ &nbsp;·&nbsp; Use code <strong>ARCTIC10</strong> for 10% off</span>
+  <span class="sb-dot"></span>
+  <span>Offer ends in <span id="sb-countdown">--:--:--</span></span>
+  <button id="sticky-bar-close" aria-label="Close announcement">✕</button>
+</div>
+
+<!-- Exit-intent popup -->
+<div id="exit-overlay" role="dialog" aria-modal="true" aria-labelledby="exit-headline">
+  <div class="exit-box">
+    <button id="exit-close" aria-label="Close popup" onclick="closeExit()">✕</button>
+    <div class="exit-tag">Wait — exclusive offer</div>
+    <h2 class="exit-headline" id="exit-headline">Don't Freeze<br>On This <em>Deal.</em></h2>
+    <p class="exit-sub">Use this code at checkout for an instant 10% off your entire order.</p>
+    <div class="exit-offer">
+      <span class="exit-offer-code" id="exit-code-text">ARCTIC10</span>
+      <button class="exit-copy-btn" onclick="copyExitCode()">Copy</button>
+    </div>
+    <button class="exit-cta" onclick="exitToShop()">Shop the Drop &rarr;</button>
+    <button class="exit-dismiss" onclick="closeExit()">No thanks, I'll pay full price</button>
+    <div class="exit-urgency">
+      <div class="exit-urgency-dot"></div>
+      <span id="exit-watchers">12 people</span> are viewing the collection right now
+    </div>
+  </div>
+</div>
+
+<!-- Intro / splash layer -->
+<div id="intro-layer" role="region" aria-label="Welcome screen">
+  <div id="aurora"></div>
+  <div id="scanlines" aria-hidden="true"></div>
+  <div id="vignette"  aria-hidden="true"></div>
+  <div class="wipe-bar" id="wipe-top" aria-hidden="true"></div>
+  <div class="wipe-bar" id="wipe-bot" aria-hidden="true"></div>
+  <div id="scene">
+    <div id="grid-floor" class="scene-el" aria-hidden="true"></div>
+    <div id="beam"        class="scene-el" aria-hidden="true"></div>
+    <div class="mist-line" id="mist1" style="top:28%" aria-hidden="true"></div>
+    <div class="mist-line" id="mist2" style="top:72%" aria-hidden="true"></div>
+    <div class="bracket tl" aria-hidden="true"></div>
+    <div class="bracket tr" aria-hidden="true"></div>
+    <div class="bracket bl" aria-hidden="true"></div>
+    <div class="bracket br" aria-hidden="true"></div>
+    <div id="particles"   aria-hidden="true"></div>
+    <div id="logo-block" class="scene-el">
+      <div id="overline">Arctic Drop // Winter Edit '26</div>
+      <div id="brand-name" data-text="Arctic Shop">
+        <span class="word" id="w1">Arctic&nbsp;</span><span class="word" id="w2"><em>Shop</em></span>
+      </div>
+      <div id="gold-rule" aria-hidden="true"></div>
+      <div id="tagline">Wear the Frost. Rule the Night.</div>
+      <div id="bd-badge">Made in Dhaka &middot; Est. BD</div>
+      <button id="cta">Enter the Drop</button>
+    </div>
+    <div id="stats-strip" aria-hidden="true">
+      <div class="stat-item"><div class="stat-val">500<em>+</em></div><div class="stat-label">Happy Customers</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-val">6<em>+</em></div><div class="stat-label">Bold Designs</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-val">4.9<em>★</em></div><div class="stat-label">Avg. Rating</div></div>
+    </div>
+    <div id="intro-ticker" aria-hidden="true">
+      <div id="intro-ticker-inner">
+        <span class="tick-item">WE MAKE PERFECT</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">ARCTIC SHOP BD</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">PREMIUM GRAPHIC TEES</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">MADE IN DHAKA</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">FREE DELIVERY ৳1000+</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">BKASH &amp; NAGAD</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">WE MAKE PERFECT</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">ARCTIC SHOP BD</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">PREMIUM GRAPHIC TEES</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">MADE IN DHAKA</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">FREE DELIVERY ৳1000+</span><span class="tick-sep"> ✦ </span>
+        <span class="tick-item">BKASH &amp; NAGAD</span><span class="tick-sep"> ✦ </span>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="intro-replay" onclick="replayIntro()" aria-label="Replay intro">&#x21BA; Replay</button>
+
+<!-- Size guide modal -->
+<div id="size-guide-modal" role="dialog" aria-modal="true" aria-label="Size Guide">
+  <div class="sg-box">
+    <button class="sg-close" onclick="closeSizeGuide()" aria-label="Close size guide">✕</button>
+    <div class="sg-title">Size Guide</div>
+    <div class="sg-sub">All measurements in centimetres (cm)</div>
+    <table class="sg-table">
+      <thead><tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th></tr></thead>
+      <tbody>
+        <tr><td>S</td><td>102</td><td>68</td><td>47</td></tr>
+        <tr><td>M</td><td>108</td><td>71</td><td>49</td></tr>
+        <tr><td>L</td><td>114</td><td>74</td><td>51</td></tr>
+        <tr><td>XL</td><td>120</td><td>77</td><td>53</td></tr>
+        <tr><td>XXL</td><td>126</td><td>80</td><td>55</td></tr>
+      </tbody>
+    </table>
+    <div class="sg-note"><strong>Note:</strong> All our tees are oversized. If you prefer a regular fit, size down one. Measurements may vary ±2cm. When in doubt, go for your usual size.</div>
+  </div>
+</div>
+
+<!-- Wishlist drawer -->
+<div id="wishlist-overlay" onclick="closeWishlist()" aria-hidden="true"></div>
+<div id="wishlist-drawer" role="dialog" aria-modal="true" aria-label="Wishlist">
+  <div class="wl-head">
+    <div class="wl-head-title">Wishlist ♥</div>
+    <button class="wl-close-btn" onclick="closeWishlist()" aria-label="Close wishlist">✕</button>
+  </div>
+  <div class="wl-body" id="wl-body"></div>
+</div>
+
+<!-- Social proof notifications -->
+<div id="sp-wrap" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Page loader -->
+<div id="loader" role="status" aria-label="Loading">
+  <div class="ld-title">Arctic <em>Shop BD</em></div>
+  <div class="ld-track"><div class="ld-bar"></div></div>
+  <div class="ld-txt">Loading Collection...</div>
+</div>
+
+<!-- Toast notifications -->
+<div id="toast-wrap" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Offline indicator -->
+<div id="offline-bar" role="alert" aria-live="assertive">
+  <div class="offline-dot" aria-hidden="true"></div>
+  You're offline — orders cannot be placed until you reconnect.
+</div>
+
+<!-- Global error banner -->
+<div id="error-banner" role="alert" aria-live="assertive">
+  <span id="error-banner-msg"></span>
+  <button id="error-banner-close" onclick="hideErrorBanner()" aria-label="Close error">✕</button>
+</div>
+
+<!-- Search overlay -->
+<div id="search-overlay" role="search">
+  <button class="search-close" onclick="closeSearch()" aria-label="Close search">✕</button>
+  <div class="search-wrap">
+    <input class="search-input" id="search-input" type="search" placeholder="Search tees…" autocomplete="off" aria-label="Search products"/>
+    <div class="search-hint">Press ESC to close</div>
+  </div>
+  <div id="search-results" role="listbox"></div>
+</div>
+
+<!-- Cart drawer -->
+<div id="cart-overlay" aria-hidden="true"></div>
+<div id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cart-head">
+    <div class="cart-head-title">Cart 🛍</div>
+    <button class="cart-close-btn" onclick="closeCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-foot" id="cart-foot" style="display:none">
+    <div class="cart-ship" id="cart-ship">
+      <div class="cart-ship-msg" id="cart-ship-msg"></div>
+      <div class="cart-ship-track"><div class="cart-ship-fill" id="cart-ship-fill"></div></div>
+    </div>
+    <div id="xsell-strip" class="xsell-wrap" style="display:none">
+      <div class="xsell-label">You might also like</div>
+      <div class="xsell-items" id="xsell-items"></div>
+    </div>
+    <div class="cart-sub">
+      <span class="cart-sub-label">Subtotal</span>
+      <span class="cart-sub-val" id="cart-total">৳0</span>
+    </div>
+    <button class="co-btn" onclick="openCheckout()">Proceed to Checkout &rarr;</button>
+    <button class="cont-btn" onclick="closeCart()">← Continue Shopping</button>
+  </div>
+</div>
+
+<!-- Product modal -->
+<div id="modal-bg" role="dialog" aria-modal="true" aria-label="Product details">
+  <div class="modal">
+    <div class="modal-art" id="modal-art"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div id="co-modal" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="co-box">
+    <div class="co-progress" id="co-progress">
+      <div class="co-prog-fill" id="co-prog-fill" style="width:0%"></div>
+      <div class="co-step active" id="step-1"><div class="co-step-dot">1</div><div class="co-step-lbl">Contact</div></div>
+      <div class="co-step"        id="step-2"><div class="co-step-dot">2</div><div class="co-step-lbl">Delivery</div></div>
+      <div class="co-step"        id="step-3"><div class="co-step-dot">3</div><div class="co-step-lbl">Payment</div></div>
+      <div class="co-step"        id="step-4"><div class="co-step-dot">✓</div><div class="co-step-lbl">Review</div></div>
+    </div>
+
+    <div class="co-title">Complete Your Order</div>
+    <div class="co-sub">Secure Checkout — All fields are required</div>
+
+    <form id="co-form" novalidate autocomplete="on">
+      <!-- Honeypot (hidden from real users, bots will fill it) -->
+      <div style="position:absolute;left:-9999px;top:-9999px;overflow:hidden" aria-hidden="true">
+        <input id="hp-website" name="website" type="text" tabindex="-1" autocomplete="off" maxlength="0"/>
+      </div>
+
+      <!-- Contact -->
+      <div class="co-sec">
+        <div class="co-sec-title">Contact Information</div>
+        <div class="f-row">
+          <div class="f"><label for="cn">Full Name <span class="req">*</span></label><input id="cn" name="name"  type="text" placeholder="Your full name"       required minlength="2" maxlength="80"  autocomplete="name"/></div>
+          <div class="f"><label for="cp">Phone     <span class="req">*</span></label><input id="cp" name="phone" type="tel"  placeholder="+880 1XX-XXXXXXX"    required inputmode="tel" autocomplete="tel" pattern="[0-9+\-\s()]{7,20}"/></div>
+        </div>
+        <div class="f"><label for="ce">Email Address <span class="req">*</span></label><input id="ce" name="email" type="email" placeholder="your@email.com" required maxlength="120" autocomplete="email"/></div>
+      </div>
+
+      <!-- Delivery -->
+      <div class="co-sec">
+        <div class="co-sec-title">Delivery Address</div>
+        <div class="f"><label for="ca">Full Address <span class="req">*</span></label><input id="ca" name="address" type="text" placeholder="House No, Road, Area" required minlength="5" maxlength="200" autocomplete="street-address"/></div>
+        <div class="f-row">
+          <div class="f"><label for="cc">City <span class="req">*</span></label><input id="cc" name="city"     type="text" placeholder="Dhaka" required minlength="2" maxlength="60" autocomplete="address-level2"/></div>
+          <div class="f"><label for="cdi">District</label>                      <input id="cdi" name="district" type="text" placeholder="Dhaka"         maxlength="60" autocomplete="address-level1"/></div>
+        </div>
+        <div class="f"><label for="cn2">Delivery Notes / Custom Design Details</label>
+          <textarea id="cn2" name="notes" placeholder="Delivery instructions, or custom design brief…" maxlength="500"></textarea>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="co-sec">
+        <div class="co-sec-title">Payment Method</div>
+        <div class="pay-opt sel" onclick="selPay(this,'bKash')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div><div class="pay-name">📱 bKash</div><div class="pay-desc">Send money to our bKash number</div></div>
+        </div>
+        <div class="pay-opt" onclick="selPay(this,'Nagad')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div><div class="pay-name">📱 Nagad</div><div class="pay-desc">Send money to our Nagad number</div></div>
+        </div>
+        <div class="pay-opt" onclick="selPay(this,'Cash on Delivery')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div><div class="pay-name">💵 Cash on Delivery</div><div class="pay-desc">Pay when your order arrives (Dhaka only)</div></div>
+        </div>
+
+        <!-- bKash panel -->
+        <div id="bkash-details" class="pay-details show">
+          <div class="pay-details-title">bKash Payment Instructions</div>
+          <div class="bkash-amount-row"><span>Amount to Send</span><strong id="bkash-amt">৳0</strong></div>
+          <div class="bkash-num">
+            <div class="bkash-num-info">
+              <div class="bkash-num-label">Send to this bKash number</div>
+              <div class="bkash-num-val" id="bkash-num-val">01925-838830</div>
+            </div>
+            <button type="button" class="bkash-copy" id="bkash-copy-btn" onclick="copyBkash()">Copy</button>
+          </div>
+          <ol class="bkash-steps">
+            <li>Open bKash app → tap <strong>Send Money</strong></li>
+            <li>Enter the number above and the exact amount shown</li>
+            <li>Use your mobile number as reference</li>
+            <li>Copy the <strong>Transaction ID</strong> and paste below</li>
+          </ol>
+          <div class="bkash-trx-wrap">
+            <label for="bkash-trx">bKash Transaction ID (TrxID) <span class="req">*</span></label>
+            <input id="bkash-trx" name="bkash_trx" type="text" placeholder="e.g. 8N7A4BC9XZ" maxlength="20" autocomplete="off" spellcheck="false"/>
+          </div>
+        </div>
+
+        <!-- Nagad panel -->
+        <div id="nagad-details" class="pay-details">
+          <div class="pay-details-title">Nagad Payment Instructions</div>
+          <div class="bkash-amount-row"><span>Amount to Send</span><strong id="nagad-amt">৳0</strong></div>
+          <div class="bkash-num">
+            <div class="bkash-num-info">
+              <div class="bkash-num-label">Send to this Nagad number</div>
+              <div class="bkash-num-val" id="nagad-num-val">01925-838830</div>
+            </div>
+            <button type="button" class="bkash-copy" id="nagad-copy-btn" onclick="copyNagad()">Copy</button>
+          </div>
+          <ol class="bkash-steps">
+            <li>Open Nagad app → tap <strong>Send Money</strong></li>
+            <li>Enter the number above and the exact amount shown</li>
+            <li>Copy the <strong>Transaction ID</strong> and paste below</li>
+          </ol>
+          <div class="bkash-trx-wrap">
+            <label for="nagad-trx">Nagad Transaction ID <span class="req">*</span></label>
+            <input id="nagad-trx" name="nagad_trx" type="text" placeholder="e.g. 8N7A4BC9XZ" maxlength="20" autocomplete="off" spellcheck="false"/>
+          </div>
+        </div>
+
+        <!-- Cash on Delivery panel -->
+        <div id="cod-details" class="pay-details" style="border:1px solid rgba(26,138,90,0.3);background:linear-gradient(135deg,rgba(26,138,90,0.07),rgba(26,138,90,0.02));border-left:3px solid var(--green);">
+          <div class="pay-details-title" style="color:var(--green)">Cash on Delivery</div>
+          <p style="font-size:13px;line-height:1.7;color:rgba(17,17,17,0.6)">
+            Pay in cash when your order is delivered. Available within <strong>Dhaka</strong> only.
+            Our team will call you to confirm before dispatch. Delivery: 2–4 working days.
+          </p>
+        </div>
+      </div>
+
+      <!-- Promo code -->
+      <div class="co-sec">
+        <div class="co-sec-title">Promo Code</div>
+        <div class="promo-row">
+          <input id="promo-input" type="text" placeholder="ARCTIC10" maxlength="20" autocomplete="off" style="text-transform:uppercase"/>
+          <button type="button" class="promo-apply-btn" onclick="applyPromo()">Apply</button>
+        </div>
+        <div class="promo-msg" id="promo-msg"></div>
+      </div>
+
+      <!-- Order summary -->
+      <div class="co-sec">
+        <div class="co-sec-title">Order Summary</div>
+        <div class="ord-mini" id="ord-mini"></div>
+      </div>
+
+      <!-- Place order -->
+      <button type="button" class="place-btn" id="place-btn" onclick="placeOrder()">
+        <span class="btn-txt">✓ Place Order</span>
+        <div class="spinner"></div>
+      </button>
+      <button type="button" class="back-btn" onclick="closeCheckout()">← Back to Cart</button>
+    </form>
+  </div>
+</div>
+
+<!-- Order success modal -->
+<div id="ok-modal" role="dialog" aria-modal="true" aria-label="Order confirmed">
+  <div class="ok-box">
+    <div class="ok-icon">✅</div>
+    <div class="ok-title">Order Placed!</div>
+    <p class="ok-msg">Thank you! Your order confirmation has been sent to your email. We'll process it within 24 hours.</p>
+    <div class="ok-id" id="ok-id"></div>
+    <div class="ok-email-note">📧 Check your inbox (and spam folder) for your order details.</div>
+    <button class="ok-close" onclick="closeOK()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- Zoom overlay -->
+<div id="zoom-overlay" role="dialog" aria-modal="true" aria-label="Zoomed image">
+  <button id="zoom-close" aria-label="Close zoom">✕</button>
+  <img id="zoom-img" src="" alt="Product image"/>
+  <div id="zoom-hint">Click anywhere to close</div>
+</div>
+
+<!-- AI Chat widget -->
+<button id="arctic-chat-btn" onclick="togChat()" aria-label="Open Arctic AI chat" aria-haspopup="dialog">
+  <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  <div class="chat-notif-dot" aria-hidden="true"></div>
+</button>
+<div id="arctic-chat-window" role="dialog" aria-modal="true" aria-label="Arctic AI chat">
+  <div class="ac-head">
+    <div class="ac-avatar">🧊</div>
+    <div class="ac-head-info">
+      <div class="ac-head-name">Arctic AI</div>
+      <div class="ac-head-status">Online — reply in seconds</div>
+    </div>
+    <button class="ac-head-close" onclick="closeChatWindow()" aria-label="Close chat">✕</button>
+  </div>
+  <div class="ac-messages" id="chat-messages" role="log" aria-live="polite"></div>
+  <div class="ac-quick-wrap" id="chat-quick-wrap"></div>
+  <div class="ac-input-wrap">
+    <textarea class="ac-input" id="chat-input" placeholder="Ask about sizing, delivery, products…" rows="1" onkeydown="chatKeydown(event)" aria-label="Chat message"></textarea>
+    <button class="ac-send" onclick="sendChat()" aria-label="Send message">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="ac-powered">Powered by Arctic AI ✦</div>
+</div>
+
+<!-- Mobile menu -->
+<div id="mob-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button id="mob-menu-close" onclick="closeMob()" aria-label="Close menu">✕</button>
+  <a class="mob-link" href="#products" onclick="closeMob()">Shop</a>
+  <a class="mob-link" href="#about"    onclick="closeMob()">About</a>
+  <a class="mob-link" href="#reviews"  onclick="closeMob()">Reviews</a>
+  <a class="mob-link" href="#faq"      onclick="closeMob()">FAQ</a>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-brand" aria-label="Arctic Shop BD home">
+    <div class="nav-brand-top">Arctic <em>Shop BD</em></div>
+    <div class="nav-brand-bot">We Make Perfect</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="lang-toggle" aria-label="Toggle language">বাং</button>
+    <button class="nav-search-btn" onclick="openSearch()" aria-label="Search">🔍</button>
+    <button class="nav-wish-btn"   onclick="openWishlist()" aria-label="Wishlist">
+      ♡<span class="wl-count" id="wl-count">0</span>
+    </button>
+    <button class="nav-cart-btn" onclick="openCart()" aria-label="Open cart">
+      <span class="cart-label">Cart</span>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <button class="hamburger" id="ham" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<section class="hero" id="home" aria-label="Hero">
+  <!-- Background video/image — swap src to your own -->
+  <img class="hero-bg hero-bg-desktop" src="/images/hero-bg.jpg"        alt="" role="presentation" fetchpriority="high"/>
+  <img class="hero-bg hero-bg-mobile"  src="/images/hero-bg-mobile.jpg" alt="" role="presentation"/>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-ey a1">
+      <span>✦</span> Arctic Drop // Winter Edit '26 <span>✦</span>
+    </div>
+    <h1 class="hero-h1 a2">
+      <span data-bn="পরুন তুষার">Wear</span><br>
+      <span class="hero-out" data-bn="রাজত্ব করুন রাত">The Frost.</span>
+    </h1>
+    <div class="hero-sub a3" data-bn="প্রিমিয়াম গ্রাফিক টি — ঢাকায় তৈরি">
+      Premium Graphic Tees — Made in Dhaka
+    </div>
+    <div class="hero-btns a4">
+      <button class="btn-gl" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+        Shop the Drop ↓
+      </button>
+      <a href="https://wa.me/8801925838830" class="btn-out" target="_blank" rel="noopener">
+        📱 WhatsApp Order
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats a5" aria-label="Store statistics">
+    <div class="hs"><div class="hs-n">500<em>+</em></div><div class="hs-l">Happy Customers</div></div>
+    <div class="hs"><div class="hs-n">4.9<em>★</em></div><div class="hs-l">Average Rating</div></div>
+    <div class="hs"><div class="hs-n">180<em>g</em></div><div class="hs-l">GSM Cotton</div></div>
+    <div class="hs"><div class="hs-n">24<em>h</em></div><div class="hs-l">Order Processing</div></div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- Trust badges -->
+<section class="trust-strip" aria-label="Trust badges">
+  <div class="trust-strip-inner">
+    <div class="tb">
+      <span class="tb-icon">🚚</span>
+      <div><div class="tb-title">Free Delivery</div><div class="tb-sub">On orders ৳1000+</div></div>
+    </div>
+    <div class="tb-divider" aria-hidden="true"></div>
+    <div class="tb">
+      <span class="tb-icon">💳</span>
+      <div><div class="tb-title">bKash &amp; Nagad</div><div class="tb-sub">Instant mobile payment</div></div>
+    </div>
+    <div class="tb-divider" aria-hidden="true"></div>
+    <div class="tb">
+      <span class="tb-icon">🧵</span>
+      <div><div class="tb-title">180gsm Cotton</div><div class="tb-sub">Premium ring-spun</div></div>
+    </div>
+    <div class="tb-divider" aria-hidden="true"></div>
+    <div class="tb">
+      <span class="tb-icon">📦</span>
+      <div><div class="tb-title">Fast Dispatch</div><div class="tb-sub">24h order processing</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PRODUCTS
+════════════════════════════════════════════════════════ -->
+<section class="sw" id="products" aria-label="Products">
+  <div class="sl">The Collection</div>
+  <h2 class="sh2">Drop <em>01.</em></h2>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px">
+    <div id="filters" class="filters" role="group" aria-label="Product filters"></div>
+    <div id="prod-count-label" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(17,17,17,0.4)"></div>
+  </div>
+
+  <div class="pg" id="pg" role="list" aria-label="Product grid"></div>
+</section>
+
+<!-- Features -->
+<section class="feat-band" aria-label="Why Arctic Shop">
+  <div class="feat-grid">
+    <div class="feat-item rv"><span class="feat-icon">🧵</span><div class="feat-title">Premium Cotton</div><p class="feat-desc">180gsm ring-spun cotton. Every tee is thick, soft, and made to last.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">🎨</span><div class="feat-title">Bold DTG Prints</div><p class="feat-desc">High-opacity DTG printing. Colours stay vivid wash after wash.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">🚚</span><div class="feat-title">Free Delivery</div><p class="feat-desc">Free shipping on all orders above ৳1000. Fast dispatch across BD.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">⚡</span><div class="feat-title">Instant Checkout</div><p class="feat-desc">Order in under 2 minutes with bKash, Nagad, or Cash on Delivery.</p></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     HOW TO ORDER
+════════════════════════════════════════════════════════ -->
+<section class="hto-section" aria-label="How to order">
+  <div class="hto-bg-grid" aria-hidden="true"></div>
+  <div class="hto-glow-orb hto-orb1" aria-hidden="true"></div>
+  <div class="hto-glow-orb hto-orb2" aria-hidden="true"></div>
+  <div class="sw hto-inner">
+    <div class="hto-header">
+      <div class="sl">Simple Process</div>
+      <h2 class="sh2">How to <em>Order.</em></h2>
+      <p class="hto-sub">Order in under 2 minutes — no account needed, no waiting.</p>
+    </div>
+    <div class="hto-steps">
+      <div class="hto-step rv">
+        <div class="hto-step-num">01</div>
+        <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <div class="hto-step-title">Pick Your Tee</div>
+        <div class="hto-step-desc">Browse the collection, select your size, add to cart. No signup required.</div>
+      </div>
+      <div class="hto-step rv">
+        <div class="hto-step-num">02</div>
+        <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="hto-step-title">Pay with bKash</div>
+        <div class="hto-step-desc">Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.</div>
+      </div>
+      <div class="hto-step rv">
+        <div class="hto-step-num">03</div>
+        <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
+        <div class="hto-step-title">We Deliver</div>
+        <div class="hto-step-desc">We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.</div>
+      </div>
+    </div>
+    <div class="hto-wa-strip rv">
+      <div class="hto-wa-left">
+        <div class="hto-wa-pulse" aria-hidden="true"></div>
+        <div>
+          <div class="hto-wa-title">Prefer to order on WhatsApp?</div>
+          <div class="hto-wa-sub">Send us a message — we'll handle everything.</div>
+        </div>
+      </div>
+      <a href="https://wa.me/8801925838830" class="hto-wa-btn" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════════════════ -->
+<section class="sw" id="about" aria-label="About Arctic Shop BD">
+  <div class="about-layout">
+    <div class="about-imgs" aria-hidden="true">
+      <img id="ai1" src="/images/losted.jpg"     alt="Arctic Shop product" loading="lazy"/>
+      <img id="ai2" src="/images/sweetvenom.jpg" alt="Arctic Shop product" loading="lazy"/>
+      <img id="ai3" class="span2" src="/images/wave.jpg" alt="Arctic Shop product" loading="lazy"/>
+    </div>
+    <div class="about-txt">
+      <div class="sl rv">Our Story</div>
+      <h2 class="sh2 rv">We <em>Make</em><br>Perfect.</h2>
+      <p class="ab-body rv">
+        Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that's designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>.
+        We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.
+      </p>
+      <p class="ab-body rv">
+        Every drop is limited. Every design is intentional. No mass production, no compromise.
+      </p>
+      <div class="ab-feats">
+        <div class="af rv"><div class="af-icon">🧵</div><div class="af-title">Premium Fabric</div><div class="af-desc">180gsm ring-spun cotton every time.</div></div>
+        <div class="af rv"><div class="af-icon">🎨</div><div class="af-title">DTG Printing</div><div class="af-desc">Colours that last — wash after wash.</div></div>
+        <div class="af rv"><div class="af-icon">📦</div><div class="af-title">Fast Dispatch</div><div class="af-desc">Shipped within 24h of payment.</div></div>
+        <div class="af rv"><div class="af-icon">🇧🇩</div><div class="af-title">Made in Dhaka</div><div class="af-desc">Proudly local. Globally standard.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     REVIEWS
+════════════════════════════════════════════════════════ -->
+<section class="sw" id="reviews" aria-label="Customer reviews">
+  <div class="sl rv">Social Proof</div>
+  <h2 class="sh2 rv">What They <em>Say.</em></h2>
+  <div class="rev-grid">
+    <article class="rev-card rv">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Quality is insane for the price. The Losted Tee fits perfectly oversized — exactly what I wanted. Delivery was super fast too."</p>
+      <div class="rev-auth">
+        <div class="rev-av" style="background:linear-gradient(135deg,#111,#005599)">T</div>
+        <div><div class="rev-name">Tanzil A.</div><div class="rev-meta">Dhaka</div><div class="rev-prod">Losted Tee</div></div>
+      </div>
+    </article>
+    <article class="rev-card rv">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Sweet Venom is everything. The print quality is unreal — crisp and bold. Arctic Shop BD is the real deal for streetwear in Bangladesh."</p>
+      <div class="rev-auth">
+        <div class="rev-av" style="background:linear-gradient(135deg,#8b1a1a,#550000)">S</div>
+        <div><div class="rev-name">Siam K.</div><div class="rev-meta">Chittagong</div><div class="rev-prod">Sweet Venom Tee</div></div>
+      </div>
+    </article>
+    <article class="rev-card rv">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Got the Pretty Tee limited edition. Ordered at night, shipped next morning. The dual-sided print is insane quality. Will definitely order again!"</p>
+      <div class="rev-auth">
+        <div class="rev-av" style="background:linear-gradient(135deg,#1a4a1a,#003300)">N</div>
+        <div><div class="rev-name">Nafi R.</div><div class="rev-meta">Sylhet</div><div class="rev-prod">Pretty Tee Ltd</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════════════ -->
+<section class="sw" id="faq" aria-label="Frequently asked questions">
+  <div class="sl rv">Support</div>
+  <h2 class="sh2 rv">Got <em>Questions?</em></h2>
+  <div class="faq-layout">
+    <div class="faq-list" role="list">
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I pay? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.</div>
+      </div>
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How long does delivery take? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.</div>
+      </div>
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">What sizes do you offer? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</div>
+      </div>
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I return or exchange? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</div>
+      </div>
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Do you do custom/bulk orders? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.</div>
+      </div>
+      <div class="faq-item rv" role="listitem">
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I care for my tee? <span class="faq-chv">▼</span></div>
+        <div class="faq-a">Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.</div>
+      </div>
+    </div>
+
+    <div class="faq-contact rv">
+      <div class="fcp-t">Still need help?</div>
+      <p class="fcp-d">We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.</p>
+      <a class="fcp-m" href="https://wa.me/8801925838830" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <span class="fcp-ic">📱</span>
+        <div><div class="fcp-lbl">WhatsApp</div><div class="fcp-val">+880 1925-838830</div></div>
+      </a>
+      <a class="fcp-m" href="https://facebook.com/ArcticShopBD" target="_blank" rel="noopener" aria-label="Facebook">
+        <span class="fcp-ic">📘</span>
+        <div><div class="fcp-lbl">Facebook</div><div class="fcp-val">ArcticShopBD</div></div>
+      </a>
+      <a class="fcp-m" href="mailto:obbhack6@gmail.com" aria-label="Email">
+        <span class="fcp-ic">✉️</span>
+        <div><div class="fcp-lbl">Email</div><div class="fcp-val">obbhack6@gmail.com</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="foot-main">
+    <div>
+      <div class="foot-brand">Arctic <em>Shop BD</em></div>
+      <div class="foot-tag">We Make Perfect</div>
+      <p class="foot-desc">Premium oversized graphic tees, made in Dhaka. Bold designs. Premium cotton. Fast delivery across Bangladesh.</p>
+      <div class="foot-soc">
+        <a class="fsoc" href="https://facebook.com/ArcticShopBD" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a class="fsoc" href="https://instagram.com/arcticshopbd" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+        <a class="fsoc" href="https://wa.me/8801925838830"         target="_blank" rel="noopener" aria-label="WhatsApp">wa</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-ct">Shop</div>
+      <ul class="foot-links">
+        <li><a href="#products">All Tees</a></li>
+        <li><a href="#products" onclick="filterProducts('limited',document.querySelector('.fb'))">Limited Edition</a></li>
+        <li><a href="#products" onclick="openCustom()">Custom Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-ct">Info</div>
+      <ul class="foot-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="mailto:obbhack6@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-ct">Contact</div>
+      <ul class="foot-links">
+        <li><a href="https://wa.me/8801925838830" target="_blank" rel="noopener">📱 WhatsApp</a></li>
+        <li><a href="https://facebook.com/ArcticShopBD" target="_blank" rel="noopener">📘 Facebook</a></li>
+        <li><a href="mailto:obbhack6@gmail.com">✉️ Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <div class="foot-copy">&copy; <span id="copy-year"></span> Arctic Shop BD. All rights reserved.</div>
+    <div class="trust-bs">
+      <div class="trust-b">Secure Checkout</div>
+      <div class="trust-b">bKash Accepted</div>
+      <div class="trust-b">Made in BD</div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SCRIPTS  (load order matters — do not reorder)
+════════════════════════════════════════════════════════ -->
+
+<!-- 3rd-party: GSAP + plugins (optional — gracefully skipped if blocked) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+<!-- Lenis smooth scroll (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.45/dist/lenis.min.js" defer></script>
+
+<!-- App scripts (order is load dependency order) -->
+<script src="/src/js/config.js"></script>
+<script src="/src/js/state.js"></script>
+<script src="/src/js/api.js"></script>
+<script src="/src/js/performance.js"></script>
+<script src="/src/js/security.js"></script>
+<script src="/src/js/ui.js"></script>
+<script src="/src/js/components/productCard.js"></script>
+<script src="/src/js/components/cartDrawer.js"></script>
+<script src="/src/js/components/modal.js"></script>
+<script src="/src/js/components/checkout.js"></script>
+<script src="/src/js/main.js"></script>
+
+</body>
+</html>

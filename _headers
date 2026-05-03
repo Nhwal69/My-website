@@ -1,0 +1,65 @@
+# ============================================================
+#  ARCTIC SHOP BD — Cloudflare Pages HTTP Headers
+#  Applied to every response served by the CDN.
+#  Docs: https://developers.cloudflare.com/pages/configuration/headers/
+# ============================================================
+
+# ── All pages ─────────────────────────────────────────────
+/*
+  # Force HTTPS for 1 year, include subdomains
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Prevent MIME-type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Deny framing (clickjacking protection)
+  X-Frame-Options: DENY
+
+  # Minimal referrer info
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Disable browser features we don't use
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+  # Content Security Policy
+  # - default-src 'self'         → only load from our own domain by default
+  # - script-src                 → our JS files + trusted CDNs only
+  # - style-src                  → our CSS + Google Fonts
+  # - font-src                   → Google Fonts only
+  # - img-src                    → our domain + R2 bucket + data URIs
+  # - connect-src                → our API + EmailJS + AI worker + Google Fonts API
+  # - frame-ancestors 'none'     → no iframing
+  # - upgrade-insecure-requests  → auto-upgrade HTTP links to HTTPS
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.jsdelivr.net/npm/ 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.r2.dev https://r2.cloudflarestorage.com; connect-src 'self' https://api.emailjs.com https://*.workers.dev https://fonts.googleapis.com; frame-ancestors 'none'; upgrade-insecure-requests;
+
+  # Cache static assets aggressively
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ── Static assets — cache for 1 year (hashed filenames) ──
+/src/css/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/src/js/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/src/js/components/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+# ── API routes — never cache ──────────────────────────────
+/api/*
+  Cache-Control: no-store, no-cache, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# ── Admin panel — no index, no cache ─────────────────────
+/src/pages/admin.html
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
