@@ -3,9 +3,6 @@
 #  Docs: https://developers.cloudflare.com/pages/configuration/redirects/
 # ============================================================
 
-# Serve index from root
-/                    /src/pages/index.html   200
-
 # Admin panel shortcut
 /admin               /src/pages/admin.html   200
 /admin/              /src/pages/admin.html   200
