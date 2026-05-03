@@ -34,4 +34,4 @@ ENVIRONMENT    = "production"
 
 [env.preview]
 [env.preview.vars]
-ENVIRONMENT = "development"
+ENVIRONMENT = "development" 
