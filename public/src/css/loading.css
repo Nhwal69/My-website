@@ -237,6 +237,20 @@ img:not([loading="lazy"]) { opacity: 1; }
 }
 .cart-count.bump { animation: cartPulse 0.4s ease forwards; }
 
+/* ── Intro layer: force dark theme regardless of site-wide --ink value ──
+   The site uses --ink: #ffffff (light theme) but the intro layer was
+   designed for a dark cinema look. We re-declare the relevant variables
+   locally so the intro always renders dark without touching anything else.
+   ────────────────────────────────────────────────────────────────────── */
+#intro-layer {
+  --ink:   #070d17;   /* dark background */
+  --white: #eef6ff;   /* light text       */
+  --glow:  #111111;   /* accent (dark CTA button) */
+  --muted: rgba(238, 246, 255, 0.45);
+  background: #070d17 !important;
+  color: #eef6ff !important;
+}
+
 /* ── Intro layer CSS-only entrance (replaces missing GSAP timeline) ── */
 /*
    All intro elements start at opacity:0 in style.css and rely on GSAP to
