@@ -32,6 +32,6 @@ bucket_name = "arctic-shop-images"
 [vars]
 ENVIRONMENT    = "production"
 
-[env.preview]
-[env.preview.vars]
-ENVIRONMENT = "development" 
+[env.dev]
+[env.dev.vars]
+ENVIRONMENT = "development"
