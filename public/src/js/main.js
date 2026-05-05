@@ -151,14 +151,22 @@ function loadProducts() {
   }
   function pad(n) { return n < 10 ? "0" + n : n; }
 
-  // Show bar after short delay
-  setTimeout(function () {
-    bar.style.transform = "translateY(0)";
-    document.body.classList.add("bar-visible");
-    document.getElementById("nav").style.top = bar.offsetHeight + "px";
-    setInterval(tickCountdown, 1000);
-    tickCountdown();
-  }, 800);
+  // Show bar only after the visitor dismisses the intro splash
+  function showBar() {
+    setTimeout(function () {
+      bar.style.transform = "translateY(0)";
+      document.body.classList.add("bar-visible");
+      var nav = document.getElementById("nav");
+      if (nav) nav.style.top = bar.offsetHeight + "px";
+      setInterval(tickCountdown, 1000);
+      tickCountdown();
+    }, 800);
+  }
+  if (document.documentElement.classList.contains("entered")) {
+    showBar();
+  } else {
+    window.addEventListener("arctic:entered", showBar, { once: true });
+  }
 
   // Dismiss button
   var closeBtn = document.getElementById("sticky-bar-close");
