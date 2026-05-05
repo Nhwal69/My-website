@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /src/pages/admin.html
-Disallow: /api/
-
-Sitemap: https://arcticshopbd.pages.dev/sitemap.xml
