@@ -31,6 +31,32 @@
   <link rel="stylesheet" href="/src/css/style.css"/>
   <link rel="stylesheet" href="/src/css/loading.css"/>
 
+  <!-- Intro layer visibility fix: inline <style> beats external sheets -->
+  <style>
+    #intro-layer { background:#070d17 !important; color:#eef6ff !important; }
+
+    @keyframes iIn  { from{opacity:0} to{opacity:1} }
+    @keyframes iUp  { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes iRise{ from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes iGrow{ from{opacity:0;width:0} to{opacity:1;width:100%} }
+    @keyframes iPop { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+
+    html:not(.entered) #intro-layer #logo-block   { opacity:1 !important; transform:translate(-50%,-52%) !important; }
+    html:not(.entered) #intro-layer .bracket      { animation:iIn   0.4s 0.15s ease both !important; }
+    html:not(.entered) #intro-layer .mist-line    { animation:iIn   0.4s 0.20s ease both !important; }
+    html:not(.entered) #intro-layer #grid-floor   { animation:iIn   0.6s 0.10s ease both !important; }
+    html:not(.entered) #intro-layer #beam         { animation:iIn   0.6s 0.10s ease both !important; }
+    html:not(.entered) #intro-layer #overline     { animation:iUp   0.4s 0.30s ease both !important; }
+    html:not(.entered) #intro-layer #w1           { animation:iRise 0.5s 0.45s cubic-bezier(.22,1,.36,1) both !important; }
+    html:not(.entered) #intro-layer #w2           { animation:iRise 0.5s 0.60s cubic-bezier(.22,1,.36,1) both !important; }
+    html:not(.entered) #intro-layer #gold-rule    { animation:iGrow 0.5s 0.75s ease both !important; }
+    html:not(.entered) #intro-layer #tagline      { animation:iUp   0.4s 0.85s ease both !important; }
+    html:not(.entered) #intro-layer #bd-badge     { animation:iPop  0.4s 0.95s ease both !important; }
+    html:not(.entered) #intro-layer #cta          { animation:iUp   0.5s 1.05s cubic-bezier(.34,1.56,.64,1) both !important; background:#111 !important; color:#eef6ff !important; cursor:pointer !important; }
+    html:not(.entered) #intro-layer #stats-strip  { animation:iIn   0.5s 1.15s ease both !important; }
+    html:not(.entered) #intro-layer #intro-ticker { animation:iIn   0.4s 1.25s ease both !important; }
+  </style>
+
   <!-- ── Structured data (JSON-LD) ────────────────────────── -->
   <script type="application/ld+json">
   {
