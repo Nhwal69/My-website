@@ -112,8 +112,6 @@
   <div id="aurora"></div>
   <div id="scanlines" aria-hidden="true"></div>
   <div id="vignette"  aria-hidden="true"></div>
-  <div class="wipe-bar" id="wipe-top" aria-hidden="true"></div>
-  <div class="wipe-bar" id="wipe-bot" aria-hidden="true"></div>
   <div id="scene">
     <div id="grid-floor" class="scene-el" aria-hidden="true"></div>
     <div id="beam"        class="scene-el" aria-hidden="true"></div>
@@ -193,6 +191,49 @@
 
 <!-- Social proof notifications -->
 <div id="sp-wrap" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Intro layer: make all elements visible immediately via JS.
+     CSS animations kept losing to the opacity:0 rules in style.css.
+     This script runs synchronously, after the intro HTML is parsed,
+     so it sets inline styles that beat everything. -->
+<script>
+(function() {
+  function show(id, extra) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.opacity = '1';
+    el.style.transform = extra || '';
+    el.style.transition = 'none';
+  }
+  function showClass(cls, extra) {
+    var els = document.querySelectorAll('.' + cls);
+    els.forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = extra || '';
+      el.style.transition = 'none';
+    });
+  }
+
+  // Make everything visible right away
+  show('logo-block',   'translate(-50%, -52%)');
+  show('overline',     'translateY(0)');
+  show('gold-rule');
+  show('tagline',      'translateY(0)');
+  show('bd-badge',     'scale(1)');
+  show('cta',          'translateY(0)');
+  show('stats-strip',  'translateX(-50%)');
+  show('intro-ticker');
+  show('grid-floor');
+  show('beam');
+  showClass('word',    'translateY(0)');
+  showClass('bracket');
+  showClass('mist-line');
+
+  // Fix gold-rule width
+  var gr = document.getElementById('gold-rule');
+  if (gr) gr.style.width = '100%';
+})();
+</script>
 
 <!-- Page loader -->
 <div id="loader" role="status" aria-label="Loading">
