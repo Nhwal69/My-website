@@ -1,37 +1,23 @@
-# ============================================================
-#  ARCTIC SHOP BD — Cloudflare Pages Configuration
-#  wrangler.toml
-# ============================================================
-
-name       = "arctic-shop-bd"
-pages_build_output_dir = "."
-
+name = "arctic-shop"
+pages_build_output_dir = "./"
 compatibility_date = "2024-09-23"
 
-# ── D1 Database ───────────────────────────────────────────
 [[d1_databases]]
-binding      = "DB"
+binding = "DB"
 database_name = "arctic-shop-db"
-database_id  = "6088e9d9-f48b-4577-ac70-8b561b1641fe"
+database_id = "6088e9d9-f48b-4577-ac70-8b561b1641fe"
 
-# ── KV Namespace ──────────────────────────────────────────
 [[kv_namespaces]]
 binding = "KV"
-id      = "1f449de1195042748af8936c6ab9e9d7"
+id = "1f449de1195042748af8936c6ab9e9d7"
 
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id      = "a0b99b2f3dcc469b8762d26a2ac50c58"
+id = "a0b99b2f3dcc469b8762d26a2ac50c58"
 
-# ── R2 Bucket ─────────────────────────────────────────────
 [[r2_buckets]]
-binding     = "BUCKET"
+binding = "BUCKET"
 bucket_name = "arctic-shop-images"
 
-# ── Environment variables ─────────────────────────────────
 [vars]
-ENVIRONMENT    = "production"
-
-[env.preview]
-[env.preview.vars]
-ENVIRONMENT = "development"
+ENVIRONMENT = "production"
