@@ -35,11 +35,14 @@ function renderProds(filter) {
 
 // ── Build HTML for a single product card ─────────────────
 function renderProductCard(p) {
+  if (!p) return '';
   var src  = getImg(p);
   var isC  = isCustom(p);
-  var sl   = stockLabel(p.stock);
-  var sc   = stockBadgeClass(p.stock);
-  var st   = stockText(p.stock);
+  var stock = parseInt(p.stock, 10) || 0;
+  var sl   = stockLabel(stock);
+  var sc   = stockBadgeClass(stock);
+  var st   = stockText(stock);
+  p.stock  = stock;
 
   // Image or placeholder
   var imgH = src
@@ -47,7 +50,7 @@ function renderProductCard(p) {
     : "<div class='pc-art'>🛋</div>";
 
   // Out-of-stock overlay
-  var outOverlay = (p.stock <= 0 && !isC)
+  var outOverlay = (stock <= 0 && !isC)
     ? "<div class='pc-out-overlay'><div class='pc-out-txt'>Out of Stock</div></div>"
     : "";
 
@@ -60,7 +63,7 @@ function renderProductCard(p) {
   var addB = "";
   if (isC) {
     addB = "<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
-  } else if (p.stock > 0) {
+  } else if (stock > 0) {
     addB = "<button class='pc-btn' onclick='addToCartFromGrid(" + p.id + ")'>⚡ Order Now</button>";
   } else {
     addB = "<button class='pc-btn' disabled>Out of Stock</button>";
@@ -73,8 +76,8 @@ function renderProductCard(p) {
 
   // Exact count line
   var countLine = "";
-  if (p.stock > 3)      countLine = "<div class='pc-stock-count'>" + p.stock + " in stock</div>";
-  else if (p.stock > 0) countLine = "<div class='pc-stock-count low-count'>Only " + p.stock + " left</div>";
+  if (stock > 3)      countLine = "<div class='pc-stock-count'>" + p.stock + " in stock</div>";
+  else if (stock > 0) countLine = "<div class='pc-stock-count low-count'>Only " + p.stock + " left</div>";
   else                  countLine = "<div class='pc-stock-count out-count'>Out of stock</div>";
 
   return (

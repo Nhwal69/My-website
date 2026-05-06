@@ -6,9 +6,6 @@
 
 // ── 1. Load products — cache-first, then API ─────────────
 function loadProducts() {
-  // Show skeleton while loading
-  showProductSkeleton(6);
-
   // Try cache first (5-min TTL)
   var cached = getCachedProducts();
   if (cached && cached.length) {
