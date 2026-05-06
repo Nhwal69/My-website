@@ -24,9 +24,9 @@ function renderProds(filter) {
 
   var h = "";
   for (var i = 0; i < list.length; i++) {
-    h += renderProductCard(list[i]);
+    try { h += renderProductCard(list[i]); } catch(e) {}
   }
-  grid.innerHTML = h || "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-family:\"DM Mono\",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase'>No products found</div>";
+  if (h) grid.innerHTML = h;
 
   // Re-apply GSAP tilt after grid re-render
   if (window.initTilt) initTilt();
