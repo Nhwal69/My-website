@@ -15,6 +15,7 @@ function renderProds(filter) {
     products = SITE_CONFIG.products.slice();
     State.setProducts(products);
   }
+  alert("renderProds: " + products.length + " products, filter=" + filter);
   var list     = filter === "all"
     ? products
     : products.filter(function (p) {
