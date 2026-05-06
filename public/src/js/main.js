@@ -59,8 +59,7 @@ function loadProducts() {
     })
     .catch(function (err) {
       console.warn("API unavailable — using local config products.", err);
-      showErrorBanner("Could not load latest product data. Showing cached information.");
-      // State already has SITE_CONFIG.products from initialization
+      State.setProducts(SITE_CONFIG.products.slice());
     });
 }
 
@@ -422,6 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initLang && initLang();   // already IIFE but guard anyway
 
   // Render config products immediately so grid is never blank
+  State.setProducts(SITE_CONFIG.products.slice());
   buildFilters();
   renderProds("all");
   buildCountLabel();
