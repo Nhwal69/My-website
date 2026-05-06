@@ -8,6 +8,8 @@
 const ALLOWED_ORIGINS = [
   "https://arcticshopbd.pages.dev",
   "https://www.arcticshopbd.pages.dev",
+  "https://arctic-shop.pages.dev",
+  "https://www.arctic-shop.pages.dev",
   // Add your custom domain here if you have one:
   // "https://arcticshopbd.com",
 ];
