@@ -20,4 +20,5 @@ binding = "BUCKET"
 bucket_name = "arctic-shop-images"
 
 [vars]
-ENVIRONMENT = "production"
+ENVIRONMENT   = "production"
+R2_PUBLIC_URL = "https://pub-1b7f243938194546883d9da3f855fde7.r2.dev"
