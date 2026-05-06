@@ -413,18 +413,20 @@ function replayIntro() {
 document.addEventListener("DOMContentLoaded", function () {
 
   // Core UI init
-  initLoader();
-  initNavScroll();
-  buildTicker();
-  initScrollReveal();
-  initEscKey();
-  initLang && initLang();   // already IIFE but guard anyway
+  try { initLoader(); } catch(e) { alert("CRASH initLoader: " + e.message); }
+  try { initNavScroll(); } catch(e) { alert("CRASH initNavScroll: " + e.message); }
+  try { buildTicker(); } catch(e) { alert("CRASH buildTicker: " + e.message); }
+  try { initScrollReveal(); } catch(e) { alert("CRASH initScrollReveal: " + e.message); }
+  try { initEscKey(); } catch(e) { alert("CRASH initEscKey: " + e.message); }
 
   // Render config products immediately so grid is never blank
-  State.setProducts(SITE_CONFIG.products.slice());
-  buildFilters();
-  renderProds("all");
-  buildCountLabel();
+  try {
+    State.setProducts(SITE_CONFIG.products.slice());
+    alert("Products set: " + State.getProducts().length);
+    buildFilters();
+    renderProds("all");
+    buildCountLabel();
+  } catch(e) { alert("CRASH render: " + e.message); }
 
   // Load products then update grid from API
   loadProducts().then(function () {
