@@ -146,7 +146,7 @@ function hideErrorBanner() {
 }
 
 // ── 6. Products cache (sessionStorage, 5-minute TTL) ──────
-var CACHE_KEY = "arcbd_products_cache";
+var CACHE_KEY = "arcbd_products_cache_v2";
 var CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 function getCachedProducts() {

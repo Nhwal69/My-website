@@ -50,7 +50,7 @@ function stockBadgeClass(s) {
 // ── Product type helpers ──────────────────────────────────
 function isCustom(p) { return p.type === "custom"; }
 
-function getImg(p) { return (p && p.img) ? p.img : null; }
+function getImg(p) { return (p && (p.img || p.image_url)) ? (p.img || p.image_url) : null; }
 
 // ── Cart badge bump animation ─────────────────────────────
 function updBadge() {
