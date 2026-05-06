@@ -6,31 +6,28 @@
 // ── Render all product cards into #pg ────────────────────
 function renderProds(filter) {
   filter = filter || "all";
-  var grid     = document.getElementById("pg");
+  var grid = document.getElementById("pg");
   if (!grid) return;
 
   var products = State.getProducts();
-  // Hard fallback: if state is empty, use config directly
   if (!products || !products.length) {
     products = SITE_CONFIG.products.slice();
     State.setProducts(products);
   }
-  var list     = filter === "all"
-    ? products
-    : products.filter(function (p) {
-        var tags = Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(function (t) { return t.trim(); });
-        return tags.indexOf(filter) >= 0;
-      });
 
-  var h = "";
-  for (var i = 0; i < list.length; i++) {
-    try { h += renderProductCard(list[i]); } catch(e) {}
+  // Only filter — never wipe the grid with empty output
+  if (filter === "all") {
+    // Show all cards
+    grid.querySelectorAll(".pc").forEach(function(c) { c.style.display = ""; });
+  } else {
+    // Hide/show based on data-tags attribute
+    grid.querySelectorAll(".pc").forEach(function(c) {
+      var tags = c.getAttribute("data-tags") || "";
+      c.style.display = tags.indexOf(filter) >= 0 ? "" : "none";
+    });
   }
-  if (h) grid.innerHTML = h;
 
-  // Re-apply GSAP tilt after grid re-render
   if (window.initTilt) initTilt();
-  if (window.applyCardAnimations) applyCardAnimations();
 }
 
 // ── Build HTML for a single product card ─────────────────

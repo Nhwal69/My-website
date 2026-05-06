@@ -423,13 +423,12 @@ document.addEventListener("DOMContentLoaded", function () {
   renderProds("all");
   buildCountLabel();
 
-  // Load products then update grid from API
+  // Load products for cart/modal/search to work (does NOT touch the grid)
   loadProducts().then(function () {
     buildFilters();
-    renderProds("all");
     buildCountLabel();
     initAboutImgs();
-    openModalBySlug();    // handle ?#product-N deep links
+    openModalBySlug();
     initTilt();
     initMagnetic();
     initGSAP();
