@@ -10,6 +10,11 @@ function renderProds(filter) {
   if (!grid) return;
 
   var products = State.getProducts();
+  // Hard fallback: if state is empty, use config directly
+  if (!products || !products.length) {
+    products = SITE_CONFIG.products.slice();
+    State.setProducts(products);
+  }
   var list     = filter === "all"
     ? products
     : products.filter(function (p) {
