@@ -18,7 +18,10 @@ function loadProducts() {
 
   return API.fetchProducts()
     .then(function (data) {
-      if (!data || !data.products || !data.products.length) return;
+      if (!data || !data.products || !data.products.length) {
+        State.setProducts(SITE_CONFIG.products.slice());
+        return;
+      }
 
       var apiMap = {};
       data.products.forEach(function (p) { apiMap[p.id] = p; });
@@ -418,7 +421,12 @@ document.addEventListener("DOMContentLoaded", function () {
   initEscKey();
   initLang && initLang();   // already IIFE but guard anyway
 
-  // Load products then render grid
+  // Render config products immediately so grid is never blank
+  buildFilters();
+  renderProds("all");
+  buildCountLabel();
+
+  // Load products then update grid from API
   loadProducts().then(function () {
     buildFilters();
     renderProds("all");
