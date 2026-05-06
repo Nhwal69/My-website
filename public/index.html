@@ -14,7 +14,7 @@
   <!-- ── Open Graph ───────────────────────────────────────── -->
   <meta property="og:title"       content="Arctic Shop BD — Premium Graphic Tees"/>
   <meta property="og:description" content="Bold oversized graphic tees. Made in Dhaka. Free delivery ৳1000+."/>
-  <meta property="og:image"       content="/images/og-cover.jpg"/>
+  <meta property="og:image"       content="/images/wave.jpg"/>
   <meta property="og:url"         content="https://arcticshopbd.pages.dev/"/>
   <meta property="og:type"        content="website"/>
   <meta name="twitter:card"       content="summary_large_image"/>
@@ -532,8 +532,12 @@
 ════════════════════════════════════════════════════════ -->
 <section class="hero" id="home" aria-label="Hero">
   <!-- Background video/image — swap src to your own -->
-  <img class="hero-bg hero-bg-desktop" src="/images/hero-bg.jpg"        alt="" role="presentation" fetchpriority="high"/>
-  <img class="hero-bg hero-bg-mobile"  src="/images/hero-bg-mobile.jpg" alt="" role="presentation"/>
+  <video class="hero-bg hero-bg-desktop" autoplay muted loop playsinline aria-hidden="true">
+    <source src="/images/new_hero.mp4" type="video/mp4"/>
+  </video>
+  <video class="hero-bg hero-bg-mobile" autoplay muted loop playsinline aria-hidden="true">
+    <source src="/images/mobile_video.mp4" type="video/mp4"/>
+  </video>
   <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-content">
@@ -608,7 +612,11 @@
     <div id="prod-count-label" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(17,17,17,0.4)"></div>
   </div>
 
-  <div class="pg" id="pg" role="list" aria-label="Product grid"></div>
+  <div class="pg" id="pg" role="list" aria-label="Product grid">
+    <div class="pc" style="background:#111;padding:20px;color:#fff;font-family:monospace">
+      JS is loading products here...
+    </div>
+  </div>
 </section>
 
 <!-- Features -->
