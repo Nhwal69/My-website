@@ -114,11 +114,11 @@ function loadProducts() {
     if (!running) showNext();
   }
 
-  // First notification 6s after page load, then every 14–24s
-  setTimeout(function () {
-    trigger();
-    setInterval(trigger, 14000 + Math.floor(Math.random() * 10000));
-  }, 6000);
+  // Show notifications only after visitor enters the site (like og)
+  window.addEventListener('arctic:entered', function () {
+    var delays = [8000, 25000, 44000, 68000, 95000, 130000];
+    delays.forEach(function (d) { setTimeout(trigger, d); });
+  }, { once: true });
 })();
 
 // ── 3. Sticky announcement bar ────────────────────────────
@@ -305,10 +305,24 @@ function sendChat(msgOverride) {
   chatHistory.push({ role: "user", content: msg });
   showChatTyping();
 
-  // Build context from current product list
-  var context = "Available products: " + State.getProducts().filter(function (p) { return !isCustom(p); }).map(function (p) {
-    return p.name + " (৳" + p.price + ", stock: " + p.stock + ")";
-  }).join("; ");
+  // Build full AI context — matches og system prompt
+  var prods = State.getProducts().filter(function (p) { return !isCustom(p); });
+  var lines = prods.map(function (p) {
+    var s = p.stock <= 0 ? "out of stock" : p.stock <= 3 ? "low stock (" + p.stock + " left)" : "in stock (" + p.stock + " units)";
+    var tags = Array.isArray(p.tags) ? p.tags.join("/") : (p.tags || "");
+    return p.name + " [৳" + p.price + ", " + s + ", tags: " + tags + "]";
+  });
+  var context = "You are Arctic AI, the friendly assistant for Arctic Shop BD — a premium streetwear brand based in Dhaka, Bangladesh. "
+    + "You help customers with product info, sizing, delivery, and payments. Be concise, warm, and on-brand (cool/streetwear tone). "
+    + "Current products: " + lines.join("; ") + ". "
+    + "Sizes: S, M, L, XL, XXL — all oversized fit (size down for regular look). "
+    + "Prices: ৳650-700. Free delivery inside Dhaka on orders ৳1000+. Outside Dhaka ৳80 delivery fee. "
+    + "Payment: bKash, Nagad, Rocket, Cash on Delivery. COD advance of ৳200-300 required for orders above ৳2000. "
+    + "Promo codes: WELCOME10 and ARCTIC10 (10% off). "
+    + "Exchange policy: 7-day hassle-free exchange (unused, unwashed). "
+    + "Contact: Facebook /ArcticShopBD, email " + OWNER_EMAIL + ". Response time 2-4 hours. "
+    + "For custom tees: minimum 1 piece, 5-7 day turnaround, send design to Facebook or email. "
+    + "DO NOT make up information. If unsure, direct to Facebook or email.";
 
   API.chat(msg, chatHistory, context)
     .then(function (res) {
@@ -327,13 +341,54 @@ function chatKeydown(e) {
   if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); }
 }
 
-// ── 6. Language toggle (EN / BN) ─────────────────────────
-(function initLang() {
-  var btn = document.getElementById("lang-toggle");
-  if (!btn) return;
-  btn.addEventListener("click", function () {
-    document.documentElement.classList.toggle("lang-bn");
-    btn.textContent = document.documentElement.classList.contains("lang-bn") ? "EN" : "বাং";
+// ── 6. Language toggle (EN / BN) — full translation system ──
+(function () {
+  var T = [
+    ['#nav-products-link', 'Products', 'পণ্যসমূহ'],
+    ['#nav-about-link',    'About',    'আমাদের সম্পর্কে'],
+    ['#nav-reviews-link',  'Reviews',  'রিভিউ'],
+    ['#nav-faq-link',      'FAQ',      'জিজ্ঞাসা'],
+    ['.hero-sub',   'WEAR THE FROST. RULE THE NIGHT.', 'হিমের পোশাকে রাতকে জয় করুন।'],
+    ['.hero-cta',   '⚡ Shop the Drop', '⚡ এখনই কিনুন'],
+    ['.mob-link[href="#products"]', 'Products', 'পণ্যসমূহ'],
+    ['.mob-link[href="#about"]',    'About',    'আমাদের সম্পর্কে'],
+    ['.mob-link[href="#reviews"]',  'Reviews',  'রিভিউ'],
+    ['.mob-link[href="#faq"]',      'FAQ',      'জিজ্ঞাসা'],
+    ['.mob-link[href="#footer"]',   'Contact',  'যোগাযোগ'],
+    ['.exit-tag',      'Wait — Before You Go', 'যাওয়ার আগে দেখুন!'],
+    ['#exit-headline', "Don't Freeze<br>On This <em>Deal.</em>", 'এই সুযোগ<br>মিস <em>করবেন না!</em>'],
+    ['#exit-copy-btn',    'Copy',                'কপি'],
+    ['#exit-cta-btn',     'Shop the Drop →', 'এখনই অর্ডার করুন →'],
+    ['#exit-dismiss-btn', "No thanks, I'll pay full price", 'ধন্যবাদ, পরে কিনর'],
+    ['.wl-head-title', '♥ Wishlist', '♥ ওয়িশলিস্ট'],
+    ['.search-hint', 'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],
+  ];
+
+  var currentLang = localStorage.getItem('asbd_lang') || 'en';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('asbd_lang', lang);
+    var isBn = lang === 'bn';
+    document.documentElement.classList.toggle('lang-bn', isBn);
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = isBn ? 'EN' : 'বাং';
+    T.forEach(function (item) {
+      document.querySelectorAll(item[0]).forEach(function (el) {
+        el.innerHTML = isBn ? item[2] : item[1];
+      });
+    });
+    document.querySelectorAll('[data-bn]').forEach(function (el) {
+      var orig = el.getAttribute('data-en') || el.textContent;
+      if (!el.getAttribute('data-en')) el.setAttribute('data-en', orig);
+      el.textContent = isBn ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+    });
+  }
+
+  window.toggleLang = function () { applyLang(currentLang === 'en' ? 'bn' : 'en'); };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (currentLang === 'bn') applyLang('bn');
   });
 })();
 

@@ -530,3 +530,141 @@ function initCheckoutProgress() {
   };
   updateProgress();
 }
+
+// ── CINEMATIC INTRO ANIMATION ─────────────────────────────
+(function () {
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function animate(el, kf, opt) {
+    if (!el) return Promise.resolve();
+    return new Promise(function (resolve) {
+      var anim = el.animate(kf, Object.assign({ fill: 'forwards' }, opt || {}));
+      anim.onfinish = resolve;
+    });
+  }
+
+  function spawnParticles() {
+    var container = document.getElementById('particles');
+    if (!container) return;
+    for (var i = 0; i < 38; i++) {
+      (function (idx) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var size = Math.random() * 2 + 1;
+        p.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (Math.random()*100) + '%;top:' + (Math.random()*100) + '%;opacity:0;position:absolute;border-radius:50%;background:rgba(238,246,255,0.6)';
+        container.appendChild(p);
+        setTimeout(function () {
+          p.animate([
+            { opacity: 0, transform: 'translateY(0) scale(0)' },
+            { opacity: (Math.random() * 0.5 + 0.15), transform: 'translateY(-' + (Math.random()*120+60) + 'px) scale(1)' },
+            { opacity: 0, transform: 'translateY(-' + (Math.random()*200+120) + 'px) scale(0.5)' }
+          ], { duration: Math.random()*4000+3000, delay: Math.random()*2000, iterations: Infinity, easing: 'ease-in-out', fill: 'forwards' });
+        }, 800 + idx * 110);
+      })(i);
+    }
+  }
+
+  async function runIntro() {
+    var wipeTop = document.getElementById('wipe-top');
+    var wipeBot = document.getElementById('wipe-bot');
+    var beam = document.getElementById('beam');
+    var gridFloor = document.getElementById('grid-floor');
+    var logoBlock = document.getElementById('logo-block');
+    var overline = document.getElementById('overline');
+    var w1 = document.getElementById('w1');
+    var w2 = document.getElementById('w2');
+    var goldRule = document.getElementById('gold-rule');
+    var tagline = document.getElementById('tagline');
+    var bdBadge = document.getElementById('bd-badge');
+    var statsStrip = document.getElementById('stats-strip');
+    var ticker = document.getElementById('intro-ticker');
+    var cta = document.getElementById('cta');
+    var mist1 = document.getElementById('mist1');
+    var mist2 = document.getElementById('mist2');
+    var brandName = document.getElementById('brand-name');
+    var brackets = document.querySelectorAll('#intro-layer .bracket');
+    var cats = document.getElementById('cats');
+    var catPills = document.querySelectorAll('#intro-layer .cat-pill');
+    var replay = document.getElementById('intro-replay');
+
+    if (replay) replay.classList.remove('show');
+    [beam,gridFloor,logoBlock,overline,w1,w2,goldRule,tagline,bdBadge,statsStrip,ticker,cta,mist1,mist2,cats].forEach(function(el){ if(el){el.style.opacity='0';el.style.transform='';} });
+    brackets.forEach(function(b){b.style.opacity='0';b.style.transform='';});
+    catPills.forEach(function(p){p.style.opacity='0';p.style.transform='translateY(8px)';});
+    if(cta) cta.style.transform='translateY(12px)';
+    if(brandName) brandName.classList.remove('glitch');
+    if(wipeTop) wipeTop.style.transform='scaleY(1)';
+    if(wipeBot) wipeBot.style.transform='scaleY(1)';
+    var pc = document.getElementById('particles');
+    if(pc) pc.innerHTML='';
+
+    await wait(200);
+    await Promise.all([
+      animate(wipeTop,[{transform:'scaleY(1)'},{transform:'scaleY(0)'}],{duration:900,easing:'cubic-bezier(0.76,0,0.24,1)'}),
+      animate(wipeBot,[{transform:'scaleY(1)'},{transform:'scaleY(0)'}],{duration:900,easing:'cubic-bezier(0.76,0,0.24,1)'})
+    ]);
+    await wait(120);
+    animate(gridFloor,[{opacity:0,transform:'perspective(600px) rotateX(65deg) translateY(60%)'},{opacity:1,transform:'perspective(600px) rotateX(65deg) translateY(30%)'}],{duration:700,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(100);
+    animate(beam,[{opacity:0,top:'-100vh'},{opacity:0.85,top:'-20vh'},{opacity:0.6,top:'0vh'}],{duration:700,easing:'ease-out'});
+    await wait(150);
+    brackets.forEach(function(b,i){animate(b,[{opacity:0,transform:'scale(1.4)'},{opacity:1,transform:'scale(1)'}],{duration:350,delay:i*60,easing:'cubic-bezier(0.34,1.56,0.64,1)'});});
+    await wait(400);
+    [mist1,mist2].forEach(function(m,i){animate(m,[{opacity:0,transform:'scaleX(0)'},{opacity:1,transform:'scaleX(1)'}],{duration:600,delay:i*120,easing:'ease-out'});});
+    await wait(200);
+    if(logoBlock) logoBlock.style.opacity='1';
+    animate(overline,[{opacity:0,transform:'translateY(14px)',letterSpacing:'12px'},{opacity:1,transform:'translateY(0)',letterSpacing:'8px'}],{duration:700,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(350);
+    animate(w1,[{opacity:0,transform:'translateY(110%)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(180);
+    animate(w2,[{opacity:0,transform:'translateY(110%)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(500);
+    if(brandName) brandName.classList.add('glitch');
+    animate(beam,[{filter:'blur(1px)'},{filter:'blur(2px)'},{filter:'blur(1px)'}],{duration:300,easing:'ease-in-out'});
+    await wait(200);
+    if(brandName) brandName.classList.remove('glitch');
+    await wait(100);
+    if(goldRule) goldRule.style.opacity='1';
+    animate(goldRule,[{width:'0',opacity:0},{width:'100%',opacity:1}],{duration:700,easing:'ease-out'});
+    await wait(300);
+    animate(tagline,[{opacity:0,transform:'translateY(10px)',letterSpacing:'10px'},{opacity:1,transform:'translateY(0)',letterSpacing:'6px'}],{duration:600,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(300);
+    if(cats) cats.style.opacity='1';
+    catPills.forEach(function(p,i){animate(p,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:400,delay:i*80,easing:'cubic-bezier(0.16,1,0.3,1)'});});
+    await wait(300);
+    animate(bdBadge,[{opacity:0,transform:'scale(0.7) translateY(-4px)'},{opacity:1,transform:'scale(1) translateY(0)'}],{duration:450,easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+    await wait(300);
+    spawnParticles();
+    await wait(200);
+    animate(statsStrip,[{opacity:0,transform:'translateX(-50%) translateY(20px)'},{opacity:1,transform:'translateX(-50%) translateY(0)'}],{duration:600,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(250);
+    animate(ticker,[{opacity:0,transform:'translateY(100%)'},{opacity:1,transform:'translateY(0)'}],{duration:500,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(250);
+    animate(cta,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:500,easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+    setTimeout(function(){ if(beam) beam.animate([{opacity:0.6},{opacity:0.85},{opacity:0.6}],{duration:3500,iterations:Infinity,easing:'ease-in-out'}); },200);
+    await wait(800);
+    if(replay) replay.classList.add('show');
+  }
+
+  function enterSite() {
+    if (document.documentElement.classList.contains('entered')) return;
+    var flash = document.createElement('div');
+    Object.assign(flash.style, {position:'fixed',inset:'0',background:'rgba(17,17,17,0.18)',zIndex:'10002',pointerEvents:'none',opacity:'0',transition:'opacity .25s'});
+    document.body.appendChild(flash);
+    requestAnimationFrame(function(){ flash.style.opacity='1'; });
+    setTimeout(function(){
+      document.documentElement.classList.add('entered');
+      window.scrollTo(0,0);
+      flash.style.opacity='0';
+      window.dispatchEvent(new CustomEvent('arctic:entered'));
+      setTimeout(function(){ flash.remove(); },400);
+    },220);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var ctaBtn = document.getElementById('cta');
+    var replayBtn = document.getElementById('intro-replay');
+    if(ctaBtn) ctaBtn.addEventListener('click', enterSite);
+    if(replayBtn) replayBtn.addEventListener('click', runIntro);
+    runIntro();
+  });
+})();
