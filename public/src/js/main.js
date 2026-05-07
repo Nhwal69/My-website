@@ -428,6 +428,25 @@ function chatKeydown(e) {
     ['#exit-copy-btn',    'Copy',              'কপি'],
     ['#exit-cta-btn',     'Shop the Drop →',  'এখনই অর্ডার করুন →'],
     ['#exit-dismiss-btn', "No thanks, I'll pay full price", 'ধন্যবাদ, পরে কিনব'],
+    // ── FAQ contact box ──
+    ['.fcp-t', 'Still need help?', 'এখনও সাহায্য দরকার?'],
+    ['.fcp-d', 'We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.', 'আমরা WhatsApp-এ মিনিটের মধ্যে সাড়া দিই। Facebook বা ইমেইলেও যোগাযোগ করতে পারেন।'],
+    // ── Footer links ──
+    ['.foot-links li:nth-child(1) a', 'All Tees',       'সব টি-শার্ট'],
+    ['.foot-links li:nth-child(2) a', 'Limited Edition','লিমিটেড এডিশন'],
+    ['.foot-links li:nth-child(3) a', 'Custom Order',   'কাস্টম অর্ডার'],
+    ['.foot-copy', '\u00a9 Arctic Shop BD. All rights reserved.', '\u00a9 Arctic Shop BD. সর্বস্বত্ব সংরক্ষিত।'],
+    // ── How to Order section ──
+    ['.how-sl', 'SIMPLE PROCESS', 'সহজ প্রক্রিয়া'],
+    ['.how-title', 'How to <em>Order.</em>', 'কিভাবে <em>অর্ডার করবেন।</em>'],
+    ['.how-sub', 'Order in under 2 minutes — no account needed, no waiting.', '২ মিনিটের কম সময়ে অর্ডার করুন — কোনো অ্যাকাউন্ট লাগবে না।'],
+    ['.how-step:nth-child(1) .how-step-t', 'Pick Your Tee',   'আপনার টি-শার্ট বেছে নিন'],
+    ['.how-step:nth-child(1) .how-step-d', 'Browse the collection, select your size, add to cart. No signup required.', 'কালেকশন দেখুন, সাইজ বেছে কার্টে যোগ করুন। রেজিস্ট্রেশন লাগবে না।'],
+    ['.how-step:nth-child(2) .how-step-t', 'Pay with bKash',  'bKash-এ পেমেন্ট করুন'],
+    ['.how-step:nth-child(2) .how-step-d', 'Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.', 'bKash, Nagad-এ পাঠান বা Cash on Delivery বেছে নিন। TrxID দিয়ে নিশ্চিত করুন।'],
+    ['.how-step:nth-child(3) .how-step-t', 'We Deliver',      'আমরা পৌঁছে দিই'],
+    ['.how-step:nth-child(3) .how-step-d', 'We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.', '২৪ ঘণ্টার মধ্যে পাঠানো হয়। ২–৪ কার্যদিবসে ডেলিভারি। প্রতিটি ধাপে আপডেট পাবেন।'],
+    ['.wa-pref-txt strong', 'Prefer to order on WhatsApp?', 'WhatsApp-এ অর্ডার করতে চান?'],
     // ── Wishlist & search ──
     ['.wl-head-title', '♥ Wishlist', '♥ ওয়িশলিস্ট'],
     ['.search-hint', 'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],

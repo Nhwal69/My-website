@@ -869,12 +869,7 @@ html.entered #intro-replay { display: none; }
 @media (max-width: 480px) { #arctic-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; } #arctic-chat-window { right: 12px; bottom: 82px; width: calc(100vw - 24px); } }
 
 /* ── BANGLA FONT ── */
-html.lang-bn [data-bn],
-html.lang-bn [data-en] { font-family: "Noto Sans Bengali", sans-serif !important; line-height: 1.8; }
-html.lang-bn .hero-title,
-html.lang-bn .sh2,
-html.lang-bn .sl { font-family: "Noto Sans Bengali", sans-serif !important; font-style: normal !important; letter-spacing: 0 !important; }
-html.lang-bn p, html.lang-bn label, html.lang-bn button,
-html.lang-bn .faq-q, html.lang-bn .faq-a,
-html.lang-bn .ab-body, html.lang-bn .af-title, html.lang-bn .af-desc,
-html.lang-bn .rev-text, html.lang-bn .foot-desc, html.lang-bn .foot-tag { font-family: "Noto Sans Bengali", sans-serif !important; }
+html.lang-bn, html.lang-bn * { font-family: "Noto Sans Bengali", sans-serif !important; line-height: 1.8; }
+html.lang-bn .nav-brand, html.lang-bn .nav-brand-top,
+html.lang-bn .ld-title { font-family: "Noto Sans Bengali", sans-serif !important; font-style: normal !important; letter-spacing: 0 !important; }
+html.lang-bn .sh2, html.lang-bn .sl { font-style: normal !important; letter-spacing: 0 !important; }
