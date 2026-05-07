@@ -360,19 +360,7 @@ function initGSAP() {
     });
   });
 
-  // Product card staggered entrance
-  applyCardAnimations();
-
-  var grid = document.getElementById("pg");
-  if (grid) {
-    var mo = new MutationObserver(function () {
-      ScrollTrigger.getAll().forEach(function (st) {
-        if (st.trigger && !document.body.contains(st.trigger)) st.kill();
-      });
-      applyCardAnimations();
-    });
-    mo.observe(grid, { childList: true });
-  }
+  // Product card animations disabled — cards shown via CSS
 }
 
 function applyCardAnimations() {
