@@ -869,5 +869,12 @@ html.entered #intro-replay { display: none; }
 @media (max-width: 480px) { #arctic-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; } #arctic-chat-window { right: 12px; bottom: 82px; width: calc(100vw - 24px); } }
 
 /* ── BANGLA FONT ── */
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-html.lang-bn [data-bn] { font-family: "Hind Siliguri", sans-serif !important; line-height: 1.7; }
+html.lang-bn [data-bn],
+html.lang-bn [data-en] { font-family: "Noto Sans Bengali", sans-serif !important; line-height: 1.8; }
+html.lang-bn .hero-title,
+html.lang-bn .sh2,
+html.lang-bn .sl { font-family: "Noto Sans Bengali", sans-serif !important; font-style: normal !important; letter-spacing: 0 !important; }
+html.lang-bn p, html.lang-bn label, html.lang-bn button,
+html.lang-bn .faq-q, html.lang-bn .faq-a,
+html.lang-bn .ab-body, html.lang-bn .af-title, html.lang-bn .af-desc,
+html.lang-bn .rev-text, html.lang-bn .foot-desc, html.lang-bn .foot-tag { font-family: "Noto Sans Bengali", sans-serif !important; }
