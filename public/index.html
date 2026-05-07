@@ -868,18 +868,3202 @@
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.45/dist/lenis.min.js" defer></script>
 
 <!-- App scripts (order is load dependency order) -->
-<script src="/src/js/config.js"></script>
-<script src="/src/js/state.js"></script>
-<script src="/src/js/api.js"></script>
-<script src="/src/js/performance.js"></script>
-<script src="/src/js/security.js"></script>
-<script src="/src/js/ui.js"></script>
-<script src="/src/js/components/productCard.js"></script>
-<script src="/src/js/components/cartDrawer.js"></script>
-<script src="/src/js/components/modal.js"></script>
-<script src="/src/js/components/checkout.js"></script>
-<script src="/src/js/compat.js"></script>
-<script src="/src/js/main.js"></script>
+<script>
+/* inlined: /src/js/config.js */
+// ============================================================
+//  ARCTIC SHOP BD — Site Configuration
+//  All store settings live here. Edit this file only.
+// ============================================================
+
+var SITE_CONFIG = {
+
+  // ── Store Info ────────────────────────────────────────────
+  store: {
+    name:     "Arctic Shop BD",
+    tagline:  "We Make Perfect",
+    currency: "৳",
+    whatsapp: "8801925838830",
+    facebook: "https://facebook.com/ArcticShopBD",
+    instagram: "https://instagram.com/arcticshopbd",
+  },
+
+  // ── Email (server-side via /api/send-email) ───────────────
+  emailjs: {
+    ownerEmail: "obbhack6@gmail.com",
+  },
+
+  // ── Payment Numbers ───────────────────────────────────────
+  payment: {
+    bkash: {
+      number:      "01712-345678",
+      accountType: "Personal",
+    },
+    nagad: {
+      number:      "01925-838830",
+      accountType: "Personal",
+    },
+  },
+
+  // ── Delivery Rules ────────────────────────────────────────
+  delivery: {
+    freeThreshold: 1000,   // free delivery above this subtotal
+    flatFee:       80,     // fee when below threshold
+  },
+
+  // ── Promo Codes ───────────────────────────────────────────
+  // key: code string, value: discount percentage
+  promoCodes: {
+    "WELCOME10": 10,
+    "ARCTIC10":  10,
+  },
+
+  // ── Social Proof Notifications ────────────────────────────
+  socialProof: {
+    names:   ["Tanzil", "Ashik", "Jidan", "Farhan", "Nafi", "Rafi", "Siam", "Zara", "Mitu", "Rana"],
+    cities:  ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Comilla", "Mymensingh"],
+    actions: ["just ordered", "just bought", "purchased", "added to cart"],
+  },
+
+  // ── Products (fallback if API fails) ─────────────────────
+  // These are the rich display fields. Stock & price are always
+  // overwritten from the live /api/products response.
+  products: [
+    {
+      id: 1,
+      name: "Losted Tee",
+      ed:   "Arctic Drop // Season 01",
+      price: 650,
+      badge: "new", bl: "NEW",
+      tags:  ["black"],
+      stock: 10,
+      desc:  "Astronaut drifting through a cosmic purple nebula with gothic Losted typography. Oversized unisex cut on 180gsm ring-spun cotton, high-opacity DTG print. Made in Dhaka.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Oversized unisex cut",
+        print:  "High-opacity DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      "/images/losted.jpg",
+      images:   ["/images/losted.jpg"],
+      type:     "regular",
+      aboutImg: true,
+    },
+    {
+      id: 2,
+      name: "Sweet Venom Tee",
+      ed:   "Arctic Drop // Season 01",
+      price: 650,
+      badge: null, bl: "",
+      tags:  ["white"],
+      stock: 8,
+      desc:  "Dark butterfly on crisp white cotton — deceptive beauty rendered with precision DTG. Oversized unisex cut, 180gsm ring-spun cotton. Made in Dhaka.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Oversized unisex cut",
+        print:  "High-opacity DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      "/images/sweetvenom.jpg",
+      images:   ["/images/sweetvenom.jpg"],
+      type:     "regular",
+      aboutImg: true,
+    },
+    {
+      id: 3,
+      name: "Wave Tee",
+      ed:   "Arctic Drop // Season 01",
+      price: 650,
+      badge: null, bl: "",
+      tags:  ["black"],
+      stock: 6,
+      desc:  "Hokusai's Great Wave reimagined for Dhaka streets, bold Japanese kanji beneath the crest. Full-chest DTG print on 180gsm ring-spun cotton, oversized unisex cut.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Oversized unisex cut",
+        print:  "High-opacity DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      "/images/wave.jpg",
+      images:   ["/images/wave.jpg"],
+      type:     "regular",
+      aboutImg: false,
+    },
+    {
+      id: 4,
+      name: "Pretty Tee",
+      ed:   "Arctic Drop // Limited Edition",
+      price: 700,
+      badge: "ltd", bl: "LIMITED",
+      tags:  ["black", "limited"],
+      stock: 3,
+      desc:  "Limited-edition dual-sided print: blood-red PRETTY on the front, distressed dripping text over a cinematic eye on the back. 180gsm ring-spun cotton, oversized unisex cut.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Oversized unisex cut",
+        print:  "Dual-sided DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      "/images/pretty.jpg",
+      images:   ["/images/pretty.jpg"],
+      type:     "regular",
+      aboutImg: false,
+    },
+    {
+      id: 5,
+      name: "Paranoia Tee",
+      ed:   "Arctic Drop // Season 01",
+      price: 700,
+      badge: "hot", bl: "HOT",
+      tags:  ["black"],
+      stock: 5,
+      desc:  "Cinematic vintage photograph printed large-format on premium black cotton — aged, grainy, unforgettable. 180gsm ring-spun cotton, oversized unisex cut. Made in Dhaka.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Oversized unisex cut",
+        print:  "Large-format DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      "/images/paranoia.jpg",
+      images:   ["/images/paranoia.jpg"],
+      type:     "regular",
+      aboutImg: false,
+    },
+    {
+      id: 6,
+      name: "Custom Design Order",
+      ed:   "Made to Order",
+      price: 0,
+      badge: null, bl: "",
+      tags:  ["custom"],
+      stock: 999,
+      desc:  "Your idea, our craft. Send us your design concept — we handle the rest. Minimum 1 piece, 5–7 day turnaround. No setup fee.",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit:    "Your choice",
+        print:  "High-opacity DTG print",
+        wash:   "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh",
+      },
+      img:      null,
+      images:   [],
+      type:     "custom",
+      aboutImg: false,
+    },
+  ],
+};
+
+// ── AI Chat Worker URL ────────────────────────────────────
+// Replace with your deployed Cloudflare Worker URL
+var CLOUDFLARE_WORKER_URL = "https://arctic-chat.mehedinihal89.workers.dev";
+
+// ── Shorthand aliases used throughout the codebase ────────
+var PROMO_CODES     = SITE_CONFIG.promoCodes;
+var OWNER_EMAIL     = SITE_CONFIG.emailjs.ownerEmail;
+var BKASH_MERCHANT  = SITE_CONFIG.payment.bkash.number;
+var NAGAD_MERCHANT  = SITE_CONFIG.payment.nagad.number;
+
+// ── Filter label map ──────────────────────────────────────
+var FILTER_LABELS = {
+  "all":     "All",
+  "black":   "Black Tees",
+  "white":   "White Tees",
+  "limited": "Limited",
+  "custom":  "Custom",
+};
+
+</script>
+<script>
+/* inlined: /src/js/state.js */
+// ============================================================
+//  ARCTIC SHOP BD — Global State Store
+//  Single source of truth for all runtime data.
+//  Never access localStorage/sessionStorage directly elsewhere.
+// ============================================================
+
+var State = (function () {
+
+  // ── Private storage ──────────────────────────────────────
+
+  // Products: starts as config fallback, overwritten by API
+  var _products = SITE_CONFIG.products.slice();
+
+  // Cart: persisted in sessionStorage
+  var _cart = [];
+  try { _cart = JSON.parse(sessionStorage.getItem("arcbd_cart") || "[]"); } catch (e) { _cart = []; }
+
+  // Wishlist: persisted in localStorage
+  var _wishlist = [];
+  try { _wishlist = JSON.parse(localStorage.getItem("arcbd_wishlist") || "[]"); } catch (e) { _wishlist = []; }
+
+  // Session: token + user stored in sessionStorage (cleared on tab close)
+  var _session = null;
+  try {
+    var _raw = sessionStorage.getItem("arcbd_session");
+    if (_raw) _session = JSON.parse(_raw);
+  } catch (e) { _session = null; }
+
+  // UI state
+  var _selectedPayMethod = "bKash";
+  var _activePromo       = null;   // { code, pct } or null
+  var _modalProductId    = null;
+  var _modalSize         = "L";
+  var _modalQty          = 1;
+
+  // ── Persist helpers ───────────────────────────────────────
+
+  function _saveCart() {
+    try { sessionStorage.setItem("arcbd_cart", JSON.stringify(_cart)); } catch (e) {}
+  }
+
+  function _saveWishlist() {
+    try { localStorage.setItem("arcbd_wishlist", JSON.stringify(_wishlist)); } catch (e) {}
+  }
+
+  function _saveSession() {
+    try {
+      if (_session) sessionStorage.setItem("arcbd_session", JSON.stringify(_session));
+      else sessionStorage.removeItem("arcbd_session");
+    } catch (e) {}
+  }
+
+  // ── Public API ────────────────────────────────────────────
+
+  return {
+
+    // ── Products ────────────────────────────────────────────
+
+    getProducts: function () { return _products; },
+
+    setProducts: function (list) { _products = list; },
+
+    getProduct: function (id) {
+      return _products.find(function (p) { return p.id === id; }) || null;
+    },
+
+    // ── Cart ────────────────────────────────────────────────
+
+    getCart: function () { return _cart; },
+
+    getCartTotal: function () {
+      return _cart.reduce(function (s, i) { return s + (i.price * i.qty); }, 0);
+    },
+
+    getCartCount: function () {
+      return _cart.reduce(function (s, i) { return s + i.qty; }, 0);
+    },
+
+    getDeliveryFee: function () {
+      var total = this.getCartTotal();
+      if (total === 0) return 0;
+      return total >= SITE_CONFIG.delivery.freeThreshold ? 0 : SITE_CONFIG.delivery.flatFee;
+    },
+
+    getDiscount: function () {
+      if (!_activePromo) return 0;
+      return Math.round(this.getCartTotal() * _activePromo.pct / 100);
+    },
+
+    getGrandTotal: function () {
+      return this.getCartTotal() + this.getDeliveryFee() - this.getDiscount();
+    },
+
+    addToCart: function (pid, size, qty) {
+      var p = this.getProduct(pid);
+      if (!p) return false;
+      if (p.stock <= 0 && p.type !== "custom") return "out_of_stock";
+
+      var existing = _cart.find(function (i) { return i.pid === pid && i.sz === size; });
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        _cart.push({
+          cid:   Date.now(),
+          pid:   p.id,
+          name:  p.name,
+          price: p.price,
+          sz:    size,
+          qty:   qty,
+          img:   p.img || null,
+        });
+      }
+      _saveCart();
+      return true;
+    },
+
+    removeFromCart: function (cid) {
+      _cart = _cart.filter(function (i) { return i.cid !== cid; });
+      _saveCart();
+    },
+
+    updateCartQty: function (cid, delta) {
+      var item = _cart.find(function (i) { return i.cid === cid; });
+      if (!item) return false;
+
+      if (delta > 0 && item.pid !== 6) {
+        var prod = this.getProduct(item.pid);
+        if (prod && (item.qty + delta) > prod.stock) return "exceeds_stock";
+      }
+      item.qty = Math.max(1, item.qty + delta);
+      _saveCart();
+      return true;
+    },
+
+    clearCart: function () {
+      _cart = [];
+      _saveCart();
+    },
+
+    setCart: function (items) {
+      _cart = items;
+      _saveCart();
+    },
+
+    // ── Wishlist ─────────────────────────────────────────────
+
+    getWishlist: function () { return _wishlist; },
+
+    addToWishlist: function (pid) {
+      var p = this.getProduct(pid);
+      if (!p) return false;
+      if (_wishlist.find(function (w) { return w.pid === pid; })) return "already_in";
+      _wishlist.push({ pid: p.id, name: p.name, price: p.price, img: p.img });
+      _saveWishlist();
+      return true;
+    },
+
+    removeFromWishlist: function (pid) {
+      _wishlist = _wishlist.filter(function (w) { return w.pid !== pid; });
+      _saveWishlist();
+    },
+
+    // ── Session / Auth ───────────────────────────────────────
+
+    getSession: function () { return _session; },
+
+    getToken: function () { return _session ? _session.token : null; },
+
+    getUser: function () { return _session ? _session.user : null; },
+
+    isLoggedIn: function () { return !!(_session && _session.token); },
+
+    setSession: function (token, user) {
+      _session = { token: token, user: user, at: Date.now() };
+      _saveSession();
+    },
+
+    clearSession: function () {
+      _session = null;
+      _saveSession();
+    },
+
+    // ── Promo ────────────────────────────────────────────────
+
+    getPromo: function () { return _activePromo; },
+
+    applyPromo: function (code) {
+      var pct = PROMO_CODES[code.trim().toUpperCase()];
+      if (pct !== undefined) {
+        _activePromo = { code: code.toUpperCase(), pct: pct };
+        return true;
+      }
+      _activePromo = null;
+      return false;
+    },
+
+    clearPromo: function () { _activePromo = null; },
+
+    // ── Payment Method ───────────────────────────────────────
+
+    getPayMethod: function ()        { return _selectedPayMethod; },
+    setPayMethod: function (method)  { _selectedPayMethod = method; },
+
+    // ── Modal Product State ──────────────────────────────────
+
+    getModalState: function () {
+      return { pid: _modalProductId, size: _modalSize, qty: _modalQty };
+    },
+
+    setModalProduct: function (pid) {
+      _modalProductId = pid;
+      _modalSize = "L";
+      _modalQty  = 1;
+    },
+
+    setModalSize: function (s)  { _modalSize = s; },
+    setModalQty:  function (q)  { _modalQty  = Math.max(1, q); },
+    changeModalQty: function (delta) { _modalQty = Math.max(1, _modalQty + delta); },
+
+  };
+
+})();
+
+</script>
+<script>
+/* inlined: /src/js/api.js */
+// ============================================================
+//  ARCTIC SHOP BD — API Service  (Step 4 — auth-hardened)
+//  All fetch() calls go through here.
+//  Token is read from State on every call — never passed manually.
+// ============================================================
+
+var API = (function () {
+
+  var BASE = "";  // same-origin Cloudflare Pages Functions
+
+  // ── Internal helpers ──────────────────────────────────────
+
+  function _headers(extra) {
+    var h = Object.assign({ "Content-Type": "application/json" }, extra || {});
+    var token = State.getToken();
+    if (token) h["Authorization"] = "Bearer " + token;
+    return h;
+  }
+
+  function _handle(r) {
+    if (r.status === 401) {
+      State.clearSession();
+      window.dispatchEvent(new CustomEvent("arctic:session-expired"));
+      return r.json().then(function (b) { throw new Error(b.error || "Session expired"); });
+    }
+    if (r.status === 429) {
+      return r.json().then(function (b) { throw new Error(b.error || "Too many requests. Please wait a moment."); });
+    }
+    if (!r.ok) {
+      return r.json().then(function (b) { throw new Error(b.error || ("Request failed: " + r.status)); });
+    }
+    return r.json();
+  }
+
+  function _get(url) {
+    return fetch(BASE + url, { headers: _headers() }).then(_handle);
+  }
+
+  function _post(url, body) {
+    return fetch(BASE + url, {
+      method: "POST", headers: _headers(), body: JSON.stringify(body),
+    }).then(_handle);
+  }
+
+  function _put(url, body) {
+    return fetch(BASE + url, {
+      method: "PUT", headers: _headers(), body: JSON.stringify(body),
+    }).then(_handle);
+  }
+
+  function _patch(url, body) {
+    return fetch(BASE + url, {
+      method: "PATCH", headers: _headers(), body: JSON.stringify(body),
+    }).then(_handle);
+  }
+
+  function _delete(url) {
+    return fetch(BASE + url, { method: "DELETE", headers: _headers() }).then(_handle);
+  }
+
+  // ── Public API ────────────────────────────────────────────
+
+  return {
+
+    // ── Products (public) ─────────────────────────────────────
+
+    fetchProducts: function () { return _get("/api/products"); },
+
+    fetchProduct: function (id) { return _get("/api/products/" + id); },
+
+    // ── Orders ───────────────────────────────────────────────
+
+    createOrder: function (orderData) { return _post("/api/orders", orderData); },
+
+    // ── Email ────────────────────────────────────────────────
+
+    sendEmail: function (params) { return _post("/api/send-email", { templateParams: params }); },
+
+    // ── Auth ─────────────────────────────────────────────────
+
+    register: function (name, email, password) {
+      return _post("/api/auth/register", { name: name, email: email, password: password })
+        .then(function (d) { if (d.token && d.user) State.setSession(d.token, d.user); return d; });
+    },
+
+    login: function (email, password) {
+      return _post("/api/auth/login", { email: email, password: password })
+        .then(function (d) { if (d.token && d.user) State.setSession(d.token, d.user); return d; });
+    },
+
+    logout: function () {
+      fetch(BASE + "/api/auth/logout", { method: "POST", headers: _headers() }).catch(function () {});
+      State.clearSession();
+    },
+
+    adminLogin: function (password) { return _post("/api/auth/admin-login", { password: password }); },
+
+    // ── AI Chat ──────────────────────────────────────────────
+
+    chat: function (message, history, context) {
+      return fetch(CLOUDFLARE_WORKER_URL, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message, history: history, context: context }),
+      }).then(function (r) { if (!r.ok) throw new Error("Chat error: " + r.status); return r.json(); });
+    },
+
+    // ── Admin ─────────────────────────────────────────────────
+
+    fetchOrders:       function ()       { return _get("/api/orders"); },
+    createProduct:     function (data)   { return _post("/api/products", data); },
+    updateProduct:     function (id, d)  { return _put("/api/products/" + id, d); },
+    deleteProduct:     function (id)     { return _delete("/api/products/" + id); },
+    updateOrderStatus: function (id, st) { return _patch("/api/orders/" + id, { status: st }); },
+    fetchAnalytics:    function ()       { return _get("/api/admin/analytics"); },
+
+  };
+
+})();
+
+</script>
+<script>
+/* inlined: /src/js/performance.js */
+// ============================================================
+//  ARCTIC SHOP BD — Performance & UX  (Steps 5, 6, 7)
+//  1. Image lazy-load fade-in (IntersectionObserver)
+//  2. Skeleton product grid while API loads
+//  3. Button guard — prevents double-clicks
+//  4. Offline / online detection
+//  5. Error banner (global fetch failures)
+//  6. Products cache (sessionStorage, 5-minute TTL)
+//  7. Field error shake + clear on input
+// ============================================================
+
+// ── 1. Image lazy-load fade-in ────────────────────────────
+(function initImageFadeIn() {
+  // Add .loaded class once the image is actually in the viewport
+  // and the browser has decoded it.
+  function markLoaded(img) {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add("loaded");
+      return;
+    }
+    img.addEventListener("load",  function () { img.classList.add("loaded"); }, { once: true });
+    img.addEventListener("error", function () { img.classList.add("loaded"); }, { once: true }); // fade in even on error
+  }
+
+  // Observe all lazy images already in the DOM
+  function attachAll() {
+    document.querySelectorAll("img[loading='lazy']").forEach(markLoaded);
+    // Also handle non-lazy images (hero etc.)
+    document.querySelectorAll("img:not([loading='lazy'])").forEach(function (img) {
+      img.classList.add("loaded");
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", attachAll);
+
+  // MutationObserver: catch images injected dynamically (product cards, cart items)
+  var imgObs = new MutationObserver(function (mutations) {
+    mutations.forEach(function (m) {
+      m.addedNodes.forEach(function (node) {
+        if (node.nodeType !== 1) return;
+        var imgs = node.tagName === "IMG" ? [node] : Array.from(node.querySelectorAll("img"));
+        imgs.forEach(markLoaded);
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    imgObs.observe(document.body, { childList: true, subtree: true });
+  });
+})();
+
+// ── 2. Skeleton product grid ──────────────────────────────
+function showProductSkeleton(count) {
+  var grid = document.getElementById("pg");
+  if (!grid) return;
+  count = count || 6;
+  var h = "";
+  for (var i = 0; i < count; i++) {
+    h += "<div class='pc-skeleton'>" +
+           "<div class='sk-img skeleton'></div>" +
+           "<div class='sk-body'>" +
+             "<div class='sk-line wide skeleton'></div>" +
+             "<div class='sk-line med skeleton'></div>" +
+             "<div class='sk-line narrow skeleton'></div>" +
+             "<div class='sk-btn skeleton'></div>" +
+           "</div>" +
+         "</div>";
+  }
+  grid.innerHTML = h;
+}
+
+function hideProductSkeleton() {
+  // Actual renderProds() replaces the skeleton — nothing extra needed.
+  // This is a hook in case you need to do cleanup.
+}
+
+// ── 3. Button guard: prevent double-clicks ────────────────
+// Usage: wrap any async handler: guardBtn(el, asyncFn)
+function guardBtn(btn, fn) {
+  if (!btn || btn.disabled || btn.dataset.busy === "1") return;
+  btn.dataset.busy = "1";
+  btn.disabled = true;
+  var prev = btn.innerHTML;
+
+  var p = fn();
+  if (p && typeof p.finally === "function") {
+    p.finally(function () {
+      btn.disabled = false;
+      btn.dataset.busy = "0";
+    });
+  } else {
+    // Sync fallback
+    btn.disabled = false;
+    btn.dataset.busy = "0";
+  }
+}
+
+// ── 4. Offline / online detection ─────────────────────────
+(function initOfflineBar() {
+  var bar = null;
+
+  function getBar() {
+    if (!bar) {
+      bar = document.getElementById("offline-bar");
+      if (!bar) {
+        bar = document.createElement("div");
+        bar.id = "offline-bar";
+        bar.innerHTML = "<div class='offline-dot'></div> You're offline — orders cannot be placed until you reconnect.";
+        document.body.appendChild(bar);
+      }
+    }
+    return bar;
+  }
+
+  function check() {
+    getBar().classList.toggle("show", !navigator.onLine);
+  }
+
+  window.addEventListener("online",  check);
+  window.addEventListener("offline", check);
+  document.addEventListener("DOMContentLoaded", check);
+})();
+
+// ── 5. Global error banner ────────────────────────────────
+var _errorBannerTimer = null;
+
+function showErrorBanner(msg) {
+  var b = document.getElementById("error-banner");
+  if (!b) {
+    b = document.createElement("div");
+    b.id = "error-banner";
+    b.innerHTML = "<span id='error-banner-msg'></span>" +
+      "<button id='error-banner-close' onclick='hideErrorBanner()' aria-label='Close'>✕</button>";
+    document.body.appendChild(b);
+  }
+  var m = document.getElementById("error-banner-msg");
+  if (m) m.textContent = msg;
+  b.classList.add("show");
+  clearTimeout(_errorBannerTimer);
+  _errorBannerTimer = setTimeout(hideErrorBanner, 7000);
+}
+
+function hideErrorBanner() {
+  var b = document.getElementById("error-banner");
+  if (b) b.classList.remove("show");
+}
+
+// ── 6. Products cache (sessionStorage, 5-minute TTL) ──────
+var CACHE_KEY = "arcbd_products_cache";
+var CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+function getCachedProducts() {
+  try {
+    var raw = sessionStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    var obj = JSON.parse(raw);
+    if (Date.now() - obj.ts > CACHE_TTL) {
+      sessionStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return obj.products;
+  } catch (e) { return null; }
+}
+
+function setCachedProducts(products) {
+  try {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), products: products }));
+  } catch (e) {}
+}
+
+function bustProductCache() {
+  try { sessionStorage.removeItem(CACHE_KEY); } catch (e) {}
+}
+
+// ── 7. Field error helpers ────────────────────────────────
+// Shake an input and show inline error message below it
+function showFieldError(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add("err");
+
+  // Create or find error text node
+  var errEl = document.getElementById(id + "-err");
+  if (!errEl) {
+    errEl = document.createElement("div");
+    errEl.id = id + "-err";
+    errEl.className = "field-err";
+    el.parentNode.insertBefore(errEl, el.nextSibling);
+  }
+  errEl.textContent = msg;
+  errEl.classList.add("show");
+}
+
+function clearFieldError(id) {
+  var el    = document.getElementById(id);
+  var errEl = document.getElementById(id + "-err");
+  if (el)    el.classList.remove("err");
+  if (errEl) errEl.classList.remove("show");
+}
+
+// Auto-clear field errors on input
+document.addEventListener("DOMContentLoaded", function () {
+  ["cn","cp","ce","ca","cc","cdi","cn2","bkash-trx","nagad-trx"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", function () {
+        clearFieldError(id);
+      });
+    }
+  });
+});
+
+// ── 8. Passive fetch error handler ────────────────────────
+// Wraps window.fetch to catch network-level failures globally
+// and show the offline banner / error banner.
+(function patchFetch() {
+  var origFetch = window.fetch;
+  window.fetch = function () {
+    return origFetch.apply(this, arguments).catch(function (err) {
+      if (!navigator.onLine) {
+        // Already shown by offline bar — no extra banner needed
+      } else {
+        console.warn("[Arctic] Fetch failed:", err.message);
+      }
+      throw err; // re-throw so callers can handle
+    });
+  };
+})();
+
+// ── 9. IntersectionObserver for cart drawer images ────────
+// Cart items are added dynamically — run observer on open
+function observeCartImages() {
+  var drawer = document.getElementById("cart-body");
+  if (!drawer) return;
+  drawer.querySelectorAll("img[loading='lazy']").forEach(function (img) {
+    if (img.complete) { img.classList.add("loaded"); return; }
+    img.addEventListener("load",  function () { img.classList.add("loaded"); }, { once: true });
+    img.addEventListener("error", function () { img.classList.add("loaded"); }, { once: true });
+  });
+}
+
+</script>
+<script>
+/* inlined: /src/js/security.js */
+// ============================================================
+//  ARCTIC SHOP BD — Security & Auth UI  (Step 4)
+//  Runs before any other JS. Sets up:
+//  1. Input length guards on all dynamic forms
+//  2. Session-expired event handler
+//  3. Auth modal (login / register) for customers
+//  4. Passive XSS protection: validates data before render
+// ============================================================
+
+// ── 1. Input max-length enforcement ──────────────────────
+// Cloudflare Pages serves these limits at the network level too,
+// but we enforce them in JS for instant feedback.
+var INPUT_LIMITS = {
+  "cn":          80,   // customer name
+  "cp":          20,   // phone
+  "ce":         120,   // email
+  "ca":         200,   // address
+  "cc":          60,   // city
+  "cdi":         60,   // district
+  "cn2":        500,   // delivery notes
+  "bkash-trx":   20,
+  "nagad-trx":   20,
+  "promo-input": 20,
+  "search-input":80,
+  "chat-input":  500,
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  Object.keys(INPUT_LIMITS).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute("maxlength", INPUT_LIMITS[id]);
+    el.addEventListener("input", function () {
+      if (this.value.length > INPUT_LIMITS[id]) {
+        this.value = this.value.slice(0, INPUT_LIMITS[id]);
+      }
+    });
+  });
+});
+
+// ── 2. Session-expired event ──────────────────────────────
+// Fired by API._handle() whenever any request returns 401.
+window.addEventListener("arctic:session-expired", function () {
+  toast("Your session has expired. Please log in again.", "warn");
+  // If auth modal is available, open it
+  if (typeof openAuthModal === "function") openAuthModal("login");
+});
+
+// ── 3. Customer Auth Modal ────────────────────────────────
+// A lightweight login/register UI injected at runtime.
+// Only shown if the user explicitly clicks "My Account".
+
+var _authMode    = "login";   // "login" | "register"
+var _authPending = false;
+
+function openAuthModal(mode) {
+  _authMode = mode || "login";
+  _renderAuthModal();
+  var ov = document.getElementById("auth-overlay");
+  if (ov) ov.classList.add("open");
+  setTimeout(function () {
+    var el = document.getElementById("auth-email");
+    if (el) el.focus();
+  }, 150);
+}
+
+function closeAuthModal() {
+  var ov = document.getElementById("auth-overlay");
+  if (ov) ov.classList.remove("open");
+  _authPending = false;
+}
+
+function switchAuthMode() {
+  _authMode = _authMode === "login" ? "register" : "login";
+  _renderAuthModal();
+  setTimeout(function () {
+    var el = document.getElementById("auth-email");
+    if (el) el.focus();
+  }, 50);
+}
+
+function _renderAuthModal() {
+  var isLogin = _authMode === "login";
+  var ov = document.getElementById("auth-overlay");
+  if (!ov) {
+    ov = document.createElement("div");
+    ov.id        = "auth-overlay";
+    ov.className = "auth-ov";
+    ov.setAttribute("role",       "dialog");
+    ov.setAttribute("aria-modal", "true");
+    ov.setAttribute("aria-label", "Account");
+    ov.addEventListener("click", function (e) { if (e.target === ov) closeAuthModal(); });
+    document.body.appendChild(ov);
+
+    // Inject auth styles once
+    if (!document.getElementById("auth-styles")) {
+      var s = document.createElement("style");
+      s.id = "auth-styles";
+      s.textContent = [
+        ".auth-ov{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);z-index:880;",
+        "  display:flex;align-items:center;justify-content:center;padding:20px;",
+        "  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}",
+        ".auth-ov.open{opacity:1;visibility:visible;}",
+        ".auth-box{background:rgba(255,255,255,0.98);border:1px solid rgba(0,0,0,0.1);",
+        "  width:min(420px,100%);padding:44px 36px;position:relative;",
+        "  animation:scIn .3s cubic-bezier(.34,1.56,.64,1);}",
+        ".auth-close{position:absolute;top:14px;right:16px;background:none;border:none;",
+        "  color:rgba(17,17,17,0.4);font-size:22px;cursor:pointer;transition:color .2s;line-height:1;}",
+        ".auth-close:hover{color:#111;}",
+        ".auth-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;font-style:italic;margin-bottom:4px;}",
+        ".auth-sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;",
+        "  color:rgba(17,17,17,0.4);margin-bottom:28px;}",
+        ".auth-f{margin-bottom:14px;}",
+        ".auth-f label{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;",
+        "  color:rgba(17,17,17,0.55);margin-bottom:7px;}",
+        ".auth-f input{width:100%;background:rgba(17,17,17,0.04);border:1px solid rgba(0,0,0,0.15);",
+        "  color:#111;padding:13px 15px;font-family:'Inter',sans-serif;font-size:14px;outline:none;",
+        "  transition:border-color .2s;}",
+        ".auth-f input:focus{border-color:#111;}",
+        ".auth-f input.err{border-color:#e8325a;}",
+        ".auth-err{font-size:11px;color:#e8325a;margin-bottom:14px;min-height:16px;",
+        "  font-family:'DM Mono',monospace;letter-spacing:1px;}",
+        ".auth-btn{width:100%;background:#111;color:#fff;border:none;padding:16px;",
+        "  font-family:'Inter',sans-serif;font-size:10px;font-weight:800;letter-spacing:3px;",
+        "  text-transform:uppercase;cursor:pointer;transition:background .2s;margin-bottom:14px;",
+        "  position:relative;}",
+        ".auth-btn:hover{background:#333;}",
+        ".auth-btn:disabled{opacity:0.5;cursor:not-allowed;}",
+        ".auth-btn .spin{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);",
+        "  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}",
+        ".auth-btn.loading .btn-txt{display:none;}",
+        ".auth-btn.loading .spin{display:block;}",
+        ".auth-switch{text-align:center;font-size:12px;color:rgba(17,17,17,0.5);}",
+        ".auth-switch button{background:none;border:none;color:#111;font-weight:700;cursor:pointer;",
+        "  text-decoration:underline;font-size:12px;transition:color .2s;}",
+        ".auth-switch button:hover{color:rgba(17,17,17,0.6);}",
+        ".auth-user-bar{display:flex;align-items:center;gap:10px;padding:8px 12px;",
+        "  background:rgba(17,17,17,0.06);border:1px solid rgba(0,0,0,0.1);margin-bottom:16px;",
+        "  font-size:12px;color:rgba(17,17,17,0.7);}",
+      ].join("");
+      document.head.appendChild(s);
+    }
+  }
+
+  var isReg = _authMode === "register";
+  ov.innerHTML = (
+    "<div class='auth-box'>" +
+      "<button class='auth-close' onclick='closeAuthModal()' aria-label='Close'>✕</button>" +
+      "<div class='auth-title'>" + (isReg ? "Create Account" : "Welcome Back") + "</div>" +
+      "<div class='auth-sub'>" + (isReg ? "Join Arctic Shop BD" : "Sign in to your account") + "</div>" +
+      "<div class='auth-err' id='auth-err'></div>" +
+      (isReg ? "<div class='auth-f'><label>Full Name</label><input id='auth-name' type='text' placeholder='Your name' maxlength='80' autocomplete='name'/></div>" : "") +
+      "<div class='auth-f'><label>Email</label><input id='auth-email' type='email' placeholder='your@email.com' maxlength='120' autocomplete='email'/></div>" +
+      "<div class='auth-f'><label>Password</label><input id='auth-pass' type='password' placeholder='" + (isReg ? "Min 8 characters" : "Your password") + "' maxlength='200' autocomplete='" + (isReg ? "new-password" : "current-password") + "' onkeydown='if(event.key===\"Enter\")submitAuth()'/></div>" +
+      "<button class='auth-btn' id='auth-submit-btn' onclick='submitAuth()'>" +
+        "<span class='btn-txt'>" + (isReg ? "Create Account" : "Sign In") + "</span>" +
+        "<div class='spin'></div>" +
+      "</button>" +
+      "<div class='auth-switch'>" + (isReg ? "Already have an account? " : "New to Arctic Shop? ") +
+        "<button onclick='switchAuthMode()'>" + (isReg ? "Sign In" : "Create Account") + "</button>" +
+      "</div>" +
+    "</div>"
+  );
+}
+
+function submitAuth() {
+  if (_authPending) return;
+  var isReg   = _authMode === "register";
+  var nameEl  = document.getElementById("auth-name");
+  var emailEl = document.getElementById("auth-email");
+  var passEl  = document.getElementById("auth-pass");
+  var errEl   = document.getElementById("auth-err");
+  var btn     = document.getElementById("auth-submit-btn");
+
+  var name  = nameEl  ? nameEl.value.trim()  : "";
+  var email = emailEl ? emailEl.value.trim()  : "";
+  var pass  = passEl  ? passEl.value          : "";
+
+  // Client-side validation
+  var err = "";
+  if (isReg && (!name || name.length < 2)) err = "Name must be at least 2 characters.";
+  else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err = "Please enter a valid email.";
+  else if (!pass || (isReg && pass.length < 8)) err = isReg ? "Password must be at least 8 characters." : "Please enter your password.";
+
+  if (err) { errEl.textContent = err; return; }
+  errEl.textContent = "";
+
+  _authPending = true;
+  btn.classList.add("loading");
+  btn.disabled = true;
+
+  var promise = isReg
+    ? API.register(name, email, pass)
+    : API.login(email, pass);
+
+  promise
+    .then(function (data) {
+      closeAuthModal();
+      _updateNavForUser(State.getUser());
+      toast("✓ " + (isReg ? "Account created! Welcome to Arctic Shop BD." : "Welcome back, " + (State.getUser() || {}).name + "!"), "success");
+    })
+    .catch(function (e) {
+      errEl.textContent = e.message || "Authentication failed. Please try again.";
+    })
+    .finally(function () {
+      _authPending = false;
+      btn.classList.remove("loading");
+      btn.disabled = false;
+    });
+}
+
+// ── 4. Update nav when user is logged in ─────────────────
+function _updateNavForUser(user) {
+  // Find or create the account nav button
+  var btn = document.getElementById("nav-account-btn");
+  if (!btn) return;
+  if (user) {
+    btn.textContent = user.name ? user.name.split(" ")[0] : "Account";
+    btn.title       = "Signed in as " + (user.email || "");
+  } else {
+    btn.textContent = "Account";
+    btn.title       = "Sign in";
+  }
+}
+
+// ── 5. Boot: restore session from State ───────────────────
+(function initAuth() {
+  var user = State.getUser();
+  if (user) {
+    // Restore nav label on page load if session exists
+    document.addEventListener("DOMContentLoaded", function () {
+      _updateNavForUser(user);
+    });
+  }
+})();
+
+</script>
+<script>
+/* inlined: /src/js/ui.js */
+// ============================================================
+//  ARCTIC SHOP BD — UI Utilities
+//  Shared helpers used by all components.
+// ============================================================
+
+// ── HTML escape (prevents XSS in innerHTML) ───────────────
+function esc(s) {
+  return String(s)
+    .replace(/&/g,  "&amp;")
+    .replace(/</g,  "&lt;")
+    .replace(/>/g,  "&gt;")
+    .replace(/"/g,  "&quot;")
+    .replace(/'/g,  "&#39;");
+}
+
+// ── Toast notifications ───────────────────────────────────
+function toast(msg, type) {
+  var w = document.getElementById("toast-wrap");
+  if (!w) return;
+  var t = document.createElement("div");
+  t.className = "toast " + (type || "");
+  t.innerHTML = msg;
+  w.appendChild(t);
+  setTimeout(function () { t.classList.add("show"); }, 10);
+  setTimeout(function () {
+    t.classList.remove("show");
+    setTimeout(function () { t.remove(); }, 400);
+  }, 4000);
+}
+
+// ── Stock label helpers ───────────────────────────────────
+function stockLabel(s) {
+  if (s <= 0) return "out";
+  if (s <= 3) return "low";
+  return "in";
+}
+
+function stockText(s) {
+  if (s <= 0) return "Out of Stock";
+  if (s <= 3) return "Only " + s + " left!";
+  return "In Stock";
+}
+
+function stockBadgeClass(s) {
+  if (s <= 0) return "stock-out";
+  if (s <= 3) return "stock-low";
+  return "stock-in";
+}
+
+// ── Product type helpers ──────────────────────────────────
+function isCustom(p) { return p.type === "custom"; }
+
+function getImg(p) { return (p && p.img) ? p.img : null; }
+
+// ── Cart badge bump animation ─────────────────────────────
+function updBadge() {
+  var count = State.getCartCount();
+  var el = document.getElementById("cart-count");
+  if (!el) return;
+  el.textContent = count;
+  el.classList.remove("bump");
+  void el.offsetWidth;
+  if (count > 0) el.classList.add("bump");
+  setTimeout(function () { el.classList.remove("bump"); }, 400);
+}
+
+// ── Wishlist badge ────────────────────────────────────────
+function updWLBadge() {
+  var cnt = State.getWishlist().length;
+  var el  = document.getElementById("wl-count");
+  if (!el) return;
+  el.textContent = cnt;
+  el.classList.toggle("show", cnt > 0);
+}
+
+// ── Rate limit: max 3 orders per 60-minute window ─────────
+function checkOrderRateLimit() {
+  var KEY    = "arcbd_order_times";
+  var WINDOW = 60 * 60 * 1000;
+  var MAX    = 3;
+  var now    = Date.now();
+  var times  = [];
+  try { times = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) {}
+  times = times.filter(function (t) { return now - t < WINDOW; });
+  if (times.length >= MAX) return false;
+  times.push(now);
+  try { localStorage.setItem(KEY, JSON.stringify(times)); } catch (e) {}
+  return true;
+}
+
+// ── Nav: solid background on scroll ──────────────────────
+function initNavScroll() {
+  var nav    = document.getElementById("nav");
+  var solid  = false;
+  var pending = false;
+  function tick() {
+    pending = false;
+    var want = window.scrollY > 60;
+    if (want !== solid) { solid = want; nav.classList.toggle("solid", want); }
+  }
+  window.addEventListener("scroll", function () {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(tick);
+  }, { passive: true });
+}
+
+// ── Mobile menu ───────────────────────────────────────────
+function togMob() {
+  var m  = document.getElementById("mob-menu");
+  var h  = document.getElementById("ham");
+  var op = m.classList.toggle("open");
+  var sp = h.querySelectorAll("span");
+  if (op) {
+    sp[0].style.transform = "rotate(45deg) translate(5px,5px)";
+    sp[1].style.opacity   = "0";
+    sp[2].style.transform = "rotate(-45deg) translate(5px,-5px)";
+  } else {
+    sp.forEach(function (s) { s.style.transform = ""; s.style.opacity = ""; });
+  }
+}
+
+function closeMob() {
+  document.getElementById("mob-menu").classList.remove("open");
+  document.getElementById("ham").querySelectorAll("span").forEach(function (s) {
+    s.style.transform = ""; s.style.opacity = "";
+  });
+}
+
+// ── FAQ accordion ─────────────────────────────────────────
+function tFaq(el) { el.closest(".faq-item").classList.toggle("open"); }
+
+// ── Scroll reveal (IntersectionObserver) ─────────────────
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function (en) {
+    en.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("vis"); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".rv").forEach(function (el) { obs.observe(el); });
+}
+
+// ── Zoom overlay ─────────────────────────────────────────
+function openZoom(src, alt) {
+  if (!src) return;
+  var img = document.getElementById("zoom-img");
+  var ov  = document.getElementById("zoom-overlay");
+  img.src = src; img.alt = alt || "Product image";
+  ov.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeZoom() {
+  document.getElementById("zoom-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ── Search overlay ────────────────────────────────────────
+function openSearch() {
+  document.getElementById("search-overlay").classList.add("open");
+  setTimeout(function () { document.getElementById("search-input").focus(); }, 200);
+}
+
+function closeSearch() {
+  document.getElementById("search-overlay").classList.remove("open");
+}
+
+function doSearch(q) {
+  var r = document.getElementById("search-results");
+  if (!q.trim()) { r.innerHTML = ""; return; }
+  var products = State.getProducts();
+  var matches = products.filter(function (p) {
+    return p.name.toLowerCase().indexOf(q.toLowerCase()) >= 0 ||
+           (p.ed  && p.ed.toLowerCase().indexOf(q.toLowerCase()) >= 0);
+  });
+  var h = "";
+  for (var i = 0; i < matches.length; i++) {
+    var p = matches[i];
+    h += "<div class='sr-item' onclick='closeSearch();openModal(" + p.id + ")'>" +
+         esc(p.name) + (p.price ? " — ৳" + p.price : " — Custom") + "</div>";
+  }
+  r.innerHTML = h || "<div class='sr-item' style='opacity:.5;cursor:default'>No results found</div>";
+}
+
+// ── Size guide ────────────────────────────────────────────
+function openSizeGuide() {
+  document.getElementById("size-guide-modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSizeGuide() {
+  document.getElementById("size-guide-modal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ── Global ESC key handler ────────────────────────────────
+function initEscKey() {
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeZoom();
+      closeSearch();
+      if (typeof closeModal    === "function") closeModal();
+      if (typeof closeCart     === "function") closeCart();
+      if (typeof closeCheckout === "function") closeCheckout();
+      closeSizeGuide();
+      if (typeof closeWishlist === "function") closeWishlist();
+    }
+  });
+}
+
+// ── Page loader dismiss ───────────────────────────────────
+function initLoader() {
+  function dismissLoader() {
+    var ld = document.getElementById("loader");
+    if (!ld || ld.classList.contains("gone")) return;
+    ld.classList.add("gone");
+
+    function animateHero() {
+      if (window.gsap) {
+        gsap.to(
+          ".hero-content .a1, .hero-content .a2, .hero-content .a3, .hero-content .a4, .hero-stats.a5",
+          { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: 0.15, delay: 0.2 }
+        );
+      } else {
+        var els = document.querySelectorAll(
+          ".hero-content .a1,.hero-content .a2,.hero-content .a3,.hero-content .a4,.hero-stats.a5"
+        );
+        els.forEach(function (el, i) {
+          el.style.transition = "opacity 0.8s ease " + (i * 0.15) + "s, transform 0.8s ease " + (i * 0.15) + "s";
+          el.style.opacity    = "1";
+          el.style.transform  = "translateY(0)";
+        });
+      }
+    }
+
+    if (window.gsap) {
+      animateHero();
+    } else {
+      var waited = 0;
+      var check  = setInterval(function () {
+        waited += 50;
+        if (window.gsap || waited >= 1000) { clearInterval(check); animateHero(); }
+      }, 50);
+    }
+  }
+
+  var isMobile = window.matchMedia("(max-width:768px)").matches;
+  var delay    = isMobile ? 800 : 1600;
+  setTimeout(dismissLoader, delay);
+  window.addEventListener("load", function () { setTimeout(dismissLoader, isMobile ? 300 : 600); });
+}
+
+// ── About section images ──────────────────────────────────
+function initAboutImgs() {
+  var products    = State.getProducts();
+  var imgProducts = products.filter(function (p) { return p.aboutImg && p.img; });
+  var slots       = ["ai1", "ai2", "ai3"];
+  for (var i = 0; i < slots.length; i++) {
+    var el = document.getElementById(slots[i]);
+    if (el && imgProducts[i]) el.src = imgProducts[i].img;
+  }
+}
+
+// ── Copyright year ────────────────────────────────────────
+function initCopyYear() {
+  var el = document.getElementById("copy-year");
+  if (el) el.textContent = new Date().getFullYear();
+}
+
+// ── Ticker ────────────────────────────────────────────────
+function buildTicker() {
+  var words = [
+    "WE MAKE PERFECT", "ARCTIC SHOP BD", "GRAPHIC TEES", "STREETWEAR BD",
+    "BOLD DESIGNS", "FREE DELIVERY", "PREMIUM COTTON", "INSTANT EMAIL ORDERS",
+  ];
+  var el  = document.getElementById("ticker");
+  if (!el) return;
+  var all = words.concat(words);
+  var h   = "";
+  for (var i = 0; i < all.length; i++) { h += "<span class='tk-item'>" + all[i] + " ✦</span>"; }
+  el.innerHTML = h;
+}
+
+// ── GSAP: scroll reveal + product cards ──────────────────
+function initGSAP() {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Text scramble for .sl labels
+  var scrambleChars = "!<>-_/[]{}=+*^?#ABCXYZ01234";
+  function scrambleEl(el) {
+    var original = el.textContent;
+    var len      = original.length;
+    var steps    = Math.min(26, Math.max(14, len + 6));
+    var stepMs   = 620 / steps;
+    var progress = 0;
+    el.style.opacity = "1";
+    var timer = setInterval(function () {
+      progress++;
+      var reveal = Math.floor((progress / steps) * len);
+      var out    = "";
+      for (var i = 0; i < len; i++) {
+        var c = original.charAt(i);
+        if (i < reveal || c === " " || c.charCodeAt(0) > 127) { out += c; }
+        else { out += scrambleChars.charAt(Math.floor(Math.random() * scrambleChars.length)); }
+      }
+      el.textContent = out;
+      if (progress >= steps) { clearInterval(timer); el.textContent = original; }
+    }, stepMs);
+  }
+
+  var labels = document.querySelectorAll(".sl");
+  if (labels.length) {
+    gsap.set(labels, { opacity: 0, y: 20 });
+    labels.forEach(function (lbl) {
+      ScrollTrigger.create({
+        trigger: lbl, start: "top 92%", once: true,
+        onEnter: function () {
+          gsap.to(lbl, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+          scrambleEl(lbl);
+        },
+      });
+    });
+  }
+
+  // Letter-by-letter .sh2 headings
+  document.querySelectorAll(".sh2").forEach(function (h) {
+    if (h.__splitDone) return;
+    h.__splitDone = true;
+    function splitNode(node) {
+      if (node.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        node.nodeValue.split("").forEach(function (ch) {
+          if (ch === " ") { frag.appendChild(document.createTextNode(" ")); return; }
+          var s       = document.createElement("span");
+          s.className = "letter";
+          s.textContent = ch;
+          s.style.display    = "inline-block";
+          s.style.willChange = "transform,opacity,filter";
+          frag.appendChild(s);
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1) {
+        Array.from(node.childNodes).forEach(splitNode);
+      }
+    }
+    Array.from(h.childNodes).forEach(splitNode);
+    var letters = h.querySelectorAll(".letter");
+    if (!letters.length) return;
+    gsap.set(letters, { opacity: 0, y: 18, filter: "blur(6px)" });
+    ScrollTrigger.create({
+      trigger: h, start: "top 88%", once: true,
+      onEnter: function () {
+        gsap.to(letters, {
+          opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55,
+          stagger: 0.035, ease: "power2.out",
+          onComplete: function () {
+            letters.forEach(function (l) { l.style.willChange = "auto"; });
+          },
+        });
+      },
+    });
+  });
+
+  // Product card staggered entrance
+  applyCardAnimations();
+
+  var grid = document.getElementById("pg");
+  if (grid) {
+    var mo = new MutationObserver(function () {
+      ScrollTrigger.getAll().forEach(function (st) {
+        if (st.trigger && !document.body.contains(st.trigger)) st.kill();
+      });
+      applyCardAnimations();
+    });
+    mo.observe(grid, { childList: true });
+  }
+}
+
+function applyCardAnimations() {
+  var grid = document.getElementById("pg");
+  if (!grid) return;
+  var cards = grid.querySelectorAll(".pc");
+  if (!cards.length) return;
+
+  // Always make cards visible first (guarantees they show)
+  cards.forEach(function(c) { c.style.opacity = "1"; c.style.transform = "none"; });
+
+  // Then add GSAP scroll animation only if available
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.batch(cards, {
+    start: "top 95%",
+    onEnter: function (batch) {
+      gsap.fromTo(batch,
+        { opacity: 0, y: 48, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: { each: 0.09, from: "start" }, ease: "power3.out", overwrite: true }
+      );
+    },
+    once: true,
+  });
+  ScrollTrigger.refresh();
+}
+
+// ── Magnetic buttons (GSAP) ───────────────────────────────
+function initMagnetic() {
+  if (!window.gsap || (window.matchMedia && window.matchMedia("(hover:none)").matches)) return;
+  var RADIUS = 50, STRENGTH = 0.45;
+  document.querySelectorAll(".btn-gl").forEach(function (btn) {
+    var qx   = gsap.quickTo(btn, "x", { duration: 0.45, ease: "power3.out" });
+    var qy   = gsap.quickTo(btn, "y", { duration: 0.45, ease: "power3.out" });
+    var rect = null;
+    function readRect() { rect = btn.getBoundingClientRect(); }
+    btn.addEventListener("mouseenter", readRect);
+    window.addEventListener("resize", function () { rect = null; }, { passive: true });
+    btn.addEventListener("mousemove", function (e) {
+      if (!rect) readRect();
+      var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+      var dx = e.clientX - cx,            dy = e.clientY - cy;
+      var dist  = Math.hypot(dx, dy);
+      var reach = Math.max(rect.width, rect.height) / 2 + RADIUS;
+      if (dist < reach) { qx(dx * STRENGTH); qy(dy * STRENGTH); } else { qx(0); qy(0); }
+    });
+    btn.addEventListener("mouseleave", function () { qx(0); qy(0); });
+  });
+}
+
+// ── 3D tilt on product cards (GSAP) ──────────────────────
+function initTilt() {
+  if (!window.gsap || (window.matchMedia && window.matchMedia("(hover:none)").matches)) return;
+  var MAX = 8;
+  function attach(card) {
+    if (card.__tiltBound) return;
+    card.__tiltBound = true;
+    var qx   = gsap.quickTo(card, "rotationX", { duration: 0.5, ease: "power2.out" });
+    var qy   = gsap.quickTo(card, "rotationY", { duration: 0.5, ease: "power2.out" });
+    var qs   = gsap.quickTo(card, "scale",     { duration: 0.5, ease: "power2.out" });
+    var rect = null;
+    function readRect() { rect = card.getBoundingClientRect(); }
+    card.addEventListener("mouseenter", readRect);
+    card.addEventListener("mousemove", function (e) {
+      if (!rect) readRect();
+      var px = (e.clientX - rect.left) / rect.width  - 0.5;
+      var py = (e.clientY - rect.top)  / rect.height - 0.5;
+      qy(px * MAX * 2); qx(-py * MAX * 2); qs(1.02);
+    });
+    card.addEventListener("mouseleave", function () { rect = null; qx(0); qy(0); qs(1); });
+  }
+  document.querySelectorAll(".pc").forEach(attach);
+  var grid = document.querySelector(".pg");
+  if (grid) {
+    var mo = new MutationObserver(function () { grid.querySelectorAll(".pc").forEach(attach); });
+    mo.observe(grid, { childList: true });
+  }
+}
+
+// ── Lenis smooth scroll ───────────────────────────────────
+function initLenis() {
+  if (!window.Lenis) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  var lenis = new Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4, syncTouch: false });
+  if (window.ScrollTrigger) {
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href");
+      if (id && id.length > 1) {
+        var t = document.querySelector(id);
+        if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -60, duration: 1.0 }); }
+      }
+    });
+  });
+  window.__lenis = lenis;
+}
+
+// ── Video lazy load after intro ───────────────────────────
+function initVideos() {
+  var videos = document.querySelectorAll(".hero-bg-desktop, .hero-bg-mobile");
+  videos.forEach(function (vid) {
+    vid.setAttribute("preload", "none");
+    function tryPlay() {
+      var p = vid.play();
+      if (p && typeof p.catch === "function") p.catch(function () {});
+    }
+    setTimeout(tryPlay, 500);
+    window.addEventListener("arctic:entered", tryPlay, { once: true });
+  });
+}
+
+// ── Checkout progress bar ─────────────────────────────────
+function initCheckoutProgress() {
+  var stepFields = [
+    ["cn", "cp", "ce"],
+    ["ca", "cc"],
+    [],
+    [],
+  ];
+
+  function getStepDone(idx) {
+    if (idx >= 2) return true;
+    return stepFields[idx].every(function (id) {
+      var el = document.getElementById(id);
+      return el && el.value.trim().length > 0;
+    });
+  }
+
+  function updateProgress() {
+    var steps = ["step-1", "step-2", "step-3", "step-4"].map(function (id) {
+      return document.getElementById(id);
+    });
+    var fill = document.getElementById("co-prog-fill");
+    if (!steps[0] || !fill) return;
+    var done = 0;
+    for (var i = 0; i < 3; i++) {
+      if (getStepDone(i)) done = i + 1; else break;
+    }
+    var current = Math.min(done, steps.length - 1);
+    steps.forEach(function (s, j) {
+      if (!s) return;
+      s.classList.remove("active", "done");
+      if (j < current)       s.classList.add("done");
+      else if (j === current) s.classList.add("active");
+    });
+    fill.style.width = [0, 33, 66, 100][current] + "%";
+  }
+
+  ["cn", "cp", "ce", "ca", "cc"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("input", updateProgress);
+  });
+
+  var origOpen = window.openCheckout;
+  window.openCheckout = function () {
+    if (origOpen) origOpen();
+    setTimeout(updateProgress, 50);
+  };
+  updateProgress();
+}
+
+// ── CINEMATIC INTRO ANIMATION ─────────────────────────────
+(function () {
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function animate(el, kf, opt) {
+    if (!el) return Promise.resolve();
+    return new Promise(function (resolve) {
+      var anim = el.animate(kf, Object.assign({ fill: 'forwards' }, opt || {}));
+      anim.onfinish = resolve;
+    });
+  }
+
+  function spawnParticles() {
+    var container = document.getElementById('particles');
+    if (!container) return;
+    for (var i = 0; i < 38; i++) {
+      (function (idx) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var size = Math.random() * 2 + 1;
+        p.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (Math.random()*100) + '%;top:' + (Math.random()*100) + '%;opacity:0;position:absolute;border-radius:50%;background:rgba(238,246,255,0.6)';
+        container.appendChild(p);
+        setTimeout(function () {
+          p.animate([
+            { opacity: 0, transform: 'translateY(0) scale(0)' },
+            { opacity: (Math.random() * 0.5 + 0.15), transform: 'translateY(-' + (Math.random()*120+60) + 'px) scale(1)' },
+            { opacity: 0, transform: 'translateY(-' + (Math.random()*200+120) + 'px) scale(0.5)' }
+          ], { duration: Math.random()*4000+3000, delay: Math.random()*2000, iterations: Infinity, easing: 'ease-in-out', fill: 'forwards' });
+        }, 800 + idx * 110);
+      })(i);
+    }
+  }
+
+  async function runIntro() {
+    var wipeTop = document.getElementById('wipe-top');
+    var wipeBot = document.getElementById('wipe-bot');
+    var beam = document.getElementById('beam');
+    var gridFloor = document.getElementById('grid-floor');
+    var logoBlock = document.getElementById('logo-block');
+    var overline = document.getElementById('overline');
+    var w1 = document.getElementById('w1');
+    var w2 = document.getElementById('w2');
+    var goldRule = document.getElementById('gold-rule');
+    var tagline = document.getElementById('tagline');
+    var bdBadge = document.getElementById('bd-badge');
+    var statsStrip = document.getElementById('stats-strip');
+    var ticker = document.getElementById('intro-ticker');
+    var cta = document.getElementById('cta');
+    var mist1 = document.getElementById('mist1');
+    var mist2 = document.getElementById('mist2');
+    var brandName = document.getElementById('brand-name');
+    var brackets = document.querySelectorAll('#intro-layer .bracket');
+    var cats = document.getElementById('cats');
+    var catPills = document.querySelectorAll('#intro-layer .cat-pill');
+    var replay = document.getElementById('intro-replay');
+
+    if (replay) replay.classList.remove('show');
+    [beam,gridFloor,logoBlock,overline,w1,w2,goldRule,tagline,bdBadge,statsStrip,ticker,cta,mist1,mist2,cats].forEach(function(el){ if(el){el.style.opacity='0';el.style.transform='';} });
+    brackets.forEach(function(b){b.style.opacity='0';b.style.transform='';});
+    catPills.forEach(function(p){p.style.opacity='0';p.style.transform='translateY(8px)';});
+    if(cta) cta.style.transform='translateY(12px)';
+    if(brandName) brandName.classList.remove('glitch');
+    if(wipeTop) wipeTop.style.transform='scaleY(1)';
+    if(wipeBot) wipeBot.style.transform='scaleY(1)';
+    var pc = document.getElementById('particles');
+    if(pc) pc.innerHTML='';
+
+    await wait(200);
+    await Promise.all([
+      animate(wipeTop,[{transform:'scaleY(1)'},{transform:'scaleY(0)'}],{duration:900,easing:'cubic-bezier(0.76,0,0.24,1)'}),
+      animate(wipeBot,[{transform:'scaleY(1)'},{transform:'scaleY(0)'}],{duration:900,easing:'cubic-bezier(0.76,0,0.24,1)'})
+    ]);
+    await wait(120);
+    animate(gridFloor,[{opacity:0,transform:'perspective(600px) rotateX(65deg) translateY(60%)'},{opacity:1,transform:'perspective(600px) rotateX(65deg) translateY(30%)'}],{duration:700,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(100);
+    animate(beam,[{opacity:0,top:'-100vh'},{opacity:0.85,top:'-20vh'},{opacity:0.6,top:'0vh'}],{duration:700,easing:'ease-out'});
+    await wait(150);
+    brackets.forEach(function(b,i){animate(b,[{opacity:0,transform:'scale(1.4)'},{opacity:1,transform:'scale(1)'}],{duration:350,delay:i*60,easing:'cubic-bezier(0.34,1.56,0.64,1)'});});
+    await wait(400);
+    [mist1,mist2].forEach(function(m,i){animate(m,[{opacity:0,transform:'scaleX(0)'},{opacity:1,transform:'scaleX(1)'}],{duration:600,delay:i*120,easing:'ease-out'});});
+    await wait(200);
+    if(logoBlock) logoBlock.style.opacity='1';
+    animate(overline,[{opacity:0,transform:'translateY(14px)',letterSpacing:'12px'},{opacity:1,transform:'translateY(0)',letterSpacing:'8px'}],{duration:700,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(350);
+    animate(w1,[{opacity:0,transform:'translateY(110%)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(180);
+    animate(w2,[{opacity:0,transform:'translateY(110%)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(500);
+    if(brandName) brandName.classList.add('glitch');
+    animate(beam,[{filter:'blur(1px)'},{filter:'blur(2px)'},{filter:'blur(1px)'}],{duration:300,easing:'ease-in-out'});
+    await wait(200);
+    if(brandName) brandName.classList.remove('glitch');
+    await wait(100);
+    if(goldRule) goldRule.style.opacity='1';
+    animate(goldRule,[{width:'0',opacity:0},{width:'100%',opacity:1}],{duration:700,easing:'ease-out'});
+    await wait(300);
+    animate(tagline,[{opacity:0,transform:'translateY(10px)',letterSpacing:'10px'},{opacity:1,transform:'translateY(0)',letterSpacing:'6px'}],{duration:600,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(300);
+    if(cats) cats.style.opacity='1';
+    catPills.forEach(function(p,i){animate(p,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:400,delay:i*80,easing:'cubic-bezier(0.16,1,0.3,1)'});});
+    await wait(300);
+    animate(bdBadge,[{opacity:0,transform:'scale(0.7) translateY(-4px)'},{opacity:1,transform:'scale(1) translateY(0)'}],{duration:450,easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+    await wait(300);
+    spawnParticles();
+    await wait(200);
+    animate(statsStrip,[{opacity:0,transform:'translateX(-50%) translateY(20px)'},{opacity:1,transform:'translateX(-50%) translateY(0)'}],{duration:600,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(250);
+    animate(ticker,[{opacity:0,transform:'translateY(100%)'},{opacity:1,transform:'translateY(0)'}],{duration:500,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    await wait(250);
+    animate(cta,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:500,easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+    setTimeout(function(){ if(beam) beam.animate([{opacity:0.6},{opacity:0.85},{opacity:0.6}],{duration:3500,iterations:Infinity,easing:'ease-in-out'}); },200);
+    await wait(800);
+    if(replay) replay.classList.add('show');
+  }
+
+  function enterSite() {
+    if (document.documentElement.classList.contains('entered')) return;
+    var flash = document.createElement('div');
+    Object.assign(flash.style, {position:'fixed',inset:'0',background:'rgba(17,17,17,0.18)',zIndex:'10002',pointerEvents:'none',opacity:'0',transition:'opacity .25s'});
+    document.body.appendChild(flash);
+    requestAnimationFrame(function(){ flash.style.opacity='1'; });
+    setTimeout(function(){
+      document.documentElement.classList.add('entered');
+      window.scrollTo(0,0);
+      flash.style.opacity='0';
+      window.dispatchEvent(new CustomEvent('arctic:entered'));
+      setTimeout(function(){ flash.remove(); },400);
+    },220);
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var ctaBtn = document.getElementById('cta');
+    var replayBtn = document.getElementById('intro-replay');
+    if(ctaBtn) ctaBtn.addEventListener('click', enterSite);
+    if(replayBtn) replayBtn.addEventListener('click', runIntro);
+    runIntro();
+  });
+})();
+
+</script>
+<script>
+/* inlined: /src/js/components/productCard.js */
+// ============================================================
+//  ARCTIC SHOP BD — Product Card Component
+//  Renders the product grid and filter buttons.
+// ============================================================
+
+// ── Render all product cards into #pg ────────────────────
+function renderProds(filter) {
+  filter = filter || "all";
+  var grid     = document.getElementById("pg");
+  if (!grid) return;
+
+  var products = State.getProducts();
+  var list     = filter === "all"
+    ? products
+    : products.filter(function (p) {
+        var tags = Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(function (t) { return t.trim(); });
+        return tags.indexOf(filter) >= 0;
+      });
+
+  var h = "";
+  for (var i = 0; i < list.length; i++) {
+    h += renderProductCard(list[i]);
+  }
+  grid.innerHTML = h || "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-family:\"DM Mono\",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase'>No products found</div>";
+
+  // Re-apply GSAP tilt after grid re-render
+  if (window.initTilt) initTilt();
+  if (window.applyCardAnimations) applyCardAnimations();
+}
+
+// ── Build HTML for a single product card ─────────────────
+function renderProductCard(p) {
+  var src  = getImg(p);
+  var isC  = isCustom(p);
+  var sl   = stockLabel(p.stock);
+  var sc   = stockBadgeClass(p.stock);
+  var st   = stockText(p.stock);
+
+  // Image or placeholder
+  var imgH = src
+    ? "<img class='pc-img' src='" + src + "' alt='" + esc(p.name) + "' loading='lazy' decoding='async'/>"
+    : "<div class='pc-art'>🛋</div>";
+
+  // Out-of-stock overlay
+  var outOverlay = (p.stock <= 0 && !isC)
+    ? "<div class='pc-out-overlay'><div class='pc-out-txt'>Out of Stock</div></div>"
+    : "";
+
+  // Badge
+  var bdg = p.badge
+    ? "<div class='pc-badge b-" + p.badge + "'>" + esc(p.bl) + "</div>"
+    : "";
+
+  // Primary action button
+  var addB = "";
+  if (isC) {
+    addB = "<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
+  } else if (p.stock > 0) {
+    addB = "<button class='pc-btn' onclick='addToCartFromGrid(" + p.id + ")'>⚡ Order Now</button>";
+  } else {
+    addB = "<button class='pc-btn' disabled>Out of Stock</button>";
+  }
+
+  // Stock badge
+  var stockH = "<div class='pc-stock'><span class='stock-badge " + sc + "'>" +
+    "<span style='width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;vertical-align:middle;margin-right:4px'></span>" +
+    st + "</span></div>";
+
+  // Exact count line
+  var countLine = "";
+  if (p.stock > 3)      countLine = "<div class='pc-stock-count'>" + p.stock + " in stock</div>";
+  else if (p.stock > 0) countLine = "<div class='pc-stock-count low-count'>Only " + p.stock + " left</div>";
+  else                  countLine = "<div class='pc-stock-count out-count'>Out of stock</div>";
+
+  return (
+    "<div class='pc'>" +
+      imgH +
+      "<div class='pc-shade'></div>" +
+      outOverlay +
+      bdg +
+      "<div class='pc-body'>" +
+        "<div class='pc-ed'>" + esc(p.ed) + "</div>" +
+        "<div class='pc-name'>" + esc(p.name) + "</div>" +
+        "<div class='pc-price'>" + (p.price ? "৳" + p.price.toLocaleString() : "Price on Request") + "</div>" +
+        stockH +
+        countLine +
+        "<div class='pc-acts'>" +
+          addB +
+          "<button class='pc-qv' onclick='openModal(" + p.id + ")'>👁</button>" +
+        "</div>" +
+      "</div>" +
+    "</div>"
+  );
+}
+
+// ── Add to cart from grid card (default size L) ───────────
+function addToCartFromGrid(pid) {
+  var result = State.addToCart(pid, "L", 1);
+  var p = State.getProduct(pid);
+  if (!p) return;
+
+  if (result === "out_of_stock") {
+    toast("Sorry, this item is out of stock!", "error");
+    return;
+  }
+  updBadge();
+  renderCart();
+  toast("✓ " + p.name + " (L) added to cart", "success");
+}
+
+// ── Build filter buttons ──────────────────────────────────
+function buildFilters() {
+  var wrap = document.getElementById("filters");
+  if (!wrap) return;
+
+  var products = State.getProducts();
+
+  // Count products per tag
+  var tagCounts = {};
+  products.forEach(function (p) {
+    var tags = Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(function (t) { return t.trim(); });
+    tags.forEach(function (t) { if (t) tagCounts[t] = (tagCounts[t] || 0) + 1; });
+  });
+
+  // Collect unique tags in order of first appearance
+  var seen = {}, tags = [];
+  products.forEach(function (p) {
+    var ptags = Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(function (t) { return t.trim(); });
+    ptags.forEach(function (t) { if (t && !seen[t]) { seen[t] = true; tags.push(t); } });
+  });
+
+  var h = "<button class='fb act' onclick='filterProducts(\"all\",this)'>All<span class='fb-count'>" + products.length + "</span></button>";
+  tags.forEach(function (slug) {
+    var label = FILTER_LABELS[slug] || (slug.charAt(0).toUpperCase() + slug.slice(1));
+    var cnt   = tagCounts[slug] || 0;
+    h += "<button class='fb' onclick='filterProducts(\"" + slug + "\",this)'>" + label + "<span class='fb-count'>" + cnt + "</span></button>";
+  });
+  wrap.innerHTML = h;
+}
+
+// ── Filter handler (called from inline onclick) ───────────
+function filterProducts(filter, btn) {
+  document.querySelectorAll(".fb").forEach(function (b) { b.classList.remove("act"); });
+  btn.classList.add("act");
+  renderProds(filter);
+}
+
+// ── Product count label ───────────────────────────────────
+function buildCountLabel() {
+  var el = document.getElementById("prod-count-label");
+  if (!el) return;
+  var products = State.getProducts();
+  var regular  = products.filter(function (p) { return !isCustom(p); }).length;
+  var hasCustom = products.some(function (p) { return isCustom(p); });
+  el.textContent = regular + " piece" + (regular !== 1 ? "s" : "") + (hasCustom ? " + Custom" : "");
+}
+
+// ── Re-render products after stock refresh ────────────────
+function refreshProductGrid() {
+  renderProds("all");
+  buildFilters();
+  buildCountLabel();
+}
+
+</script>
+<script>
+/* inlined: /src/js/components/cartDrawer.js */
+// ============================================================
+//  ARCTIC SHOP BD — Cart Drawer Component
+// ============================================================
+
+function openCart() {
+  document.getElementById("cart-overlay").classList.add("open");
+  document.getElementById("cart-drawer").classList.add("open");
+  renderCart();
+}
+
+function closeCart() {
+  document.getElementById("cart-overlay").classList.remove("open");
+  document.getElementById("cart-drawer").classList.remove("open");
+}
+
+function renderCart() {
+  var b    = document.getElementById("cart-body");
+  var f    = document.getElementById("cart-foot");
+  var cart = State.getCart();
+
+  if (!cart.length) {
+    b.innerHTML = "<div class='cart-empty'><div class='cart-empty-icon'>🛍</div><div class='cart-empty-txt'>Your cart is empty</div></div>";
+    f.style.display = "none";
+    return;
+  }
+
+  f.style.display = "block";
+  var h = "";
+  cart.forEach(function (it) {
+    var src = it.img;
+    var th  = src
+      ? "<img src='" + esc(src) + "' alt='" + esc(it.name) + "' loading='lazy' decoding='async'/>"
+      : "<div class='ci-thumb-icon'>🛋</div>";
+    h += "<div class='ci'>" +
+           "<div class='ci-thumb'>" + th + "</div>" +
+           "<div class='ci-info'>" +
+             "<div class='ci-name'>" + esc(it.name) + "</div>" +
+             "<div class='ci-meta'>Size: " + esc(it.sz) + "</div>" +
+             "<div class='ci-price'>" + (it.price ? "৳" + (it.price * it.qty).toLocaleString() : "Quote") + "</div>" +
+             "<div class='ci-qty'>" +
+               "<button class='qb' onclick='changeCartQty(" + it.cid + ",-1)'>−</button>" +
+               "<span class='qn'>" + it.qty + "</span>" +
+               "<button class='qb' onclick='changeCartQty(" + it.cid + ",1)'>+</button>" +
+             "</div>" +
+           "</div>" +
+           "<button class='ci-rm' onclick='removeCartItem(" + it.cid + ")'>✕</button>" +
+         "</div>";
+  });
+  b.innerHTML = h;
+
+  // Subtotal
+  var del    = State.getDeliveryFee();
+  var total  = State.getCartTotal();
+  var totEl  = document.getElementById("cart-total");
+  if (totEl) {
+    totEl.innerHTML = "৳" + total.toLocaleString() +
+      (del > 0 ? " <span style='font-size:11px;color:var(--muted)'>(+৳" + del + " delivery)</span>" : "");
+  }
+
+  // Free shipping progress bar
+  var thr    = SITE_CONFIG.delivery.freeThreshold;
+  var rem    = Math.max(0, thr - total);
+  var pct    = Math.min(100, Math.round(total / thr * 100));
+  var ship   = document.getElementById("cart-ship");
+  var msg    = document.getElementById("cart-ship-msg");
+  var fill   = document.getElementById("cart-ship-fill");
+  if (ship && msg && fill) {
+    if (total >= thr) {
+      ship.classList.add("unlocked");
+      msg.innerHTML = "🎉 You've unlocked <b>FREE shipping</b>!";
+    } else {
+      ship.classList.remove("unlocked");
+      msg.innerHTML = "🚚 Add <span class='cart-ship-amt'>৳" + rem.toLocaleString() + "</span> more for FREE shipping";
+    }
+    fill.style.width = pct + "%";
+  }
+
+  renderXsell();
+}
+
+function removeCartItem(cid) {
+  State.removeFromCart(cid);
+  updBadge();
+  renderCart();
+}
+
+function changeCartQty(cid, delta) {
+  var result = State.updateCartQty(cid, delta);
+  if (result === "exceeds_stock") {
+    var item = State.getCart().find(function (i) { return i.cid === cid; });
+    var p    = item ? State.getProduct(item.pid) : null;
+    if (p) toast("Only " + p.stock + " units available for " + p.name, "warn");
+    return;
+  }
+  renderCart();
+}
+
+// ── Cross-sell strip ──────────────────────────────────────
+function renderXsell() {
+  var strip   = document.getElementById("xsell-strip");
+  var itemsEl = document.getElementById("xsell-items");
+  if (!strip || !itemsEl) return;
+
+  var cart       = State.getCart();
+  var inCartIds  = cart.map(function (c) { return c.pid; });
+  var candidates = State.getProducts().filter(function (p) {
+    return !isCustom(p) && inCartIds.indexOf(p.id) < 0 && p.stock > 0;
+  });
+
+  if (!candidates.length) { strip.style.display = "none"; return; }
+
+  var show = candidates.slice(0, 4);
+  var h    = "";
+  show.forEach(function (p) {
+    var src = getImg(p);
+    var th  = src
+      ? "<img src='" + esc(src) + "' alt='" + esc(p.name) + "' loading='lazy'/>"
+      : "<div style='font-size:22px;display:flex;align-items:center;justify-content:center;height:100%'>🛋</div>";
+    h += "<div class='xsell-item' onclick='addToCartFromGrid(" + p.id + ");renderCart()'>" +
+           "<div class='xsell-thumb'>" + th + "</div>" +
+           "<div class='xsell-info'><div class='xsell-name'>" + esc(p.name) + "</div><div class='xsell-price'>৳" + p.price.toLocaleString() + "</div></div>" +
+         "</div>";
+  });
+  itemsEl.innerHTML = h;
+  strip.style.display = "block";
+}
+
+</script>
+<script>
+/* inlined: /src/js/components/modal.js */
+// ============================================================
+//  ARCTIC SHOP BD — Product Modal Component
+// ============================================================
+
+function openModal(pid) {
+  var p = State.getProduct(pid);
+  if (!p) return;
+
+  State.setModalProduct(pid);
+  var src  = getImg(p);
+  var imgs = (p.images && p.images.length) ? p.images : (src ? [src] : []);
+
+  // ── Art panel ────────────────────────────────────────────
+  var ah = "<button class='m-close' onclick='closeModal()'>✕</button>";
+  if (imgs.length > 1) {
+    ah += "<div class='modal-gallery'>";
+    ah += "<img class='modal-main-img' id='modal-main-img' src='" + esc(imgs[0]) + "' alt='" + esc(p.name) + "' loading='lazy' onclick='openZoom(\"" + esc(imgs[0]) + "\",\"" + esc(p.name) + "\")'  />";
+    ah += "<div class='modal-thumbs'>";
+    imgs.forEach(function (imgSrc, gi) {
+      ah += "<img class='modal-thumb" + (gi === 0 ? " active" : "") + "' src='" + esc(imgSrc) + "' alt='" + esc(p.name) + " view " + (gi + 1) + "' loading='lazy' onclick='switchModalImg(this,\"" + esc(imgSrc) + "\")'  />";
+    });
+    ah += "</div></div>";
+    ah += "<button class='zoom-btn' onclick='openZoom(document.getElementById(\"modal-main-img\").src,\"" + esc(p.name) + "\")' title='Zoom'>🔍 Zoom</button>";
+  } else if (src) {
+    ah += "<img src='" + esc(src) + "' alt='" + esc(p.name) + "' loading='lazy' decoding='async' onclick='openZoom(\"" + esc(src) + "\",\"" + esc(p.name) + "\")'/>";
+    ah += "<button class='zoom-btn' onclick='openZoom(\"" + esc(src) + "\",\"" + esc(p.name) + "\")' title='Zoom image'>🔍 Zoom</button>";
+  } else {
+    ah += "<div style='padding:40px;text-align:center;font-size:70px;opacity:.4'>🛻</div>";
+  }
+  document.getElementById("modal-art").innerHTML = ah;
+
+  // ── Body panel ───────────────────────────────────────────
+  var sl = stockLabel(p.stock);
+  var st = stockText(p.stock);
+  var sc = stockBadgeClass(p.stock);
+
+  // Stock count line
+  var stockCountH = "";
+  if (p.stock > 3)      stockCountH = "<div class='m-stock-count'>" + p.stock + " units available</div>";
+  else if (p.stock > 0) stockCountH = "<div class='m-stock-count low'>Only " + p.stock + " left — order soon</div>";
+  else                  stockCountH = "<div class='m-stock-count out'>Currently out of stock</div>";
+
+  var bh = "";
+  bh += "<div class='m-edition'>" + esc(p.ed) + "</div>";
+  bh += "<div class='m-name'>" + esc(p.name) + "</div>";
+  bh += "<div class='m-price'>" + (p.price ? "৳" + p.price.toLocaleString() : "Price on Request") + "</div>";
+  bh += "<div><span class='stock-badge " + sc + "'><span style='width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block'></span> " + st + "</span></div>";
+  bh += stockCountH;
+  bh += "<div class='m-desc'>" + esc(p.desc) + "</div>";
+
+  // Description details grid
+  if (p.descDetails) {
+    var dd   = p.descDetails;
+    var keys = Object.keys(dd);
+    var labels = { fabric: "Fabric", fit: "Fit", print: "Print", wash: "Wash", origin: "Origin" };
+    var rows = "";
+    keys.forEach(function (k) {
+      rows += "<div class='m-dd-row'><div class='m-dd-label'>" + (labels[k] || k) + "</div><div class='m-dd-val'>" + esc(dd[k]) + "</div></div>";
+    });
+    bh += "<div class='m-desc-details'>" + rows + "</div>";
+  }
+
+  // Size selector
+  if (!isCustom(p)) {
+    var state = State.getModalState();
+    bh += "<div><div class='m-sec' style='display:flex;align-items:center;justify-content:space-between;'>Select Size " +
+          "<button onclick='openSizeGuide()' style='background:none;border:none;color:var(--glow);font-family:\"DM Mono\",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:0;'>📏 Size Guide</button></div>" +
+          "<div class='size-grid' id='szg'>";
+    ["S", "M", "L", "XL", "XXL"].forEach(function (sz) {
+      bh += "<button class='sz" + (sz === state.size ? " sel" : "") + "' onclick='selModalSize(\"" + sz + "\",this)'>" + sz + "</button>";
+    });
+    bh += "</div></div>";
+
+    // Quantity row
+    bh += "<div><div class='m-sec'>Quantity</div>" +
+          "<div class='qty-row'>" +
+            "<button class='mqb' onclick='changeModalQty(-1)'>−</button>" +
+            "<span class='mqn' id='mqn'>" + state.qty + "</span>" +
+            "<button class='mqb' onclick='changeModalQty(1)'>+</button>" +
+          "</div></div>";
+
+    // Add to cart / out of stock
+    if (p.stock > 0) {
+      bh += "<button class='m-add' id='madd' onclick='addFromModal()'>⚡ Order Now — ৳" + (p.price * state.qty).toLocaleString() + "</button>";
+    } else {
+      bh += "<button class='m-add' disabled style='background:rgba(17,17,17,0.2);cursor:not-allowed'>Out of Stock</button>";
+    }
+  } else {
+    bh += "<button class='m-add' onclick='closeModal();openCustom()' style='background:var(--gold);color:var(--ink)'>Request Custom Quote ✦</button>";
+  }
+
+  bh += "<button class='m-wish' onclick='addToWishlist(" + p.id + ")'>♡ Save to Wishlist</button>";
+
+  // Mobile sticky add button
+  if (!isCustom(p) && p.stock > 0) {
+    bh += "<div class='m-sticky-add'><button class='m-sticky-add-btn' onclick='addFromModal()'>⚡ Order Now — ৳" + p.price.toLocaleString() + "</button></div>";
+  } else if (isCustom(p)) {
+    bh += "<div class='m-sticky-add'><button class='m-sticky-add-btn' style='background:var(--gold)' onclick='closeModal();openCustom()'>Request Quote ✦</button></div>";
+  }
+
+  // Features checklist
+  bh += "<div class='m-feats'>" +
+        "<div class='m-feat'><span class='m-feat-ic'>✓</span><span>180gsm Premium Ring-Spun Cotton</span></div>" +
+        "<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Oversized Fit — size down for regular</span></div>" +
+        "<div class='m-feat'><span class='m-feat-ic'>✓</span><span>Free delivery on orders ৳1000+</span></div>" +
+        "<div class='m-feat'><span class='m-feat-ic'>✓</span><span>WhatsApp order confirmation & updates</span></div>" +
+        "</div>";
+
+  document.getElementById("modal-body").innerHTML = bh;
+  document.getElementById("modal-bg").classList.add("open");
+
+  // Push product URL into browser history
+  if (history.pushState) history.pushState(null, "", "#product-" + pid);
+}
+
+function closeModal() {
+  document.getElementById("modal-bg").classList.remove("open");
+  if (history.pushState) history.pushState(null, "", window.location.pathname);
+}
+
+function handleMBG(e) {
+  if (e.target === document.getElementById("modal-bg")) closeModal();
+}
+
+function switchModalImg(thumb, src) {
+  var main = document.getElementById("modal-main-img");
+  if (main) {
+    main.src     = src;
+    main.onclick = function () { openZoom(src, "Product image"); };
+  }
+  document.querySelectorAll(".modal-thumb").forEach(function (t) { t.classList.remove("active"); });
+  thumb.classList.add("active");
+}
+
+function selModalSize(s, el) {
+  State.setModalSize(s);
+  document.querySelectorAll(".sz").forEach(function (b) { b.classList.remove("sel"); });
+  el.classList.add("sel");
+}
+
+function changeModalQty(delta) {
+  State.changeModalQty(delta);
+  var state = State.getModalState();
+  var el    = document.getElementById("mqn");
+  if (el) el.textContent = state.qty;
+  var p   = State.getProduct(state.pid);
+  var btn = document.getElementById("madd");
+  if (btn && p) btn.innerHTML = "⚡ Order Now — ৳" + (p.price * state.qty).toLocaleString();
+}
+
+function addFromModal() {
+  var state  = State.getModalState();
+  var result = State.addToCart(state.pid, state.size, state.qty);
+  var p      = State.getProduct(state.pid);
+  if (!p) return;
+
+  if (result === "out_of_stock") { toast("Sorry, this item is out of stock!", "error"); return; }
+
+  updBadge();
+  renderCart();
+  toast("✓ " + p.name + " (" + state.size + ") added to cart", "success");
+  closeModal();
+  setTimeout(openCart, 300);
+}
+
+// ── Deep-link: open modal from URL hash #product-N ────────
+function openModalBySlug() {
+  var hash = window.location.hash;
+  if (!hash) return;
+  var m = hash.match(/^#product-(\d+)$/);
+  if (m) { var pid = parseInt(m[1], 10); if (pid) openModal(pid); }
+}
+
+window.addEventListener("popstate", function () {
+  var hash = window.location.hash;
+  if (!hash || !hash.match(/^#product-\d+$/)) {
+    var mb = document.getElementById("modal-bg");
+    if (mb) mb.classList.remove("open");
+  } else {
+    openModalBySlug();
+  }
+});
+
+// ── Wishlist Drawer ───────────────────────────────────────
+function openWishlist() {
+  renderWishlist();
+  document.getElementById("wishlist-overlay").classList.add("open");
+  document.getElementById("wishlist-drawer").classList.add("open");
+}
+
+function closeWishlist() {
+  document.getElementById("wishlist-overlay").classList.remove("open");
+  document.getElementById("wishlist-drawer").classList.remove("open");
+}
+
+function renderWishlist() {
+  var b        = document.getElementById("wl-body");
+  if (!b) return;
+  var wishlist = State.getWishlist();
+
+  if (!wishlist.length) {
+    b.innerHTML = "<div class='wl-empty'><div class='wl-empty-icon'>♡</div><div class='wl-empty-txt'>Your wishlist is empty</div></div>";
+    return;
+  }
+
+  var h = "";
+  wishlist.forEach(function (it) {
+    var src = it.img;
+    var th  = src ? "<img src='" + esc(src) + "'/>" : "";
+    h += "<div class='wl-item'>" +
+           "<div class='wl-thumb'>" + th + "</div>" +
+           "<div class='wl-info'>" +
+             "<div class='wl-name'>" + esc(it.name) + "</div>" +
+             "<div class='wl-price'>৳" + (it.price ? it.price.toLocaleString() : "Quote") + "</div>" +
+             "<div class='wl-acts'>" +
+               "<button class='wl-add' onclick='addToCartFromGrid(" + it.pid + ");renderWishlist()'>⚡ Add to Cart</button>" +
+               "<button class='wl-rm'  onclick='rmFromWishlist(" + it.pid + ")'>✕</button>" +
+             "</div>" +
+           "</div>" +
+         "</div>";
+  });
+  b.innerHTML = h;
+}
+
+function addToWishlist(pid) {
+  var result = State.addToWishlist(pid);
+  if (result === "already_in") { toast("Already in your wishlist ♥", "warn"); return; }
+  updWLBadge();
+  toast("♥ " + (State.getProduct(pid) || {}).name + " saved to wishlist", "success");
+  closeModal();
+}
+
+function rmFromWishlist(pid) {
+  State.removeFromWishlist(pid);
+  updWLBadge();
+  renderWishlist();
+}
+
+</script>
+<script>
+/* inlined: /src/js/components/checkout.js */
+// ============================================================
+//  ARCTIC SHOP BD — Checkout Component
+//  Handles: checkout modal, promo, payment, order submission
+// ============================================================
+
+var placingOrder = false;
+
+// ── Open / Close ─────────────────────────────────────────
+function openCheckout() {
+  if (!State.getCart().length) { toast("Your cart is empty!", "error"); return; }
+  closeCart();
+  renderOrdMini();
+  updatePaymentPanels();
+  document.getElementById("co-modal").classList.add("open");
+}
+
+function closeCheckout() {
+  document.getElementById("co-modal").classList.remove("open");
+}
+
+// ── Order summary mini ────────────────────────────────────
+function renderOrdMini() {
+  var el   = document.getElementById("ord-mini");
+  if (!el) return;
+  var cart = State.getCart();
+  var h    = "";
+
+  cart.forEach(function (it) {
+    h += "<div class='ord-item'>" +
+         "<span class='ord-name'>" + esc(it.name) + " (" + esc(it.sz) + ") x" + it.qty + "</span>" +
+         "<span class='ord-price'>" + (it.price ? "৳" + (it.price * it.qty).toLocaleString() : "Quote") + "</span>" +
+         "</div>";
+  });
+
+  var del   = State.getDeliveryFee();
+  var disc  = State.getDiscount();
+  var promo = State.getPromo();
+
+  h += "<div class='ord-item'><span class='ord-name'>Delivery</span><span class='ord-price' style='color:var(--green)'>" + (del === 0 ? "FREE" : "৳" + del) + "</span></div>";
+  if (disc > 0) {
+    h += "<div class='ord-discount'><span class='ord-discount-label'>✓ Promo (" + promo.pct + "% off)</span><span class='ord-discount-val'>−৳" + disc.toLocaleString() + "</span></div>";
+  }
+  h += "<div class='ord-tot'><span class='ord-tot-label'>Grand Total</span><span class='ord-tot-val'>৳" + State.getGrandTotal().toLocaleString() + "</span></div>";
+  el.innerHTML = h;
+}
+
+// ── Payment method selection ──────────────────────────────
+function selPay(el, method) {
+  State.setPayMethod(method);
+  document.querySelectorAll(".pay-opt").forEach(function (o) { o.classList.remove("sel"); });
+  el.classList.add("sel");
+  updatePaymentPanels();
+}
+
+function updatePaymentPanels() {
+  var method = State.getPayMethod();
+  var grand  = State.getGrandTotal();
+
+  var panels = { bkash: "bkash-details", nagad: "nagad-details", cod: "cod-details" };
+  Object.values(panels).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove("show");
+  });
+
+  if (method === "bKash") {
+    var bd = document.getElementById("bkash-details");
+    if (bd) bd.classList.add("show");
+    var bAmt = document.getElementById("bkash-amt");
+    var bNum = document.getElementById("bkash-num-val");
+    if (bAmt) bAmt.textContent = "৳" + grand.toLocaleString();
+    if (bNum) bNum.textContent = BKASH_MERCHANT;
+  } else if (method === "Nagad") {
+    var nd = document.getElementById("nagad-details");
+    if (nd) nd.classList.add("show");
+    var nAmt = document.getElementById("nagad-amt");
+    var nNum = document.getElementById("nagad-num-val");
+    if (nAmt) nAmt.textContent = "৳" + grand.toLocaleString();
+    if (nNum) nNum.textContent = NAGAD_MERCHANT;
+  } else if (method === "Cash on Delivery") {
+    var cd = document.getElementById("cod-details");
+    if (cd) cd.classList.add("show");
+  }
+}
+
+// ── Copy bKash / Nagad number ─────────────────────────────
+function copyBkash() {
+  var num = BKASH_MERCHANT.replace(/\D/g, "");
+  var btn = document.getElementById("bkash-copy-btn");
+  _copyToClipboard(num, btn, "bKash number copied to clipboard");
+}
+
+function copyNagad() {
+  var num = NAGAD_MERCHANT.replace(/\D/g, "");
+  var btn = document.getElementById("nagad-copy-btn");
+  _copyToClipboard(num, btn, "Nagad number copied to clipboard");
+}
+
+function _copyToClipboard(text, btn, successMsg) {
+  function ok() {
+    if (btn) { btn.textContent = "Copied"; btn.classList.add("copied"); setTimeout(function () { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1600); }
+    toast(successMsg, "success");
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(ok).catch(function () { window.prompt("Copy:", text); });
+  } else {
+    window.prompt("Copy:", text);
+  }
+}
+
+// ── Promo code ────────────────────────────────────────────
+function applyPromo() {
+  var input = document.getElementById("promo-input");
+  var msg   = document.getElementById("promo-msg");
+  var code  = (input.value || "").trim().toUpperCase();
+
+  if (!code) {
+    input.classList.add("err"); input.classList.remove("ok");
+    msg.className = "promo-msg err"; msg.textContent = "Please enter a promo code.";
+    return;
+  }
+
+  if (State.applyPromo(code)) {
+    input.classList.remove("err"); input.classList.add("ok");
+    msg.className = "promo-msg ok"; msg.textContent = "✓ Code applied — " + State.getPromo().pct + "% off!";
+  } else {
+    input.classList.add("err"); input.classList.remove("ok");
+    msg.className = "promo-msg err"; msg.textContent = "✗ Invalid promo code.";
+  }
+  renderOrdMini();
+  updatePaymentPanels();
+}
+
+// ── Place order ───────────────────────────────────────────
+function placeOrder() {
+  if (placingOrder) return;
+  var cart = State.getCart();
+  if (!cart.length) { toast("Your cart is empty.", "error"); closeCheckout(); return; }
+
+  // Honeypot check
+  var hp = document.getElementById("hp-website");
+  if (hp && hp.value.trim() !== "") {
+    // Bot detected — fake success
+    console.warn("Order blocked: honeypot triggered");
+    setTimeout(function () { onOrderSuccess("BOT-" + Date.now().toString().slice(-7)); }, 1200);
+    return;
+  }
+
+  // Rate limit
+  if (!checkOrderRateLimit()) {
+    toast("Too many orders submitted. Please wait a while and try again.", "error");
+    return;
+  }
+
+  // ── Live stock re-validation ──────────────────────────
+  var outOfStock = [];
+  cart.forEach(function (it) {
+    if (it.pid === 6) return;
+    var p = State.getProduct(it.pid);
+    if (p && p.stock <= 0) outOfStock.push(it.name);
+    else if (p && it.qty > p.stock) it.qty = p.stock;
+  });
+  if (outOfStock.length) {
+    toast("Sold out: " + outOfStock.join(", ") + ". Removed from cart.", "error");
+    State.setCart(cart.filter(function (i) {
+      if (i.pid === 6) return true;
+      var p = State.getProduct(i.pid);
+      return p && p.stock > 0;
+    }));
+    updBadge(); renderCart();
+    if (!State.getCart().length) closeCheckout();
+    return;
+  }
+
+  // ── Collect form fields ───────────────────────────────
+  var n  = document.getElementById("cn").value.trim();
+  var p  = document.getElementById("cp").value.trim();
+  var e  = document.getElementById("ce").value.trim();
+  var a  = document.getElementById("ca").value.trim();
+  var c  = document.getElementById("cc").value.trim();
+  var di = document.getElementById("cdi") ? document.getElementById("cdi").value.trim() : "";
+  var notes = document.getElementById("cn2") ? document.getElementById("cn2").value.trim() : "";
+
+  // ── Required fields ───────────────────────────────────
+  var ok = true, firstBad = null;
+  ["cn", "cp", "ce", "ca", "cc"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add("err"); if (!firstBad) firstBad = el; ok = false; }
+    else el.classList.remove("err");
+  });
+  if (!ok) { toast("Please fill all required fields (*)", "error"); if (firstBad) firstBad.focus(); return; }
+
+  // ── Validate name ─────────────────────────────────────
+  if (n.length < 2 || n.length > 80 || /<[^>]*>/.test(n)) {
+    var ne = document.getElementById("cn"); ne.classList.add("err"); ne.focus();
+    toast("Please enter a valid full name (2–80 characters)", "error"); return;
+  }
+
+  // ── Validate email ────────────────────────────────────
+  var emailRe = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRe.test(e) || e.length > 120) {
+    var ee = document.getElementById("ce"); ee.classList.add("err"); ee.focus();
+    toast("Please enter a valid email address", "error"); return;
+  }
+
+  // ── Validate phone ────────────────────────────────────
+  var digits = p.replace(/[\s\-()]/g, "");
+  if (!/^\+?[0-9]{7,15}$/.test(digits)) {
+    var pe = document.getElementById("cp"); pe.classList.add("err"); pe.focus();
+    toast("Please enter a valid phone number (7–15 digits)", "error"); return;
+  }
+
+  // ── Validate address ──────────────────────────────────
+  if (a.length < 5 || a.length > 200) {
+    var ae = document.getElementById("ca"); ae.classList.add("err"); ae.focus();
+    toast("Please enter a complete delivery address (at least 5 characters)", "error"); return;
+  }
+
+  // ── bKash / Nagad TrxID ───────────────────────────────
+  var method    = State.getPayMethod();
+  var bkashTrx  = "";
+  var nagadTrx  = "";
+
+  if (method === "bKash") {
+    var trxEl = document.getElementById("bkash-trx");
+    bkashTrx  = trxEl ? trxEl.value.trim().toUpperCase() : "";
+    if (bkashTrx.length < 6 || bkashTrx.length > 20 || !/^[A-Z0-9]+$/.test(bkashTrx)) {
+      if (trxEl) { trxEl.classList.add("err"); trxEl.focus(); }
+      toast("Please enter your bKash Transaction ID", "error"); return;
+    }
+    if (trxEl) trxEl.classList.remove("err");
+  }
+
+  if (method === "Nagad") {
+    var ntrxEl = document.getElementById("nagad-trx");
+    nagadTrx   = ntrxEl ? ntrxEl.value.trim().toUpperCase() : "";
+    if (nagadTrx.length < 6 || nagadTrx.length > 20 || !/^[A-Z0-9]+$/.test(nagadTrx)) {
+      if (ntrxEl) { ntrxEl.classList.add("err"); ntrxEl.focus(); }
+      toast("Please enter your Nagad Transaction ID", "error"); return;
+    }
+    if (ntrxEl) ntrxEl.classList.remove("err");
+  }
+
+  // ── Build order ID and date ───────────────────────────
+  var oid       = "ASB-" + Date.now().toString().slice(-7);
+  var orderDate = new Date().toLocaleString("en-BD", { timeZone: "Asia/Dhaka", dateStyle: "full", timeStyle: "short" });
+
+  // ── Build items summary ───────────────────────────────
+  var itemsList = "";
+  cart.forEach(function (it) {
+    itemsList += it.name + " (Size: " + it.sz + ") x" + it.qty + " = " +
+                 (it.price ? "৳" + (it.price * it.qty).toLocaleString() : "Custom Quote") + "\n";
+  });
+  var del = State.getDeliveryFee(), disc = State.getDiscount(), promo = State.getPromo();
+  itemsList += "—\nDelivery: " + (del === 0 ? "FREE" : "৳" + del) + "\n";
+  if (disc > 0) itemsList += "Promo (" + promo.code + " " + promo.pct + "% off): −৳" + disc.toLocaleString() + "\n";
+  itemsList += "GRAND TOTAL: ৳" + State.getGrandTotal().toLocaleString();
+
+  // ── Template params for email ─────────────────────────
+  var fullAddress = a + ", " + c + (di ? ", " + di : "");
+  var payDesc = method +
+    (bkashTrx ? " (TrxID: " + bkashTrx + ", sent to " + BKASH_MERCHANT + ")" : "") +
+    (nagadTrx ? " (TrxID: " + nagadTrx + ", sent to " + NAGAD_MERCHANT + ")" : "");
+
+  var templateParams = {
+    order_id:         oid,
+    customer_name:    n,
+    customer_phone:   p,
+    customer_email:   e,
+    delivery_address: fullAddress,
+    delivery_notes:   notes.slice(0, 500) || "None",
+    items_list:       itemsList,
+    total_amount:     "৳" + State.getGrandTotal().toLocaleString(),
+    payment_method:   payDesc,
+    bkash_trx_id:     bkashTrx || "N/A",
+    bkash_merchant:   method === "bKash" ? BKASH_MERCHANT : "N/A",
+    nagad_trx_id:     nagadTrx || "N/A",
+    nagad_merchant:   method === "Nagad" ? NAGAD_MERCHANT : "N/A",
+    order_date:       orderDate,
+    to_email:         OWNER_EMAIL,
+    reply_to:         e,
+  };
+
+  // ── Disable button + spinner ──────────────────────────
+  placingOrder = true;
+  var btn = document.getElementById("place-btn");
+  btn.classList.add("loading");
+  btn.disabled = true;
+
+  function finishFail(msg) {
+    placingOrder = false;
+    btn.classList.remove("loading");
+    btn.disabled = false;
+    toast(msg || "Could not place order. Please try again.", "error");
+  }
+
+  // ── Send email then save order ────────────────────────
+  API.sendEmail(templateParams)
+    .then(function (result) {
+      if (result.success) {
+        // Save order to D1 (non-blocking — email is the primary confirmation)
+        var apiItems = cart.map(function (it) {
+          return { pid: it.pid, name: it.name, sz: it.sz, qty: it.qty, price: it.price };
+        });
+        API.createOrder({
+          id:             oid,
+          name:           n,
+          phone:          p,
+          email:          e,
+          address:        fullAddress,
+          items:          apiItems,
+          total:          State.getGrandTotal(),
+          payment_method: method,
+          status:         "pending",
+        }).catch(function (err) {
+          console.warn("Order DB save failed (email still sent):", err);
+        });
+        onOrderSuccess(oid);
+      } else {
+        finishFail("Order could not be submitted. Please check your connection and try again.");
+      }
+    })
+    .catch(function (err) {
+      console.error("Email error:", err);
+      finishFail("Order could not be submitted. Please check your connection and try again.");
+    });
+}
+
+// ── Post-success cleanup ──────────────────────────────────
+function onOrderSuccess(oid) {
+  placingOrder = false;
+  var btn = document.getElementById("place-btn");
+  if (btn) { btn.classList.remove("loading"); btn.disabled = false; }
+
+  closeCheckout();
+  document.getElementById("ok-id").textContent = "Order ID: " + oid;
+  document.getElementById("ok-modal").classList.add("open");
+
+  // Clear cart + form
+  State.clearCart();
+  State.clearPromo();
+  updBadge();
+  renderCart();
+
+  ["cn", "cp", "ce", "ca", "cc", "cdi", "cn2", "bkash-trx", "nagad-trx", "promo-input"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) { el.value = ""; el.classList.remove("err", "ok"); }
+  });
+  var pm = document.getElementById("promo-msg");
+  if (pm) { pm.textContent = ""; pm.className = "promo-msg"; }
+
+  // Refresh stock from API
+  API.fetchProducts()
+    .then(function (data) {
+      if (data && data.products) {
+        data.products.forEach(function (ap) {
+          var p = State.getProduct(ap.id);
+          if (p && ap.stock !== undefined) p.stock = ap.stock;
+        });
+        refreshProductGrid();
+      }
+    })
+    .catch(function () {});
+}
+
+function closeOK() {
+  document.getElementById("ok-modal").classList.remove("open");
+}
+
+// ── Custom order shortcut ─────────────────────────────────
+function openCustom() {
+  State.setCart([{ cid: Date.now(), pid: 6, name: "Custom Design Order", price: 0, sz: "TBD", qty: 1, img: null }]);
+  updBadge();
+  openCheckout();
+}
+
+// ── Wire form submit ──────────────────────────────────────
+(function () {
+  var f = document.getElementById("co-form");
+  if (f) f.addEventListener("submit", function (ev) { ev.preventDefault(); placeOrder(); });
+})();
+
+// ── Live clear error on input ─────────────────────────────
+["cn", "cp", "ce", "ca", "cc", "bkash-trx", "nagad-trx"].forEach(function (id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener("input", function () { this.classList.remove("err"); });
+});
+
+</script>
+<script>
+/* inlined: /src/js/compat.js */
+// ============================================================
+//  ARCTIC SHOP BD — Compatibility Shims
+//  Maps og HTML onclick= names → refactored function names.
+//  Keeps index.html untouched while JS is split into modules.
+// ============================================================
+
+// ── Cart ─────────────────────────────────────────────────────
+function addToCart(pid, sz, qty) {
+  var result = State.addToCart(pid, sz || 'L', qty || 1);
+  var p = State.getProduct(pid);
+  if (!p) return;
+  if (result === 'out_of_stock') { toast('Sorry, this item is out of stock!', 'error'); return; }
+  updBadge();
+  renderCart();
+  toast('\u2713 ' + p.name + ' (' + (sz || 'L') + ') added to cart', 'success');
+}
+function rmItem(cid)    { removeCartItem(cid); }
+function updQty(cid, d) { changeCartQty(cid, d); }
+
+// ── Modal ─────────────────────────────────────────────────────
+function selSz(s, el)   { selModalSize(s, el); }
+function addFrMod()     { addFromModal(); }
+function chQty(d)       { changeModalQty(d); }
+
+// ── Product filters ───────────────────────────────────────────
+function fp(f, btn)     { filterProducts(f, btn); }
+
+// ── Chat ──────────────────────────────────────────────────────
+function toggleChat()   { togChat(); }
+function sendQuick(t)   { sendChatQuick(t); }
+
+</script>
+<script>
+/* inlined: /src/js/main.js */
+// ============================================================
+//  ARCTIC SHOP BD — Main Entry Point
+//  Boots the app: loads products from API, wires all events,
+//  starts optional features in correct order.
+// ============================================================
+
+// ── 1. Load products — cache-first, then API ─────────────
+function loadProducts() {
+  // Show skeleton while loading
+  showProductSkeleton(6);
+
+  // Try cache first (5-min TTL)
+  var cached = getCachedProducts();
+  if (cached && cached.length) {
+    State.setProducts(cached);
+    return Promise.resolve();
+  }
+
+  return API.fetchProducts()
+    .then(function (data) {
+      if (!data || !data.products || !data.products.length) return;
+
+      var apiMap = {};
+      data.products.forEach(function (p) { apiMap[p.id] = p; });
+
+      var merged = SITE_CONFIG.products.map(function (local) {
+        var api = apiMap[local.id];
+        if (!api) return local;
+        return Object.assign({}, local, {
+          price:     api.price     !== undefined ? api.price     : local.price,
+          stock:     api.stock     !== undefined ? api.stock     : local.stock,
+          name:      api.name      || local.name,
+          image_url: api.image_url || local.img  || null,
+          img:       api.image_url || local.img  || null,
+        });
+      });
+
+      // Append API-only products not in local config
+      data.products.forEach(function (ap) {
+        var found = merged.find(function (m) { return m.id === ap.id; });
+        if (!found) {
+          merged.push({
+            id: ap.id, name: ap.name,
+            ed: "Arctic Drop", price: ap.price, stock: ap.stock,
+            badge: null, bl: "", tags: ["black"],
+            desc: ap.description || "", descDetails: {},
+            img: ap.image_url || null, image_url: ap.image_url || null,
+            images: ap.image_url ? [ap.image_url] : [],
+            type: "regular", aboutImg: false,
+          });
+        }
+      });
+
+      State.setProducts(merged);
+      setCachedProducts(merged);
+    })
+    .catch(function (err) {
+      console.warn("API unavailable — using local config products.", err);
+      // State already has SITE_CONFIG.products from initialization
+    });
+}
+
+// ── 2. Social proof notifications ─────────────────────────
+(function initSocialProof() {
+  var sp       = SITE_CONFIG.socialProof;
+  var lastProd = null;
+  var queue    = [];
+  var running  = false;
+  var products = SITE_CONFIG.products.filter(function (p) { return !isCustom(p); });
+
+  function pickProd() {
+    if (products.length < 2) return products[0] || null;
+    var p;
+    do { p = products[Math.floor(Math.random() * products.length)]; } while (p === lastProd);
+    lastProd = p;
+    return p;
+  }
+
+  function showNext() {
+    if (!queue.length) { running = false; return; }
+    running = true;
+    var data = queue.shift();
+    var w    = document.getElementById("sp-wrap");
+    if (!w) return;
+
+    var el = document.createElement("div");
+    el.className = "sp-notif";
+    el.innerHTML =
+      "<div class='sp-av'>" + data.initials + "</div>" +
+      "<div class='sp-txt'>" +
+        "<div class='sp-txt-main'>" + esc(data.action) + " <strong>" + esc(data.product) + "</strong></div>" +
+        "<div class='sp-txt-meta'>" + esc(data.city) + " — Just now</div>" +
+      "</div>" +
+      "<div class='sp-dot'></div>";
+    w.appendChild(el);
+
+    setTimeout(function () { el.classList.add("show"); }, 50);
+    setTimeout(function () {
+      el.classList.remove("show");
+      setTimeout(function () { el.remove(); showNext(); }, 500);
+    }, 4200);
+  }
+
+  function trigger() {
+    var prod = pickProd();
+    if (!prod) return;
+    var name    = sp.names[Math.floor(Math.random() * sp.names.length)];
+    var city    = sp.cities[Math.floor(Math.random() * sp.cities.length)];
+    var action  = sp.actions[Math.floor(Math.random() * sp.actions.length)];
+    var init    = name.charAt(0).toUpperCase();
+
+    queue.push({ initials: init, action: action, product: prod.name, city: city });
+    if (!running) showNext();
+  }
+
+  // Show notifications only after visitor enters the site (like og)
+  window.addEventListener('arctic:entered', function () {
+    var delays = [8000, 25000, 44000, 68000, 95000, 130000];
+    delays.forEach(function (d) { setTimeout(trigger, d); });
+  }, { once: true });
+})();
+
+// ── 3. Sticky announcement bar ────────────────────────────
+(function initStickyBar() {
+  var bar = document.getElementById("sticky-bar");
+  if (!bar) return;
+
+  // Countdown: 24 hours from now, or restore from storage
+  var KEY  = "arcbd_bar_end";
+  var end  = parseInt(localStorage.getItem(KEY) || "0", 10);
+  var now  = Date.now();
+  if (!end || end < now) {
+    end = now + 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, end);
+  }
+
+  var cdEl = document.getElementById("sb-countdown");
+  function tickCountdown() {
+    var diff = Math.max(0, end - Date.now());
+    var h    = Math.floor(diff / 3600000);
+    var m    = Math.floor((diff % 3600000) / 60000);
+    var s    = Math.floor((diff % 60000)   / 1000);
+    if (cdEl) cdEl.textContent = pad(h) + ":" + pad(m) + ":" + pad(s);
+    if (diff <= 0) {
+      localStorage.removeItem(KEY);
+      document.body.classList.remove("bar-visible");
+      bar.style.transform = "translateY(-100%)";
+      document.getElementById("nav").style.top = "0";
+    }
+  }
+  function pad(n) { return n < 10 ? "0" + n : n; }
+
+  // Show bar only after the visitor dismisses the intro splash
+  function showBar() {
+    setTimeout(function () {
+      bar.style.transform = "translateY(0)";
+      document.body.classList.add("bar-visible");
+      var nav = document.getElementById("nav");
+      if (nav) nav.style.top = bar.offsetHeight + "px";
+      setInterval(tickCountdown, 1000);
+      tickCountdown();
+    }, 800);
+  }
+  if (document.documentElement.classList.contains("entered")) {
+    showBar();
+  } else {
+    window.addEventListener("arctic:entered", showBar, { once: true });
+  }
+
+  // Dismiss button
+  var closeBtn = document.getElementById("sticky-bar-close");
+  if (closeBtn) closeBtn.addEventListener("click", function () {
+    bar.style.transform = "translateY(-100%)";
+    document.body.classList.remove("bar-visible");
+    document.getElementById("nav").style.top = "0";
+  });
+})();
+
+// ── 4. Exit-intent popup ──────────────────────────────────
+(function initExitIntent() {
+  var shown  = false;
+  var DELAY  = 8000;  // minimum time on page before showing
+  var ready  = false;
+  setTimeout(function () { ready = true; }, DELAY);
+
+  // Desktop: mouse leaves viewport through top edge
+  document.addEventListener("mouseleave", function (e) {
+    if (!shown && ready && e.clientY < 5) {
+      shown = true;
+      document.getElementById("exit-overlay").classList.add("open");
+    }
+  });
+
+  // Mobile: scroll down then back up quickly
+  var lastSY  = 0, lastTime = 0;
+  window.addEventListener("scroll", function () {
+    var sy  = window.scrollY;
+    var now = Date.now();
+    if (now - lastTime > 200) {
+      var delta = sy - lastSY;
+      if (ready && !shown && sy > 300 && delta < -60) {
+        shown = true;
+        document.getElementById("exit-overlay").classList.add("open");
+      }
+      lastSY   = sy;
+      lastTime = now;
+    }
+  }, { passive: true });
+})();
+
+function closeExit() {
+  document.getElementById("exit-overlay").classList.remove("open");
+}
+
+function exitToShop() {
+  closeExit();
+  var el = document.getElementById("products");
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
+
+function copyExitCode() {
+  var code = document.getElementById("exit-code-text");
+  if (!code) return;
+  _copyToClipboard(code.textContent, document.querySelector(".exit-copy-btn"), "Promo code copied!");
+}
+
+// ── 5. AI Chat widget ─────────────────────────────────────
+var chatHistory = [];
+
+function togChat() {
+  var btn = document.getElementById("arctic-chat-btn");
+  var win = document.getElementById("arctic-chat-window");
+  var dot = btn.querySelector(".chat-notif-dot");
+  if (!btn || !win) return;
+
+  var isOpen = win.classList.toggle("open");
+  btn.classList.toggle("open", isOpen);
+  if (dot) dot.style.display = "none";
+
+  // Auto-close SVG swap handled via CSS
+  if (isOpen) {
+    var inp = win.querySelector(".ac-input");
+    if (inp) setTimeout(function () { inp.focus(); }, 350);
+    // Show greeting if first open
+    var messages = win.querySelector(".ac-messages");
+    if (messages && !messages.children.length) {
+      appendChatMsg("bot", "Hi! I'm Arctic's AI assistant 🧊 Ask me anything about our products, sizing, delivery, or orders.");
+      renderQuickReplies(["Sizing help", "Delivery info", "Products", "Custom order"]);
+    }
+  }
+}
+
+function closeChatWindow() {
+  document.getElementById("arctic-chat-window").classList.remove("open");
+  document.getElementById("arctic-chat-btn").classList.remove("open");
+}
+
+function appendChatMsg(role, text) {
+  var msgs = document.getElementById("chat-messages");
+  if (!msgs) return;
+
+  var d    = document.createElement("div");
+  d.className = "ac-msg " + role;
+  var now  = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  d.innerHTML =
+    "<div class='ac-bubble'>" + text.replace(/\n/g, "<br>") + "</div>" +
+    "<div class='ac-time'>" + now + "</div>";
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showChatTyping() {
+  var msgs = document.getElementById("chat-messages");
+  if (!msgs) return;
+  var d = document.createElement("div");
+  d.className = "ac-msg bot ac-typing";
+  d.id = "chat-typing";
+  d.innerHTML = "<div class='ac-bubble'><div class='ac-dot'></div><div class='ac-dot'></div><div class='ac-dot'></div></div>";
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideChatTyping() {
+  var d = document.getElementById("chat-typing");
+  if (d) d.remove();
+}
+
+function renderQuickReplies(replies) {
+  var wrap = document.getElementById("chat-quick-wrap");
+  if (!wrap) return;
+  var h = "";
+  replies.forEach(function (r) {
+    h += "<button class='ac-quick' onclick='sendChatQuick(\"" + esc(r) + "\")'>" + esc(r) + "</button>";
+  });
+  wrap.innerHTML = h;
+}
+
+function sendChatQuick(text) {
+  document.getElementById("chat-quick-wrap").innerHTML = "";
+  sendChat(text);
+}
+
+function sendChat(msgOverride) {
+  var inp = document.getElementById("chat-input");
+  if (!inp) return;
+  var msg = (msgOverride || inp.value.trim());
+  if (!msg) return;
+  inp.value = "";
+  inp.style.height = "auto";
+
+  appendChatMsg("user", esc(msg));
+  chatHistory.push({ role: "user", content: msg });
+  showChatTyping();
+
+  // Build full AI context — matches og system prompt
+  var prods = State.getProducts().filter(function (p) { return !isCustom(p); });
+  var lines = prods.map(function (p) {
+    var s = p.stock <= 0 ? "out of stock" : p.stock <= 3 ? "low stock (" + p.stock + " left)" : "in stock (" + p.stock + " units)";
+    var tags = Array.isArray(p.tags) ? p.tags.join("/") : (p.tags || "");
+    return p.name + " [৳" + p.price + ", " + s + ", tags: " + tags + "]";
+  });
+  var context = "You are Arctic AI, the friendly assistant for Arctic Shop BD — a premium streetwear brand based in Dhaka, Bangladesh. "
+    + "You help customers with product info, sizing, delivery, and payments. Be concise, warm, and on-brand (cool/streetwear tone). "
+    + "Current products: " + lines.join("; ") + ". "
+    + "Sizes: S, M, L, XL, XXL — all oversized fit (size down for regular look). "
+    + "Prices: ৳650-700. Free delivery inside Dhaka on orders ৳1000+. Outside Dhaka ৳80 delivery fee. "
+    + "Payment: bKash, Nagad, Rocket, Cash on Delivery. COD advance of ৳200-300 required for orders above ৳2000. "
+    + "Promo codes: WELCOME10 and ARCTIC10 (10% off). "
+    + "Exchange policy: 7-day hassle-free exchange (unused, unwashed). "
+    + "Contact: Facebook /ArcticShopBD, email " + OWNER_EMAIL + ". Response time 2-4 hours. "
+    + "For custom tees: minimum 1 piece, 5-7 day turnaround, send design to Facebook or email. "
+    + "DO NOT make up information. If unsure, direct to Facebook or email.";
+
+  API.chat(msg, chatHistory, context)
+    .then(function (res) {
+      hideChatTyping();
+      var reply = (res && res.reply) ? res.reply : "Sorry, I couldn't process that. Try again!";
+      appendChatMsg("bot", reply);
+      chatHistory.push({ role: "assistant", content: reply });
+    })
+    .catch(function () {
+      hideChatTyping();
+      appendChatMsg("bot", "I'm having trouble connecting. Please message us on <a href='https://wa.me/" + SITE_CONFIG.store.whatsapp + "' target='_blank' style='color:var(--glow)'>WhatsApp</a> for instant help!");
+    });
+}
+
+function chatKeydown(e) {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); }
+}
+
+// ── 6. Language toggle (EN / BN) — full translation system ──
+(function () {
+  var T = [
+    ['#nav-products-link', 'Products', 'পণ্যসমূহ'],
+    ['#nav-about-link',    'About',    'আমাদের সম্পর্কে'],
+    ['#nav-reviews-link',  'Reviews',  'রিভিউ'],
+    ['#nav-faq-link',      'FAQ',      'জিজ্ঞাসা'],
+    ['.hero-sub',   'WEAR THE FROST. RULE THE NIGHT.', 'হিমের পোশাকে রাতকে জয় করুন।'],
+    ['.hero-cta',   '⚡ Shop the Drop', '⚡ এখনই কিনুন'],
+    ['.mob-link[href="#products"]', 'Products', 'পণ্যসমূহ'],
+    ['.mob-link[href="#about"]',    'About',    'আমাদের সম্পর্কে'],
+    ['.mob-link[href="#reviews"]',  'Reviews',  'রিভিউ'],
+    ['.mob-link[href="#faq"]',      'FAQ',      'জিজ্ঞাসা'],
+    ['.mob-link[href="#footer"]',   'Contact',  'যোগাযোগ'],
+    ['.exit-tag',      'Wait — Before You Go', 'যাওয়ার আগে দেখুন!'],
+    ['#exit-headline', "Don't Freeze<br>On This <em>Deal.</em>", 'এই সুযোগ<br>মিস <em>করবেন না!</em>'],
+    ['#exit-copy-btn',    'Copy',                'কপি'],
+    ['#exit-cta-btn',     'Shop the Drop →', 'এখনই অর্ডার করুন →'],
+    ['#exit-dismiss-btn', "No thanks, I'll pay full price", 'ধন্যবাদ, পরে কিনর'],
+    ['.wl-head-title', '♥ Wishlist', '♥ ওয়িশলিস্ট'],
+    ['.search-hint', 'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],
+  ];
+
+  var currentLang = localStorage.getItem('asbd_lang') || 'en';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('asbd_lang', lang);
+    var isBn = lang === 'bn';
+    document.documentElement.classList.toggle('lang-bn', isBn);
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = isBn ? 'EN' : 'বাং';
+    T.forEach(function (item) {
+      document.querySelectorAll(item[0]).forEach(function (el) {
+        el.innerHTML = isBn ? item[2] : item[1];
+      });
+    });
+    document.querySelectorAll('[data-bn]').forEach(function (el) {
+      var orig = el.getAttribute('data-en') || el.textContent;
+      if (!el.getAttribute('data-en')) el.setAttribute('data-en', orig);
+      el.textContent = isBn ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+    });
+  }
+
+  window.toggleLang = function () { applyLang(currentLang === 'en' ? 'bn' : 'en'); };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (currentLang === 'bn') applyLang('bn');
+  });
+})();
+
+// ── 7. Intro animation replay ─────────────────────────────
+function replayIntro() {
+  document.documentElement.classList.remove("entered");
+  window.scrollTo(0, 0);
+  document.body.style.overflow = "hidden";
+}
+
+// ── 8. Boot sequence ──────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Core UI init
+  initLoader();
+  initNavScroll();
+  buildTicker();
+  initScrollReveal();
+  initEscKey();
+  initLang && initLang();   // already IIFE but guard anyway
+
+  // Load products then render grid (finally = runs on both success AND API failure)
+  loadProducts().finally(function () {
+    buildFilters();
+    renderProds("all");
+    buildCountLabel();
+    initAboutImgs();
+    openModalBySlug();    // handle ?#product-N deep links
+    initTilt();
+    initMagnetic();
+    initGSAP();
+    initLenis();
+  });
+
+  // Wishlist badge on boot
+  updWLBadge();
+
+  // Copy-year
+  initCopyYear();
+
+  // Videos (load after entered)
+  initVideos();
+
+  // Checkout progress wiring
+  initCheckoutProgress();
+
+  // ── Close overlays by clicking backdrop ─────────────────
+  document.getElementById("cart-overlay").addEventListener("click", closeCart);
+  document.getElementById("wishlist-overlay").addEventListener("click", closeWishlist);
+  document.getElementById("modal-bg").addEventListener("click", handleMBG);
+  document.getElementById("search-overlay").addEventListener("click", function (e) {
+    if (e.target === this) closeSearch();
+  });
+  document.getElementById("co-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeCheckout();
+  });
+  document.getElementById("ok-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeOK();
+  });
+  document.getElementById("exit-overlay").addEventListener("click", function (e) {
+    if (e.target === this) closeExit();
+  });
+  document.getElementById("zoom-overlay").addEventListener("click", closeZoom);
+  document.getElementById("zoom-close").addEventListener("click", closeZoom);
+  document.getElementById("size-guide-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeSizeGuide();
+  });
+
+  // ── Search input ─────────────────────────────────────────
+  var si = document.getElementById("search-input");
+  if (si) si.addEventListener("input", function () { doSearch(this.value); });
+
+  // ── Chat textarea auto-resize ─────────────────────────────
+  var ci = document.getElementById("chat-input");
+  if (ci) ci.addEventListener("input", function () {
+    this.style.height = "auto";
+    this.style.height = Math.min(this.scrollHeight, 80) + "px";
+  });
+
+  // ── FAQ ────────────────────────────────────────────────────
+  document.querySelectorAll(".faq-q").forEach(function (q) {
+    q.addEventListener("click", function () { tFaq(q); });
+  });
+
+  // ── Mobile menu ───────────────────────────────────────────
+  var ham = document.getElementById("ham");
+  if (ham) ham.addEventListener("click", togMob);
+  var mcb = document.getElementById("mob-menu-close");
+  if (mcb) mcb.addEventListener("click", closeMob);
+
+  // ── Intro layer CTA ───────────────────────────────────────
+  var cta = document.getElementById("cta");
+  if (cta) cta.addEventListener("click", function () {
+    document.documentElement.classList.add("entered");
+    window.dispatchEvent(new Event("arctic:entered"));
+    document.body.style.overflow = "";
+  });
+
+  // ── Sticky bar nav anchor ──────────────────────────────────
+  document.querySelectorAll('[data-scroll-to]').forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      var target = document.getElementById(el.dataset.scrollTo);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    });
+  });
+
+  console.log("%c🧊 Arctic Shop BD — Production Build", "color:#111;font-size:14px;font-weight:bold");
+});
+
+</script>
 
 </body>
 </html>
