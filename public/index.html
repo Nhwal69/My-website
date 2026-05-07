@@ -870,6 +870,15 @@
 <!-- App scripts (order is load dependency order) -->
 <script>
 /* inlined: /src/js/config.js */
+
+// ── DOM-ready helper: fires immediately if DOM ready, else waits ──
+function onReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+}
 // ============================================================
 //  ARCTIC SHOP BD — Site Configuration
 //  All store settings live here. Edit this file only.
@@ -1460,7 +1469,7 @@ var API = (function () {
     });
   }
 
-  document.addEventListener("DOMContentLoaded", attachAll);
+  onReady( attachAll);
 
   // MutationObserver: catch images injected dynamically (product cards, cart items)
   var imgObs = new MutationObserver(function (mutations) {
@@ -1473,7 +1482,7 @@ var API = (function () {
     });
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
+  onReady( function () {
     imgObs.observe(document.body, { childList: true, subtree: true });
   });
 })();
@@ -1547,7 +1556,7 @@ function guardBtn(btn, fn) {
 
   window.addEventListener("online",  check);
   window.addEventListener("offline", check);
-  document.addEventListener("DOMContentLoaded", check);
+  onReady( check);
 })();
 
 // ── 5. Global error banner ────────────────────────────────
@@ -1628,7 +1637,7 @@ function clearFieldError(id) {
 }
 
 // Auto-clear field errors on input
-document.addEventListener("DOMContentLoaded", function () {
+onReady( function () {
   ["cn","cp","ce","ca","cc","cdi","cn2","bkash-trx","nagad-trx"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) {
@@ -1698,7 +1707,7 @@ var INPUT_LIMITS = {
   "chat-input":  500,
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+onReady( function () {
   Object.keys(INPUT_LIMITS).forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1901,7 +1910,7 @@ function _updateNavForUser(user) {
   var user = State.getUser();
   if (user) {
     // Restore nav label on page load if session exists
-    document.addEventListener("DOMContentLoaded", function () {
+    onReady( function () {
       _updateNavForUser(user);
     });
   }
@@ -2582,7 +2591,7 @@ function initCheckoutProgress() {
     },220);
   }
 
-  document.addEventListener('DOMContentLoaded', function(){
+  onReady( function(){
     var ctaBtn = document.getElementById('cta');
     var replayBtn = document.getElementById('intro-replay');
     if(ctaBtn) ctaBtn.addEventListener('click', enterSite);
@@ -3952,7 +3961,7 @@ function chatKeydown(e) {
 
   window.toggleLang = function () { applyLang(currentLang === 'en' ? 'bn' : 'en'); };
 
-  document.addEventListener('DOMContentLoaded', function () {
+  onReady( function () {
     if (currentLang === 'bn') applyLang('bn');
   });
 })();
@@ -3965,7 +3974,8 @@ function replayIntro() {
 }
 
 // ── 8. Boot sequence ──────────────────────────────────────
-document.addEventListener("DOMContentLoaded", function () {
+// Scripts at bottom of body — DOM already ready, run immediately
+(function bootApp() {
 
   // Core UI init
   initLoader();
@@ -3973,7 +3983,7 @@ document.addEventListener("DOMContentLoaded", function () {
   buildTicker();
   initScrollReveal();
   initEscKey();
-  initLang && initLang();   // already IIFE but guard anyway
+  initLang && initLang();
 
   // Load products then render grid (finally = runs on both success AND API failure)
   loadProducts().finally(function () {
@@ -3981,7 +3991,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderProds("all");
     buildCountLabel();
     initAboutImgs();
-    openModalBySlug();    // handle ?#product-N deep links
+    openModalBySlug();
     initTilt();
     initMagnetic();
     initGSAP();
@@ -4061,7 +4071,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   console.log("%c🧊 Arctic Shop BD — Production Build", "color:#111;font-size:14px;font-weight:bold");
-});
+})();
 
 </script>
 
