@@ -4075,5 +4075,118 @@ function replayIntro() {
 
 </script>
 
+
+<script>
+// ══════════════════════════════════════════════
+// PRODUCT OVERRIDE — copied verbatim from OG file
+// ══════════════════════════════════════════════
+
+// Ensure PRODUCTS var exists
+var PRODUCTS = SITE_CONFIG.products;
+
+function renderProds(f){
+f=f||"all";
+var grid=document.getElementById("pg");
+var list=f==="all"?PRODUCTS:PRODUCTS.filter(function(p){var pt=p.tags?(Array.isArray(p.tags)?p.tags:p.tags.split(",").map(function(t){return t.trim();})):[];return pt.indexOf(f)>=0;});
+var h="";
+for(var i=0;i<list.length;i++){
+var p=list[i], src=getImg(p), isC=isCustom(p);
+var sl=stockLabel(p.stock), sc=stockBadgeClass(p.stock), st=stockText(p.stock);
+var imgH=src?"<img class='pc-img' src='"+src+"' alt='"+p.name+"' loading='lazy' decoding='async'/>":"<div class='pc-art'>🛋</div>";
+var outOverlay=p.stock<=0&&!isC?"<div class='pc-out-overlay'><div class='pc-out-txt'>Out of Stock</div></div>":"";
+var addB="";
+if(isC){
+addB="<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
+} else if(p.stock>0){
+addB="<button class='pc-btn' onclick='addToCart("+p.id+",\"L\",1)'>&#9889; Order Now</button>";
+} else {
+addB="<button class='pc-btn' disabled>Out of Stock</button>";
+}
+var stockH="<div class='pc-stock'><span class='stock-badge "+sc+"'><span style='width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;vertical-align:middle;margin-right:4px'></span>"+st+"</span></div>";
+// Show exact count line
+var countLine="";
+if(p.stock>3){ countLine="<div class='pc-stock-count'>"+p.stock+" in stock</div>"; }
+else if(p.stock>0){ countLine="<div class='pc-stock-count low-count'>Only "+p.stock+" left</div>"; }
+else { countLine="<div class='pc-stock-count out-count'>Out of stock</div>"; }
+var bdg=p.badge?"<div class='pc-badge b-"+p.badge+"'>"+p.bl+"</div>":"";
+h+="<div class='pc'>";
+h+=imgH;
+h+="<div class='pc-shade'></div>";
+h+=outOverlay;
+h+=bdg;
+h+="<div class='pc-body'><div class='pc-ed'>"+p.ed+"</div><div class='pc-name'>"+p.name+"</div><div class='pc-price'>"+(p.price?"৳"+p.price.toLocaleString():"Price on Request")+"</div>";
+h+=stockH;
+h+=countLine;
+h+="<div class='pc-acts'>"+addB+"<button class='pc-qv' onclick='openModal("+p.id+")'>&#128065;</button></div></div></div>";
+}
+grid.innerHTML=h;
+}
+function fp(f,btn){ document.querySelectorAll(".fb").forEach(function(b){b.classList.remove("act");}); btn.classList.add("act"); renderProds(f); }
+
+// ── LOAD PRODUCTS FROM API ───────────────────────────
+(function loadProductsFromAPI() {
+  // Map API product to the rich format the site expects
+  function mapAPIProduct(ap) {
+    // Try to match with existing SITE_CONFIG product for rich fields
+    var existing = SITE_CONFIG.products.find(function(p) {
+      return p.id === ap.id || p.name.toLowerCase() === ap.name.toLowerCase();
+    });
+    if (existing) {
+      // Update id, stock and price from live DB, keep all rich fields
+      existing.id = ap.id;
+      existing.stock = (ap.stock !== undefined && ap.stock !== null) ? ap.stock : existing.stock;
+      existing.price = ap.price || existing.price;
+      return existing;
+    }
+    // New product not in config — build from API data
+    return {
+      id: ap.id,
+      name: ap.name,
+      ed: ap.category || "New Arrival",
+      price: ap.price || 0,
+      badge: null, bl: "",
+      tags: ap.tags ? (Array.isArray(ap.tags) ? ap.tags : ap.tags.split(",").map(function(t){return t.trim();}).filter(Boolean)) : ["black"],
+      stock: ap.stock || 0,
+      desc: ap.description || "",
+      descDetails: {
+        fabric: "180gsm ring-spun cotton",
+        fit: "Oversized unisex cut",
+        print: "High-opacity DTG print",
+        wash: "Machine wash cold, inside out",
+        origin: "Made in Dhaka, Bangladesh"
+      },
+      img: ap.image || null,
+      images: ap.image ? [ap.image] : [],
+      type: "regular",
+      aboutImg: false
+    };
+  }
+
+  fetch("/api/products")
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data && data.products && data.products.length > 0) {
+        var mapped = data.products.map(mapAPIProduct);
+        // Keep custom design product if present
+        var custom = SITE_CONFIG.products.find(function(p) { return p.type === "custom"; });
+        if (custom) mapped.push(custom);
+        PRODUCTS = mapped;
+        SITE_CONFIG.products = mapped;
+      }
+    })
+    .catch(function() {
+      // API failed — use local products (already set)
+    })
+    .finally(function() {
+      renderProds("all");
+      buildFilters();
+      buildCountLabel();
+      buildTicker();
+      updBadge();
+      renderCart();
+    });
+})();
+// ── INIT (skipped — handled by API loader above) ─────
+</script>
 </body>
 </html>
