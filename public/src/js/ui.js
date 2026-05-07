@@ -376,37 +376,28 @@ function initGSAP() {
 }
 
 function applyCardAnimations() {
-  var grid  = document.getElementById("pg");
+  var grid = document.getElementById("pg");
   if (!grid) return;
   var cards = grid.querySelectorAll(".pc");
   if (!cards.length) return;
 
-  // If GSAP not ready, just make cards visible immediately
-  if (!window.gsap || !window.ScrollTrigger) {
-    cards.forEach(function(c) { c.style.opacity = "1"; c.style.transform = "none"; });
-    return;
-  }
+  // Always make cards visible first (guarantees they show)
+  cards.forEach(function(c) { c.style.opacity = "1"; c.style.transform = "none"; });
 
-  gsap.set(cards, { opacity: 0, y: 48, scale: 0.94 });
+  // Then add GSAP scroll animation only if available
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.batch(cards, {
     start: "top 95%",
     onEnter: function (batch) {
-      gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: { each: 0.09, from: "start" }, ease: "power3.out", overwrite: true });
+      gsap.fromTo(batch,
+        { opacity: 0, y: 48, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: { each: 0.09, from: "start" }, ease: "power3.out", overwrite: true }
+      );
     },
-    // Safety net: if ScrollTrigger never fires, show cards after 2s
     once: true,
   });
   ScrollTrigger.refresh();
-
-  // Hard fallback: force visible after 2.5s no matter what
-  setTimeout(function() {
-    cards.forEach(function(c) {
-      if (parseFloat(getComputedStyle(c).opacity) < 0.5) {
-        c.style.opacity = "1";
-        c.style.transform = "none";
-      }
-    });
-  }, 2500);
 }
 
 // ── Magnetic buttons (GSAP) ───────────────────────────────
