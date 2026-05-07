@@ -376,27 +376,7 @@ function initGSAP() {
 }
 
 function applyCardAnimations() {
-  var grid  = document.getElementById("pg");
-  if (!grid || !window.gsap || !window.ScrollTrigger) return;
-  var cards = grid.querySelectorAll(".pc");
-  if (!cards.length) return;
-
-  // Check if cards are already in viewport — if so, just show them
-  var firstRect = cards[0].getBoundingClientRect();
-  var inView = firstRect.top < window.innerHeight;
-  if (inView) {
-    gsap.to(cards, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.07, ease: "power3.out" });
-    return;
-  }
-
-  gsap.set(cards, { opacity: 0, y: 48, scale: 0.94 });
-  ScrollTrigger.batch(cards, {
-    start: "top 90%",
-    onEnter: function (batch) {
-      gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: { each: 0.09, from: "start" }, ease: "power3.out", overwrite: true });
-    },
-  });
-  ScrollTrigger.refresh();
+  // Disabled — cards are always visible via CSS
 }
 
 // ── Magnetic buttons (GSAP) ───────────────────────────────

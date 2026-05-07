@@ -475,7 +475,7 @@ html.lang-bn #lang-toggle { background: #111; color: #fff; border-color: #111; }
 
 /* ── PRODUCT GRID ── */
 .pg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; perspective: 1200px; }
-.pc { position: relative; background: var(--card); overflow: hidden; aspect-ratio: 3/4; cursor: pointer; transform-style: preserve-3d; will-change: transform; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s, box-shadow 0.4s; opacity: 1; }
+.pc { position: relative; background: var(--card); overflow: hidden; aspect-ratio: 3/4; cursor: pointer; transform-style: preserve-3d; will-change: transform; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s, box-shadow 0.4s; opacity: 1 !important; visibility: visible !important; }
 .pc:hover { border-color: rgba(17, 17, 17, 0.2); box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(17, 17, 17, 0.08); transform: translateY(-4px) scale(1.005); }
 .pc-img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.25, .46, .45, .94); }
 .pc:hover .pc-img { transform: scale(1.06); }
