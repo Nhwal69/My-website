@@ -50,7 +50,7 @@ function stockBadgeClass(s) {
 // ── Product type helpers ──────────────────────────────────
 function isCustom(p) { return p.type === "custom"; }
 
-function getImg(p) { return (p && (p.img || p.image_url)) ? (p.img || p.image_url) : null; }
+function getImg(p) { return (p && p.img) ? p.img : null; }
 
 // ── Cart badge bump animation ─────────────────────────────
 function updBadge() {
@@ -136,7 +136,6 @@ function initScrollReveal() {
     en.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("vis"); });
   }, { threshold: 0.08 });
   document.querySelectorAll(".rv").forEach(function (el) { obs.observe(el); });
-  window._rvObserver = obs; // expose so renderProds can observe dynamically added cards
 }
 
 // ── Zoom overlay ─────────────────────────────────────────
@@ -361,11 +360,53 @@ function initGSAP() {
     });
   });
 
-  // Product card animations disabled — cards shown via CSS
+  // Product card staggered entrance
+  applyCardAnimations();
+
+  var grid = document.getElementById("pg");
+  if (grid) {
+    var mo = new MutationObserver(function () {
+      ScrollTrigger.getAll().forEach(function (st) {
+        if (st.trigger && !document.body.contains(st.trigger)) st.kill();
+      });
+      applyCardAnimations();
+    });
+    mo.observe(grid, { childList: true });
+  }
 }
 
 function applyCardAnimations() {
-  // Disabled — cards are always visible via CSS
+  var grid  = document.getElementById("pg");
+  if (!grid) return;
+  var cards = grid.querySelectorAll(".pc");
+  if (!cards.length) return;
+
+  // If GSAP not ready, just make cards visible immediately
+  if (!window.gsap || !window.ScrollTrigger) {
+    cards.forEach(function(c) { c.style.opacity = "1"; c.style.transform = "none"; });
+    return;
+  }
+
+  gsap.set(cards, { opacity: 0, y: 48, scale: 0.94 });
+  ScrollTrigger.batch(cards, {
+    start: "top 95%",
+    onEnter: function (batch) {
+      gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: { each: 0.09, from: "start" }, ease: "power3.out", overwrite: true });
+    },
+    // Safety net: if ScrollTrigger never fires, show cards after 2s
+    once: true,
+  });
+  ScrollTrigger.refresh();
+
+  // Hard fallback: force visible after 2.5s no matter what
+  setTimeout(function() {
+    cards.forEach(function(c) {
+      if (parseFloat(getComputedStyle(c).opacity) < 0.5) {
+        c.style.opacity = "1";
+        c.style.transform = "none";
+      }
+    });
+  }, 2500);
 }
 
 // ── Magnetic buttons (GSAP) ───────────────────────────────
@@ -449,15 +490,12 @@ function initLenis() {
 function initVideos() {
   var videos = document.querySelectorAll(".hero-bg-desktop, .hero-bg-mobile");
   videos.forEach(function (vid) {
-    // Remove preload="none" so the browser can buffer and autoplay without a pause frame
-    vid.removeAttribute("preload");
+    vid.setAttribute("preload", "none");
     function tryPlay() {
       var p = vid.play();
       if (p && typeof p.catch === "function") p.catch(function () {});
     }
-    // Play immediately on load
-    tryPlay();
-    // Also re-trigger after user enters (in case it was paused)
+    setTimeout(tryPlay, 500);
     window.addEventListener("arctic:entered", tryPlay, { once: true });
   });
 }
