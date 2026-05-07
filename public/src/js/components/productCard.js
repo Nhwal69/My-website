@@ -22,6 +22,14 @@ function renderProds(filter) {
   });
   grid.innerHTML = html;
 
+  // Re-run scroll reveal on newly injected cards
+  if (window._rvObserver) {
+    grid.querySelectorAll(".pc").forEach(function(el) { window._rvObserver.observe(el); });
+  } else {
+    // Fallback: just make them visible immediately
+    grid.querySelectorAll(".pc").forEach(function(el) { el.classList.add("vis"); });
+  }
+
   // Apply filter visibility
   if (filter !== "all") {
     grid.querySelectorAll(".pc").forEach(function(c) {

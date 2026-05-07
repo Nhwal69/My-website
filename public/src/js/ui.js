@@ -136,6 +136,7 @@ function initScrollReveal() {
     en.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("vis"); });
   }, { threshold: 0.08 });
   document.querySelectorAll(".rv").forEach(function (el) { obs.observe(el); });
+  window._rvObserver = obs; // expose so renderProds can observe dynamically added cards
 }
 
 // ── Zoom overlay ─────────────────────────────────────────
