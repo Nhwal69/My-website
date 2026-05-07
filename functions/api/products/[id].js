@@ -106,6 +106,7 @@ function buildImageUrl(raw, env) {
   if (!raw) return null;
   if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
   const base = (env.R2_PUBLIC_URL || "").replace(/\/$/, "");
-  if (base) return base + "/" + raw;
+  const bare = raw.replace(/^\/+/, "");
+  if (base) return base + "/" + bare;
   return "/images/" + raw;
 }

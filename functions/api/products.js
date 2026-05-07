@@ -90,7 +90,8 @@ function buildImageUrl(raw, env) {
   if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
   // Bare filename — prepend R2 public bucket URL from env var
   const base = (env.R2_PUBLIC_URL || "").replace(/\/$/, "");
-  if (base) return base + "/" + raw;
+  const bare = raw.replace(/^\/+/, "");
+  if (base) return base + "/" + bare;
   // Fallback: serve from /images/ on the same domain
   return "/images/" + raw;
 }
