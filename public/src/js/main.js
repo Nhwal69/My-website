@@ -6,6 +6,9 @@
 
 // ── 1. Load products — cache-first, then API ─────────────
 function loadProducts() {
+  // Show skeleton while loading
+  showProductSkeleton(6);
+
   // Try cache first (5-min TTL)
   var cached = getCachedProducts();
   if (cached && cached.length) {
@@ -15,10 +18,7 @@ function loadProducts() {
 
   return API.fetchProducts()
     .then(function (data) {
-      if (!data || !data.products || !data.products.length) {
-        State.setProducts(SITE_CONFIG.products.slice());
-        return;
-      }
+      if (!data || !data.products || !data.products.length) return;
 
       var apiMap = {};
       data.products.forEach(function (p) { apiMap[p.id] = p; });
@@ -56,7 +56,7 @@ function loadProducts() {
     })
     .catch(function (err) {
       console.warn("API unavailable — using local config products.", err);
-      State.setProducts(SITE_CONFIG.products.slice());
+      // State already has SITE_CONFIG.products from initialization
     });
 }
 
@@ -415,21 +415,15 @@ document.addEventListener("DOMContentLoaded", function () {
   buildTicker();
   initScrollReveal();
   initEscKey();
-  initLang && initLang();
+  initLang && initLang();   // already IIFE but guard anyway
 
-  // Render config products immediately so grid is never blank
-  State.setProducts(SITE_CONFIG.products.slice());
-  buildFilters();
-  renderProds("all");
-  buildCountLabel();
-
-  // Load products for cart/modal/search to work (does NOT touch the grid)
-  loadProducts().then(function () {
+  // Load products then render grid (finally = runs on both success AND API failure)
+  loadProducts().finally(function () {
     buildFilters();
-    renderProds("all");   // re-render grid with live API data (stock, price, new products)
+    renderProds("all");
     buildCountLabel();
     initAboutImgs();
-    openModalBySlug();
+    openModalBySlug();    // handle ?#product-N deep links
     initTilt();
     initMagnetic();
     initGSAP();
