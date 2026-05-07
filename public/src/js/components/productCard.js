@@ -15,12 +15,15 @@ function renderProds(filter) {
     State.setProducts(products);
   }
 
-  // Only filter — never wipe the grid with empty output
-  if (filter === "all") {
-    // Show all cards
-    grid.querySelectorAll(".pc").forEach(function(c) { c.style.display = ""; });
-  } else {
-    // Hide/show based on data-tags attribute
+  // Always rebuild the grid from JS data so API changes (stock, price, new products) are reflected
+  var html = "";
+  products.forEach(function(p) {
+    html += renderProductCard(p);
+  });
+  grid.innerHTML = html;
+
+  // Apply filter visibility
+  if (filter !== "all") {
     grid.querySelectorAll(".pc").forEach(function(c) {
       var tags = c.getAttribute("data-tags") || "";
       c.style.display = tags.indexOf(filter) >= 0 ? "" : "none";
@@ -77,8 +80,11 @@ function renderProductCard(p) {
   else if (stock > 0) countLine = "<div class='pc-stock-count low-count'>Only " + p.stock + " left</div>";
   else                  countLine = "<div class='pc-stock-count out-count'>Out of stock</div>";
 
+  var tagsAttr = Array.isArray(p.tags) ? p.tags.join(",") : (p.tags || "");
+  var clickAttr = isC ? "" : " onclick=\"openModal(" + p.id + ")\"";
+
   return (
-    "<div class='pc'>" +
+    "<div class='pc' data-tags='" + tagsAttr + "'" + clickAttr + ">" +
       imgH +
       "<div class='pc-shade'></div>" +
       outOverlay +

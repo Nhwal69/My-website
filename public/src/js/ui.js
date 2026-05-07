@@ -448,12 +448,15 @@ function initLenis() {
 function initVideos() {
   var videos = document.querySelectorAll(".hero-bg-desktop, .hero-bg-mobile");
   videos.forEach(function (vid) {
-    vid.setAttribute("preload", "none");
+    // Remove preload="none" so the browser can buffer and autoplay without a pause frame
+    vid.removeAttribute("preload");
     function tryPlay() {
       var p = vid.play();
       if (p && typeof p.catch === "function") p.catch(function () {});
     }
-    setTimeout(tryPlay, 500);
+    // Play immediately on load
+    tryPlay();
+    // Also re-trigger after user enters (in case it was paused)
     window.addEventListener("arctic:entered", tryPlay, { once: true });
   });
 }

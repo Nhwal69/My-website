@@ -426,6 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load products for cart/modal/search to work (does NOT touch the grid)
   loadProducts().then(function () {
     buildFilters();
+    renderProds("all");   // re-render grid with live API data (stock, price, new products)
     buildCountLabel();
     initAboutImgs();
     openModalBySlug();
