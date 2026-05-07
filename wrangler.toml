@@ -1,0 +1,24 @@
+name = "arctic-shop"
+pages_build_output_dir = "public"
+compatibility_date = "2024-09-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arctic-shop-db"
+database_id = "6088e9d9-f48b-4577-ac70-8b561b1641fe"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "1f449de1195042748af8936c6ab9e9d7"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "a0b99b2f3dcc469b8762d26a2ac50c58"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "arctic-shop-images"
+
+[vars]
+ENVIRONMENT   = "production"
+R2_PUBLIC_URL = "https://pub-1b7f243938194546883d9da3f855fde7.r2.dev"
