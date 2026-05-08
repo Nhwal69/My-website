@@ -763,27 +763,27 @@
   <div class="faq-layout">
     <div class="faq-list" role="list">
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I pay? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">How do I pay? <span class="faq-chv">▼</span></div>
         <div class="faq-a">We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.</div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How long does delivery take? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">How long does delivery take? <span class="faq-chv">▼</span></div>
         <div class="faq-a">Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.</div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">What sizes do you offer? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">What sizes do you offer? <span class="faq-chv">▼</span></div>
         <div class="faq-a">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I return or exchange? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">Can I return or exchange? <span class="faq-chv">▼</span></div>
         <div class="faq-a">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Do you do custom/bulk orders? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">Do you do custom/bulk orders? <span class="faq-chv">▼</span></div>
         <div class="faq-a">Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.</div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I care for my tee? <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' ')tFaq(this)">How do I care for my tee? <span class="faq-chv">▼</span></div>
         <div class="faq-a">Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.</div>
       </div>
     </div>
@@ -2053,7 +2053,12 @@ function closeMob() {
 }
 
 // ── FAQ accordion ─────────────────────────────────────────
-function tFaq(el) { el.closest(".faq-item").classList.toggle("open"); }
+function tFaq(el) {
+  var item = el.closest(".faq-item");
+  item.classList.toggle("open");
+  var expanded = item.classList.contains("open");
+  el.setAttribute("aria-expanded", expanded);
+}
 
 // ── Scroll reveal (IntersectionObserver) ─────────────────
 function initScrollReveal() {
