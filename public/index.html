@@ -33,6 +33,10 @@
 
   <!-- Intro layer visibility fix: inline <style> beats external sheets -->
   <style>
+    /* ── Bangla font ── */
+    html.lang-bn, html.lang-bn * { font-family: "Noto Sans Bengali", sans-serif !important; line-height: 1.8 !important; }
+    html.lang-bn em, html.lang-bn .sh2 em { font-style: normal !important; }
+    html.lang-bn .sh2, html.lang-bn .sl { letter-spacing: 0 !important; }
     #intro-layer { background:#ffffff !important; color:#111111 !important; }
     #intro-layer #aurora { background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(17,17,17,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 70%, rgba(0,80,160,0.07) 0%, transparent 60%), radial-gradient(ellipse 100% 100% at 50% 50%, rgba(245,245,245,1) 0%, #ffffff 100%) !important; }
     #intro-layer .wipe-bar { background: #ffffff !important; }
@@ -3923,22 +3927,34 @@ function chatKeydown(e) {
     ['#nav-about-link',    'About',    'আমাদের সম্পর্কে'],
     ['#nav-reviews-link',  'Reviews',  'রিভিউ'],
     ['#nav-faq-link',      'FAQ',      'জিজ্ঞাসা'],
-    // ── Mobile nav ──
     ['.mob-link[href="#products"]', 'Products', 'পণ্যসমূহ'],
     ['.mob-link[href="#about"]',    'About',    'আমাদের সম্পর্কে'],
     ['.mob-link[href="#reviews"]',  'Reviews',  'রিভিউ'],
     ['.mob-link[href="#faq"]',      'FAQ',      'জিজ্ঞাসা'],
     ['.mob-link[href="#footer"]',   'Contact',  'যোগাযোগ'],
+    // ── Sticky bar ──
+    ['#sticky-bar span:nth-child(2)', '⚡ FREE delivery on orders ৳1000+  ·  Use code <strong>ARCTIC10</strong> for 10% off', '⚡ ৳1000+ অর্ডারে ফ্রি ডেলিভারি  ·  কোড <strong>ARCTIC10</strong> দিয়ে ১০% ছাড়'],
     // ── Hero ──
     ['.hero-sub',   'WEAR THE FROST. RULE THE NIGHT.', 'হিমের পোশাকে রাতকে জয় করুন।'],
     ['.hero-cta',   '⚡ Shop the Drop', '⚡ এখনই কিনুন'],
+    // ── Features bar (above products) ──
+    ['.feat-item:nth-child(1) .feat-title', 'Premium Cotton',   'প্রিমিয়াম কটন'],
+    ['.feat-item:nth-child(1) .feat-desc',  '180gsm ring-spun cotton. Every tee is thick, soft, and made to last.', '১৮০gsm রিং-স্পান কটন। প্রতিটি টি-শার্ট মোটা, নরম ও টেকসই।'],
+    ['.feat-item:nth-child(2) .feat-title', 'Bold DTG Prints',  'সাহসী DTG প্রিন্ট'],
+    ['.feat-item:nth-child(2) .feat-desc',  'High-opacity DTG printing. Colours stay vivid wash after wash.', 'উচ্চ-ঘনত্বের DTG প্রিন্টিং। ধোয়ার পরও রঙ উজ্জ্বল থাকে।'],
+    ['.feat-item:nth-child(3) .feat-title', 'Free Delivery',    'ফ্রি ডেলিভারি'],
+    ['.feat-item:nth-child(3) .feat-desc',  'Free shipping on all orders above ৳1000. Fast dispatch across BD.', '৳1000+ অর্ডারে বিনামূল্যে শিপিং। সারা বাংলাদেশে দ্রুত ডেলিভারি।'],
+    ['.feat-item:nth-child(4) .feat-title', 'Instant Checkout', 'তাৎক্ষণিক চেকআউট'],
+    ['.feat-item:nth-child(4) .feat-desc',  'Order in under 2 minutes with bKash, Nagad, or Cash on Delivery.', 'bKash, Nagad বা Cash on Delivery-তে ২ মিনিটের মধ্যে অর্ডার করুন।'],
     // ── Stats ──
     ['.stat-item:nth-child(1) .stat-label', 'Happy Customers', 'সন্তুষ্ট গ্রাহক'],
     ['.stat-item:nth-child(2) .stat-label', 'Bold Designs',    'অনন্য ডিজাইন'],
     ['.stat-item:nth-child(3) .stat-label', 'Avg. Rating',     'গড় রেটিং'],
-    // ── About section ──
+    // ── About ──
     ['.about-txt .sl',  'Our Story',   'আমাদের গল্প'],
     ['.about-txt .sh2', 'We <em>Make</em><br>Perfect.', 'আমরা <em>তৈরি করি</em><br>নিখুঁতভাবে।'],
+    ['.ab-body:nth-of-type(1)', 'Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that's designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>. We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.', 'Arctic Shop BD-র যাত্রা শুরু একটাই বিশ্বাস নিয়ে: বাংলাদেশ প্রিমিয়াম স্ট্রিটওয়্যার পাওয়ার যোগ্য — যা <em>এখানে</em> ডিজাইন হয়, <em>এখানে</em> তৈরি হয়, <em>এখানকার</em> বাজেটে মেলে। আমরা প্রতিটি টি-শার্ট ১৮০gsm রিং-স্পান কটনে উচ্চ-ঘনত্বের DTG প্রিন্টে তৈরি করি।'],
+    ['.ab-body:nth-of-type(2)', 'Every drop is limited. Every design is intentional. No mass production, no compromise.', 'প্রতিটি ড্রপ সীমিত। প্রতিটি ডিজাইন উদ্দেশ্যমূলক। কোনো ব্যাপক উৎপাদন নেই, কোনো আপোষ নেই।'],
     ['.af:nth-child(1) .af-title', 'Premium Fabric',  'প্রিমিয়াম কাপড়'],
     ['.af:nth-child(1) .af-desc',  '180gsm ring-spun cotton every time.', '১৮০gsm রিং-স্পান কটন, প্রতিবার।'],
     ['.af:nth-child(2) .af-title', 'DTG Printing',    'DTG প্রিন্টিং'],
@@ -3947,27 +3963,39 @@ function chatKeydown(e) {
     ['.af:nth-child(3) .af-desc',  'Shipped within 24h of payment.', 'পেমেন্টের ২৪ ঘণ্টার মধ্যে শিপমেন্ট।'],
     ['.af:nth-child(4) .af-title', 'Made in Dhaka',   'ঢাকায় তৈরি'],
     ['.af:nth-child(4) .af-desc',  'Proudly local. Globally standard.', 'গর্বিতভাবে দেশীয়। বৈশ্বিক মানের।'],
+    // ── How to Order ──
+    ['.hto-header .sl', 'Simple Process', 'সহজ প্রক্রিয়া'],
+    ['.hto-header .sh2', 'How to <em>Order.</em>', 'কিভাবে <em>অর্ডার করবেন।</em>'],
+    ['.hto-sub', 'Order in under 2 minutes — no account needed, no waiting.', '২ মিনিটের কম সময়ে অর্ডার করুন — কোনো অ্যাকাউন্ট লাগবে না।'],
+    ['.hto-step:nth-child(1) .hto-step-title', 'Pick Your Tee', 'আপনার টি-শার্ট বেছে নিন'],
+    ['.hto-step:nth-child(1) .hto-step-desc',  'Browse the collection, select your size, add to cart. No signup required.', 'কালেকশন দেখুন, সাইজ বেছে কার্টে যোগ করুন। রেজিস্ট্রেশন লাগবে না।'],
+    ['.hto-step:nth-child(2) .hto-step-title', 'Pay with bKash', 'bKash-এ পেমেন্ট করুন'],
+    ['.hto-step:nth-child(2) .hto-step-desc',  'Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.', 'bKash, Nagad-এ পাঠান বা Cash on Delivery বেছে নিন। TrxID দিয়ে নিশ্চিত করুন।'],
+    ['.hto-step:nth-child(3) .hto-step-title', 'We Deliver', 'আমরা পৌঁছে দিই'],
+    ['.hto-step:nth-child(3) .hto-step-desc',  'We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.', '২৪ ঘণ্টার মধ্যে পাঠানো হয়। ২–4 কার্যদিবসে ডেলিভারি। প্রতিটি ধাপে আপডেট পাবেন।'],
+    ['.hto-wa-title', 'Prefer to order on WhatsApp?', 'WhatsApp-এ অর্ডার করতে চান?'],
+    ['.hto-wa-sub',   "Send us a message — we'll handle everything.", 'একটা মেসেজ করুন — বাকিটা আমরা সামলে নেব।'],
     // ── Reviews ──
-    ['#reviews .sl',  'Social Proof',           'সামাজিক প্রমাণ'],
-    ['#reviews .sh2', 'What They <em>Say.</em>', 'তারা কী <em>বলেন।</em>'],
+    ['#reviews .sl',  'Social Proof',             'সামাজিক প্রমাণ'],
+    ['#reviews .sh2', 'What They <em>Say.</em>',  'তারা কী <em>বলেন।</em>'],
     ['.rev-card:nth-child(1) .rev-text', '“Quality is insane for the price. The Losted Tee fits perfectly oversized — exactly what I wanted. Delivery was super fast too.”', '“দামের তুলনায় মান অসাধারণ। লস্টেড টি একদম পারফেক্ট ওভারসাইজড ফিট। ডেলিভারিও অনেক দ্রুত ছিল।”'],
     ['.rev-card:nth-child(2) .rev-text', '“Sweet Venom is everything. The print quality is unreal — crisp and bold. Arctic Shop BD is the real deal for streetwear in Bangladesh.”', '“সুইট ভেনম সেরা। প্রিন্টের মান অবিশ্বাস্য। Bangladesh-এর স্ট্রিটওয়্যারে Arctic Shop BD সত্যিই অনন্য।”'],
     ['.rev-card:nth-child(3) .rev-text', '“Got the Pretty Tee limited edition. Ordered at night, shipped next morning. The dual-sided print is insane quality. Will definitely order again!”', '“প্রিটি টি লিমিটেড এডিশন পেয়েছি। রাতে অর্ডার, পরের সকালে শিপ। ডুয়েল সাইড প্রিন্ট অসাধারণ। আবার অর্ডার করব!”'],
     // ── FAQ ──
-    ['#faq .sl',  'Support',                  'সাপোর্ট'],
-    ['#faq .sh2', 'Got <em>Questions?</em>',  'কোনো <em>প্রশ্ন আছে?</em>'],
+    ['#faq .sl',  'Support',                 'সাপোর্ট'],
+    ['#faq .sh2', 'Got <em>Questions?</em>', 'কোনো <em>প্রশ্ন আছে?</em>'],
     ['.faq-item:nth-child(1) .faq-q', 'How do I pay? <span class="faq-chv">▼</span>', 'কিভাবে পেমেন্ট করব? <span class="faq-chv">▼</span>'],
     ['.faq-item:nth-child(1) .faq-a', 'We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.', 'আমরা bKash, Nagad এবং Cash on Delivery (শুধু ঢাকায়) গ্রহণ করি। অর্ডার দেওয়ার পর নির্দিষ্ট নম্বরে টাকা পাঠান ও ট্রানজেকশন আইডি দিন। পেমেন্ট যাচাই হলে অর্ডার নিশ্চিত হবে।'],
     ['.faq-item:nth-child(2) .faq-q', 'How long does delivery take? <span class="faq-chv">▼</span>', 'ডেলিভারি কতদিন লাগে? <span class="faq-chv">▼</span>'],
     ['.faq-item:nth-child(2) .faq-a', "Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.", 'অর্ডার ২৪ ঘণ্টার মধ্যে পাঠানো হয়। ঢাকায় ১–2 কার্যদিবস। ঢাকার বাইরে ৩–5 কার্যদিবস। শিপমেন্টের সময় WhatsApp আপডেট পাবেন।'],
     ['.faq-item:nth-child(3) .faq-q', 'What sizes do you offer? <span class="faq-chv">▼</span>', 'কোন সাইজ পাওয়া যায়? <span class="faq-chv">▼</span>'],
-    ['.faq-item:nth-child(3) .faq-a', 'We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.', 'S, M, L, XL ও XXL পাওয়া যায়। সব টি-শার্ট ওভারসাইজড কাট — রেগুলার ফিট চাইলে এক সাইজ ছোট নিন।'],
+    ['.faq-item:nth-child(3) .faq-a', 'We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.', 'S, M, L, XL ও XXL পাওয়া যায়। সব টি-শার্ট ওভারসাইজড কাট — রেগুলার ফিট চাইলে এক সাইজ ছোট নিন। পণ্যের মডালে সাইজ গাইড দেখুন।'],
     ['.faq-item:nth-child(4) .faq-q', 'Can I return or exchange? <span class="faq-chv">▼</span>', 'রিটার্ন বা এক্সচেঞ্জ করা যাবে? <span class="faq-chv">▼</span>'],
-    ['.faq-item:nth-child(4) .faq-a', 'We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.', 'উৎপাদন ত্রুটি বা ভুল পণ্যের ক্ষেত্রে ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য। কাস্টম ও ব্যবহৃত পণ্য ফেরত নেওয়া হয় না।'],
+    ['.faq-item:nth-child(4) .faq-a', 'We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.', 'উৎপাদন ত্রুটি বা ভুল পণ্যের ক্ষেত্রে ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য। কাস্টম ও ব্যবহৃত পণ্য ফেরত নেওয়া হয় না। অর্ডার আইডি ও ছবিসহ WhatsApp-এ যোগাযোগ করুন।'],
     ['.faq-item:nth-child(5) .faq-q', 'Do you do custom/bulk orders? <span class="faq-chv">▼</span>', 'কাস্টম বা বাল্ক অর্ডার করা যায়? <span class="faq-chv">▼</span>'],
-    ['.faq-item:nth-child(5) .faq-a', 'Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.', 'হ্যাঁ! ১ পিস থেকে কাস্টম ডিজাইন, ৫–7 দিনে ডেলিভারি। বাল্ক অর্ডারে (১০+) WhatsApp-এ মেসেজ করুন।'],
+    ['.faq-item:nth-child(5) .faq-a', 'Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.', 'হ্যাঁ! ১ পিস থেকে কাস্টম ডিজাইন করা যায়, ৫–7 দিনে ডেলিভারি। বাল্ক অর্ডারে (১০+ পিস) বিশেষ মূল্যের জন্য WhatsApp-এ মেসেজ করুন।'],
     ['.faq-item:nth-child(6) .faq-q', 'How do I care for my tee? <span class="faq-chv">▼</span>', 'টি-শার্টের যত্ন কিভাবে নেব? <span class="faq-chv">▼</span>'],
-    ['.faq-item:nth-child(6) .faq-a', 'Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results.', 'উল্টো করে ঠান্ডা পানিতে (৩০°C) মেশিনে ধুন। টাম্বল ড্রাই বা ব্লিচ করবেন না। ঝুলিয়ে শুকান।'],
+    ['.faq-item:nth-child(6) .faq-a', 'Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.', 'উল্টো করে ঠান্ডা পানিতে (সর্বোচ্চ ৩০°C) মেশিনে ধুন। টাম্বল ড্রাই বা ব্লিচ করবেন না। ঝুলিয়ে শুকান — প্রিন্ট ও কাপড় বছরের পর বছর ভালো থাকবে।'],
     // ── FAQ contact box ──
     ['.fcp-t', 'Still need help?', 'এখনও সাহায্য দরকার?'],
     ['.fcp-d', 'We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.', 'আমরা WhatsApp-এ মিনিটের মধ্যে সাড়া দিই। Facebook বা ইমেইলেও যোগাযোগ করতে পারেন।'],
@@ -3983,7 +4011,6 @@ function chatKeydown(e) {
     ['.back-btn', '← Back to Cart', '← কার্টে ফিরুন'],
     ['.ok-title', 'Order Placed!',     'অর্ডার হয়ে গেছে!'],
     ['.ok-close', 'Continue Shopping', 'কেনাকাটা চালিয়ে যান'],
-    // ── Size guide ──
     ['.sg-title', 'Size Guide', 'সাইজ গাইড'],
     // ── Footer ──
     ['.foot-tag',  'We Make Perfect', 'আমরা তৈরি করি নিখুঁতভাবে'],
@@ -3992,14 +4019,14 @@ function chatKeydown(e) {
     ['.trust-b:nth-child(2)', 'bKash Accepted',  'bKash গ্রহণযোগ্য'],
     ['.trust-b:nth-child(3)', 'Made in BD',      'বাংলাদেশে তৈরি'],
     // ── Exit popup ──
-    ['.exit-tag',      'Wait — Before You Go', 'যাওয়ার আগে দেখুন!'],
-    ['#exit-headline', "Don't Freeze<br>On This <em>Deal.</em>", 'এই সুযোগ<br>মিস <em>করবেন না!</em>'],
-    ['#exit-copy-btn',    'Copy',             'কপি'],
-    ['#exit-cta-btn',     'Shop the Drop →', 'এখনই অর্ডার করুন →'],
-    ['#exit-dismiss-btn', "No thanks, I'll pay full price", 'ধন্যবাদ, পরে কিনব'],
+    ['.exit-tag',         'Wait — Before You Go',               'যাওয়ার আগে দেখুন!'],
+    ['#exit-headline',    "Don't Freeze<br>On This <em>Deal.</em>",  'এই সুযোগ<br>মিস <em>করবেন না!</em>'],
+    ['#exit-copy-btn',    'Copy',                                     'কপি'],
+    ['#exit-cta-btn',     'Shop the Drop →',                    'এখনই অর্ডার করুন →'],
+    ['#exit-dismiss-btn', "No thanks, I'll pay full price",          'ধন্যবাদ, পরে কিনব'],
     // ── Wishlist & search ──
-    ['.wl-head-title', '♥ Wishlist', '♥ ওয়িশলিস্ট'],
-    ['.search-hint', 'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],
+    ['.wl-head-title', '♥ Wishlist',          '♥ ওয়িশলিস্ট'],
+    ['.search-hint',   'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],
   ];
 
   var currentLang = localStorage.getItem('asbd_lang') || 'en';
