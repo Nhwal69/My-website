@@ -3953,7 +3953,7 @@ function chatKeydown(e) {
     // ── About ──
     ['.about-txt .sl',  'Our Story',   'আমাদের গল্প'],
     ['.about-txt .sh2', 'We <em>Make</em><br>Perfect.', 'আমরা <em>তৈরি করি</em><br>নিখুঁতভাবে।'],
-    ['.ab-body:nth-of-type(1)', 'Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that's designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>. We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.', 'Arctic Shop BD-র যাত্রা শুরু একটাই বিশ্বাস নিয়ে: বাংলাদেশ প্রিমিয়াম স্ট্রিটওয়্যার পাওয়ার যোগ্য — যা <em>এখানে</em> ডিজাইন হয়, <em>এখানে</em> তৈরি হয়, <em>এখানকার</em> বাজেটে মেলে। আমরা প্রতিটি টি-শার্ট ১৮০gsm রিং-স্পান কটনে উচ্চ-ঘনত্বের DTG প্রিন্টে তৈরি করি।'],
+    ['.ab-body:nth-of-type(1)', 'Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that\'s designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>. We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.', 'Arctic Shop BD-র যাত্রা শুরু একটাই বিশ্বাস নিয়ে: বাংলাদেশ প্রিমিয়াম স্ট্রিটওয়্যার পাওয়ার যোগ্য — যা <em>এখানে</em> ডিজাইন হয়, <em>এখানে</em> তৈরি হয়, <em>এখানকার</em> বাজেটে মেলে। আমরা প্রতিটি টি-শার্ট ১৮০gsm রিং-স্পান কটনে উচ্চ-ঘনত্বের DTG প্রিন্টে তৈরি করি।'],
     ['.ab-body:nth-of-type(2)', 'Every drop is limited. Every design is intentional. No mass production, no compromise.', 'প্রতিটি ড্রপ সীমিত। প্রতিটি ডিজাইন উদ্দেশ্যমূলক। কোনো ব্যাপক উৎপাদন নেই, কোনো আপোষ নেই।'],
     ['.af:nth-child(1) .af-title', 'Premium Fabric',  'প্রিমিয়াম কাপড়'],
     ['.af:nth-child(1) .af-desc',  '180gsm ring-spun cotton every time.', '১৮০gsm রিং-স্পান কটন, প্রতিবার।'],
@@ -4214,70 +4214,6 @@ grid.innerHTML=h;
 }
 function fp(f,btn){ document.querySelectorAll(".fb").forEach(function(b){b.classList.remove("act");}); btn.classList.add("act"); renderProds(f); }
 
-// ── LOAD PRODUCTS FROM API ───────────────────────────
-(function loadProductsFromAPI() {
-  // Map API product to the rich format the site expects
-  function mapAPIProduct(ap) {
-    // Try to match with existing SITE_CONFIG product for rich fields
-    var existing = SITE_CONFIG.products.find(function(p) {
-      return p.id === ap.id || p.name.toLowerCase() === ap.name.toLowerCase();
-    });
-    if (existing) {
-      // Update id, stock and price from live DB, keep all rich fields
-      existing.id = ap.id;
-      existing.stock = (ap.stock !== undefined && ap.stock !== null) ? ap.stock : existing.stock;
-      existing.price = ap.price || existing.price;
-      return existing;
-    }
-    // New product not in config — build from API data
-    return {
-      id: ap.id,
-      name: ap.name,
-      ed: ap.category || "New Arrival",
-      price: ap.price || 0,
-      badge: null, bl: "",
-      tags: ap.tags ? (Array.isArray(ap.tags) ? ap.tags : ap.tags.split(",").map(function(t){return t.trim();}).filter(Boolean)) : ["black"],
-      stock: ap.stock || 0,
-      desc: ap.description || "",
-      descDetails: {
-        fabric: "180gsm ring-spun cotton",
-        fit: "Oversized unisex cut",
-        print: "High-opacity DTG print",
-        wash: "Machine wash cold, inside out",
-        origin: "Made in Dhaka, Bangladesh"
-      },
-      img: ap.image || null,
-      images: ap.image ? [ap.image] : [],
-      type: "regular",
-      aboutImg: false
-    };
-  }
-
-  fetch("/api/products")
-    .then(function(res) { return res.json(); })
-    .then(function(data) {
-      if (data && data.products && data.products.length > 0) {
-        var mapped = data.products.map(mapAPIProduct);
-        // Keep custom design product if present
-        var custom = SITE_CONFIG.products.find(function(p) { return p.type === "custom"; });
-        if (custom) mapped.push(custom);
-        PRODUCTS = mapped;
-        SITE_CONFIG.products = mapped;
-      }
-    })
-    .catch(function() {
-      // API failed — use local products (already set)
-    })
-    .finally(function() {
-      renderProds("all");
-      buildFilters();
-      buildCountLabel();
-      buildTicker();
-      updBadge();
-      renderCart();
-    });
-})();
-// ── INIT (skipped — handled by API loader above) ─────
 </script>
 </body>
 </html>
