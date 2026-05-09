@@ -5,22 +5,22 @@
 
 /* ── CSS VARIABLES ── */
 :root {
-  --ink: #070d17;
-  --deep: #0d1520;
-  --panel: #111c2a;
-  --card: #0f1923;
-  --rim: #1a2535;
-  --glow: #4fc3f7;
-  --glow2: #81d4fa;
+  --ink: #ffffff;
+  --deep: #f5f5f5;
+  --panel: #fafafa;
+  --card: #f0f0f0;
+  --rim: #e8e8e8;
+  --glow: #111111;
+  --glow2: #333333;
   --gold: #c8a96e;
   --gold2: #a08040;
   --hot: #e8325a;
-  --white: #ffffff;
-  --muted: rgba(255, 255, 255, 0.45);
-  --border: rgba(255, 255, 255, 0.07);
-  --green: #2ecc71;
-  --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --gradient-cta: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
+  --white: #111111;
+  --muted: rgba(17, 17, 17, 0.5);
+  --border: rgba(0, 0, 0, 0.1);
+  --green: #1a8a5a;
+  --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --gradient-cta: linear-gradient(135deg, #111111 0%, #333333 100%);
   --gradient-gold: linear-gradient(135deg, #c8a96e 0%, #a08040 100%);
 }
 
