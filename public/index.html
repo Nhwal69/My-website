@@ -68,6 +68,7 @@
     html:not(.entered) #intro-layer #intro-ticker { animation:iIn   0.4s 1.25s ease both !important; }
   
     /* ── Bilingual text switching ── */
+    .faq-q .en-text, .faq-q .bn-text { pointer-events: none; }
     html:not(.lang-bn) .bn-text { display: none !important; }
     html.lang-bn .en-text { display: none !important; }
     html.lang-bn .bn-text { display: inline !important; font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
@@ -3963,7 +3964,7 @@ function chatKeydown(e) {
     document.querySelectorAll('[data-bn]').forEach(function (el) {
       var orig = el.getAttribute('data-en') || el.textContent;
       if (!el.getAttribute('data-en')) el.setAttribute('data-en', orig);
-      el.textContent = isBn ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+      el.innerHTML = isBn ? el.getAttribute('data-bn') : el.getAttribute('data-en');
     });
   }
 
