@@ -22,7 +22,7 @@
   <!-- ── Fonts ────────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet"  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Hind+Siliguri:wght@400;500;600;700&display=swap"/>
+  <link rel="stylesheet"  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"/>
 
   <!-- ── Icons ────────────────────────────────────────────── -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
@@ -66,6 +66,12 @@
     html:not(.entered) #intro-layer #cta          { animation:iUp   0.5s 1.05s cubic-bezier(.34,1.56,.64,1) both !important; background:#111 !important; color:#ffffff !important; cursor:pointer !important; }
     html:not(.entered) #intro-layer #stats-strip  { animation:iIn   0.5s 1.15s ease both !important; }
     html:not(.entered) #intro-layer #intro-ticker { animation:iIn   0.4s 1.25s ease both !important; }
+  
+    /* ── Bilingual text switching ── */
+    html:not(.lang-bn) .bn-text { display: none !important; }
+    html.lang-bn .en-text { display: none !important; }
+    html.lang-bn .bn-text { display: inline !important; font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
+    html.lang-bn [data-bn] { font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
   </style>
 
   <!-- ── Structured data (JSON-LD) ────────────────────────── -->
@@ -549,7 +555,7 @@
   <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-content">
-    <div class="hero-ey a1">
+    <div class="hero-ey a1" data-en="✦ Arctic Drop // Winter Edit '26 ✦" data-bn="✦ আর্কটিক ড্রপ // শীতকালীন সংস্করণ '২৬ ✦">
       <span>✦</span> Arctic Drop // Winter Edit '26 <span>✦</span>
     </div>
     <h1 class="hero-h1 a2">
@@ -587,22 +593,22 @@
   <div class="trust-strip-inner">
     <div class="tb">
       <span class="tb-icon">🚚</span>
-      <div><div class="tb-title">Free Delivery</div><div class="tb-sub">On orders ৳1000+</div></div>
+      <div><div class="tb-title" data-bn="বিনামূল্যে ডেলিভারি" data-en="Free Delivery">Free Delivery</div><div class="tb-sub" data-bn="৳১০০০+ অর্ডারে" data-en="On orders ৳1000+">On orders ৳1000+</div></div>
     </div>
     <div class="tb-divider" aria-hidden="true"></div>
     <div class="tb">
       <span class="tb-icon">💳</span>
-      <div><div class="tb-title">bKash &amp; Nagad</div><div class="tb-sub">Instant mobile payment</div></div>
+      <div><div class="tb-title" data-bn="বিকাশ ও নগদ" data-en="bKash &amp; Nagad">bKash &amp; Nagad</div><div class="tb-sub" data-bn="তাৎক্ষণিক মোবাইল পেমেন্ট" data-en="Instant mobile payment">Instant mobile payment</div></div>
     </div>
     <div class="tb-divider" aria-hidden="true"></div>
     <div class="tb">
       <span class="tb-icon">🧵</span>
-      <div><div class="tb-title">180gsm Cotton</div><div class="tb-sub">Premium ring-spun</div></div>
+      <div><div class="tb-title" data-bn="১৮০জিএসএম কটন" data-en="180gsm Cotton">180gsm Cotton</div><div class="tb-sub" data-bn="প্রিমিয়াম রিং-স্পান" data-en="Premium ring-spun">Premium ring-spun</div></div>
     </div>
     <div class="tb-divider" aria-hidden="true"></div>
     <div class="tb">
       <span class="tb-icon">📦</span>
-      <div><div class="tb-title">Fast Dispatch</div><div class="tb-sub">24h order processing</div></div>
+      <div><div class="tb-title" data-bn="দ্রুত ডিসপ্যাচ" data-en="Fast Dispatch">Fast Dispatch</div><div class="tb-sub" data-bn="২৪ঘণ্টায় অর্ডার প্রসেস" data-en="24h order processing">24h order processing</div></div>
     </div>
   </div>
 </section>
@@ -612,8 +618,8 @@
      PRODUCTS
 ════════════════════════════════════════════════════════ -->
 <section class="sw" id="products" aria-label="Products">
-  <div class="sl">The Collection</div>
-  <h2 class="sh2">Drop <em>01.</em></h2>
+  <div class="sl" data-bn="কালেকশন" data-en="The Collection">The Collection</div>
+  <h2 class="sh2" data-bn="ড্রপ <em>০১।</em>" data-en="Drop <em>01.</em>">Drop <em>01.</em></h2>
 
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px">
     <div id="filters" class="filters" role="group" aria-label="Product filters"></div>
@@ -626,10 +632,10 @@
 <!-- Features -->
 <section class="feat-band" aria-label="Why Arctic Shop">
   <div class="feat-grid">
-    <div class="feat-item rv"><span class="feat-icon">🧵</span><div class="feat-title">Premium Cotton</div><p class="feat-desc">180gsm ring-spun cotton. Every tee is thick, soft, and made to last.</p></div>
-    <div class="feat-item rv"><span class="feat-icon">🎨</span><div class="feat-title">Bold DTG Prints</div><p class="feat-desc">High-opacity DTG printing. Colours stay vivid wash after wash.</p></div>
-    <div class="feat-item rv"><span class="feat-icon">🚚</span><div class="feat-title">Free Delivery</div><p class="feat-desc">Free shipping on all orders above ৳1000. Fast dispatch across BD.</p></div>
-    <div class="feat-item rv"><span class="feat-icon">⚡</span><div class="feat-title">Instant Checkout</div><p class="feat-desc">Order in under 2 minutes with bKash, Nagad, or Cash on Delivery.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">🧵</span><div class="feat-title" data-bn="প্রিমিয়াম কটন" data-en="Premium Cotton">Premium Cotton</div><p class="feat-desc" data-bn="১৮০জিএসএম রিং-স্পান কটন। প্রতিটি টি-শার্ট মোটা, নরম এবং দীর্ঘস্থায়ী।" data-en="180gsm ring-spun cotton. Every tee is thick, soft, and made to last.">180gsm ring-spun cotton. Every tee is thick, soft, and made to last.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">🎨</span><div class="feat-title" data-bn="বোল্ড ডিটিজি প্রিন্ট" data-en="Bold DTG Prints">Bold DTG Prints</div><p class="feat-desc" data-bn="হাই-অপাসিটি ডিটিজি প্রিন্টিং। বারবার ধোয়ার পরেও রং উজ্জ্বল থাকে।" data-en="High-opacity DTG printing. Colours stay vivid wash after wash.">High-opacity DTG printing. Colours stay vivid wash after wash.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">🚚</span><div class="feat-title" data-bn="বিনামূল্যে ডেলিভারি" data-en="Free Delivery">Free Delivery</div><p class="feat-desc" data-bn="৳১০০০+ সকল অর্ডারে বিনামূল্যে ডেলিভারি। সারা বাংলাদেশে দ্রুত পাঠানো হয়।" data-en="Free shipping on all orders above ৳1000. Fast dispatch across BD.">Free shipping on all orders above ৳1000. Fast dispatch across BD.</p></div>
+    <div class="feat-item rv"><span class="feat-icon">⚡</span><div class="feat-title" data-bn="তাৎক্ষণিক চেকআউট" data-en="Instant Checkout">Instant Checkout</div><p class="feat-desc" data-bn="বিকাশ, নগদ বা ক্যাশ অন ডেলিভারিতে ২ মিনিটেরও কম সময়ে অর্ডার করুন।" data-en="Order in under 2 minutes with bKash, Nagad, or Cash on Delivery.">Order in under 2 minutes with bKash, Nagad, or Cash on Delivery.</p></div>
   </div>
 </section>
 
@@ -643,36 +649,36 @@
   <div class="hto-glow-orb hto-orb2" aria-hidden="true"></div>
   <div class="sw hto-inner">
     <div class="hto-header">
-      <div class="sl">Simple Process</div>
-      <h2 class="sh2">How to <em>Order.</em></h2>
-      <p class="hto-sub">Order in under 2 minutes — no account needed, no waiting.</p>
+      <div class="sl" data-bn="সহজ প্রক্রিয়া" data-en="Simple Process">Simple Process</div>
+      <h2 class="sh2" data-bn="কীভাবে <em>অর্ডার করবেন।</em>" data-en="How to <em>Order.</em>">How to <em>Order.</em></h2>
+      <p class="hto-sub" data-bn="মাত্র ২ মিনিটে অর্ডার করুন — কোনো অ্যাকাউন্ট নেই, কোনো অপেক্ষা নেই।" data-en="Order in under 2 minutes — no account needed, no waiting.">Order in under 2 minutes — no account needed, no waiting.</p>
     </div>
     <div class="hto-steps">
       <div class="hto-step rv">
         <div class="hto-step-num">01</div>
         <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
-        <div class="hto-step-title">Pick Your Tee</div>
-        <div class="hto-step-desc">Browse the collection, select your size, add to cart. No signup required.</div>
+        <div class="hto-step-title" data-bn="টি-শার্ট বেছে নিন" data-en="Pick Your Tee">Pick Your Tee</div>
+        <div class="hto-step-desc" data-bn="কালেকশন দেখুন, সাইজ বেছে নিন, কার্টে যোগ করুন। রেজিস্ট্রেশন লাগবে না।" data-en="Browse the collection, select your size, add to cart. No signup required.">Browse the collection, select your size, add to cart. No signup required.</div>
       </div>
       <div class="hto-step rv">
         <div class="hto-step-num">02</div>
         <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-        <div class="hto-step-title">Pay with bKash</div>
-        <div class="hto-step-desc">Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.</div>
+        <div class="hto-step-title" data-bn="বিকাশে পেমেন্ট করুন" data-en="Pay with bKash">Pay with bKash</div>
+        <div class="hto-step-desc" data-bn="বিকাশ, নগদে পাঠান বা ক্যাশ অন ডেলিভারি বেছে নিন। নিশ্চিত করতে ট্রানজেকশন আইডি দিন।" data-en="Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.">Send via bKash, Nagad, or choose Cash on Delivery. Enter your TrxID to confirm.</div>
       </div>
       <div class="hto-step rv">
         <div class="hto-step-num">03</div>
         <div class="hto-step-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
-        <div class="hto-step-title">We Deliver</div>
-        <div class="hto-step-desc">We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.</div>
+        <div class="hto-step-title" data-bn="আমরা পৌঁছে দিই" data-en="We Deliver">We Deliver</div>
+        <div class="hto-step-desc" data-bn="২৪ ঘণ্টার মধ্যে পাঠিয়ে দিই। ২–৪ কার্যদিবসে ডেলিভারি। প্রতিটি ধাপে আপডেট পাবেন।" data-en="We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.">We dispatch within 24h. Delivery in 2–4 working days. You get an update at every step.</div>
       </div>
     </div>
     <div class="hto-wa-strip rv">
       <div class="hto-wa-left">
         <div class="hto-wa-pulse" aria-hidden="true"></div>
         <div>
-          <div class="hto-wa-title">Prefer to order on WhatsApp?</div>
-          <div class="hto-wa-sub">Send us a message — we'll handle everything.</div>
+          <div class="hto-wa-title" data-bn="হোয়াটসঅ্যাপে অর্ডার করতে চান?" data-en="Prefer to order on WhatsApp?">Prefer to order on WhatsApp?</div>
+          <div class="hto-wa-sub" data-bn="আমাদের মেসেজ করুন — বাকিটা আমরা সামলাবো।" data-en="Send us a message — we'll handle everything.">Send us a message — we'll handle everything.</div>
         </div>
       </div>
       <a href="https://wa.me/8801925838830" class="hto-wa-btn" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
@@ -695,20 +701,21 @@
       <img id="ai3" class="span2" src="/images/wave.jpg" alt="Arctic Shop product" loading="lazy"/>
     </div>
     <div class="about-txt">
-      <div class="sl rv">Our Story</div>
-      <h2 class="sh2 rv">We <em>Make</em><br>Perfect.</h2>
+      <div class="sl rv" data-bn="আমাদের গল্প" data-en="Our Story">Our Story</div>
+      <h2 class="sh2 rv" data-bn="আমরা <em>তৈরি করি</em><br>পরিপূর্ণ।" data-en="We <em>Make</em><br>Perfect.">We <em>Make</em><br>Perfect.</h2>
       <p class="ab-body rv">
-        Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that's designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>.
-        We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.
+        <span class="en-text">Arctic Shop BD started with one belief: Bangladesh deserves premium streetwear that's designed <em>here</em>, made <em>here</em>, and priced for <em>here</em>.
+        We print every tee to order using high-opacity DTG on 180gsm ring-spun cotton — the same standard used by global brands, now available in Dhaka.</span><span class="bn-text" style="display:none">আর্কটিক শপ বিডি শুরু হয়েছিল একটি বিশ্বাস নিয়ে: বাংলাদেশের প্রাপ্য প্রিমিয়াম স্ট্রিটওয়্যার যা <em>এখানেই</em> ডিজাইন, <em>এখানেই</em> তৈরি এবং <em>এখানকার</em> মানুষের জন্য মূল্য নির্ধারিত।
+        আমরা প্রতিটি টি-শার্ট অর্ডার অনুযায়ী ১৮০জিএসএম রিং-স্পান কটনে হাই-অপাসিটি ডিটিজিতে প্রিন্ট করি — আন্তর্জাতিক ব্র্যান্ডের মানে, এখন ঢাকায়।</span>
       </p>
       <p class="ab-body rv">
-        Every drop is limited. Every design is intentional. No mass production, no compromise.
+        <span class="en-text">Every drop is limited. Every design is intentional. No mass production, no compromise.</span><span class="bn-text" style="display:none">প্রতিটি ড্রপ সীমিত। প্রতিটি ডিজাইন উদ্দেশ্যমূলক। গণ উৎপাদন নেই, আপোষ নেই।</span>
       </p>
       <div class="ab-feats">
-        <div class="af rv"><div class="af-icon">🧵</div><div class="af-title">Premium Fabric</div><div class="af-desc">180gsm ring-spun cotton every time.</div></div>
-        <div class="af rv"><div class="af-icon">🎨</div><div class="af-title">DTG Printing</div><div class="af-desc">Colours that last — wash after wash.</div></div>
-        <div class="af rv"><div class="af-icon">📦</div><div class="af-title">Fast Dispatch</div><div class="af-desc">Shipped within 24h of payment.</div></div>
-        <div class="af rv"><div class="af-icon">🇧🇩</div><div class="af-title">Made in Dhaka</div><div class="af-desc">Proudly local. Globally standard.</div></div>
+        <div class="af rv"><div class="af-icon">🧵</div><div class="af-title" data-bn="প্রিমিয়াম কাপড়" data-en="Premium Fabric">Premium Fabric</div><div class="af-desc" data-bn="সবসময় ১৮০জিএসএম রিং-স্পান কটন।" data-en="180gsm ring-spun cotton every time.">180gsm ring-spun cotton every time.</div></div>
+        <div class="af rv"><div class="af-icon">🎨</div><div class="af-title" data-bn="ডিটিজি প্রিন্টিং" data-en="DTG Printing">DTG Printing</div><div class="af-desc" data-bn="দীর্ঘস্থায়ী রং — বারবার ধোয়ার পরেও।" data-en="Colours that last — wash after wash.">Colours that last — wash after wash.</div></div>
+        <div class="af rv"><div class="af-icon">📦</div><div class="af-title" data-bn="দ্রুত পাঠানো" data-en="Fast Dispatch">Fast Dispatch</div><div class="af-desc" data-bn="পেমেন্টের ২৪ ঘণ্টার মধ্যে শিপ।" data-en="Shipped within 24h of payment.">Shipped within 24h of payment.</div></div>
+        <div class="af rv"><div class="af-icon">🇧🇩</div><div class="af-title" data-bn="ঢাকায় তৈরি" data-en="Made in Dhaka">Made in Dhaka</div><div class="af-desc" data-bn="গর্বিতভাবে স্থানীয়। আন্তর্জাতিক মান।" data-en="Proudly local. Globally standard.">Proudly local. Globally standard.</div></div>
       </div>
     </div>
   </div>
@@ -719,8 +726,8 @@
      REVIEWS
 ════════════════════════════════════════════════════════ -->
 <section class="sw" id="reviews" aria-label="Customer reviews">
-  <div class="sl rv">Social Proof</div>
-  <h2 class="sh2 rv">What They <em>Say.</em></h2>
+  <div class="sl rv" data-bn="সামাজিক প্রমাণ" data-en="Social Proof">Social Proof</div>
+  <h2 class="sh2 rv" data-bn="তারা কী <em>বলেন।</em>" data-en="What They <em>Say.</em>">What They <em>Say.</em></h2>
   <div class="rev-grid">
     <article class="rev-card rv">
       <div class="rev-stars">★★★★★</div>
@@ -754,39 +761,39 @@
      FAQ
 ════════════════════════════════════════════════════════ -->
 <section class="sw" id="faq" aria-label="Frequently asked questions">
-  <div class="sl rv">Support</div>
-  <h2 class="sh2 rv">Got <em>Questions?</em></h2>
+  <div class="sl rv" data-bn="সহায়তা" data-en="Support">Support</div>
+  <h2 class="sh2 rv" data-bn="প্রশ্ন <em>আছে?</em>" data-en="Got <em>Questions?</em>">Got <em>Questions?</em></h2>
   <div class="faq-layout">
     <div class="faq-list" role="list">
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I pay? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How do I pay?</span><span class="bn-text" style="display:none">কীভাবে পেমেন্ট করব?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.</span><span class="bn-text" style="display:none">আমরা বিকাশ, নগদ এবং ক্যাশ অন ডেলিভারি (শুধু ঢাকায়) গ্রহণ করি। অর্ডার দেওয়ার পর আমাদের নম্বরে টাকা পাঠান এবং ট্রানজেকশন আইডি দিন। পেমেন্ট যাচাই হলে অর্ডার নিশ্চিত হবে।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How long does delivery take? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How long does delivery take?</span><span class="bn-text" style="display:none">ডেলিভারি কতদিনে আসবে?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.</span><span class="bn-text" style="display:none">অর্ডার ২৪ ঘণ্টার মধ্যে পাঠানো হয়। ঢাকার মধ্যে ১–২ কার্যদিবস। ঢাকার বাইরে: ৩–৫ কার্যদিবস। অর্ডার শিপ হলে হোয়াটসঅ্যাপে আপডেট পাবেন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">What sizes do you offer? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">What sizes do you offer?</span><span class="bn-text" style="display:none">কোন কোন সাইজ পাওয়া যায়?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</span><span class="bn-text" style="display:none">আমরা S, M, L, XL এবং XXL দিই। আমাদের সব টি-শার্ট ওভারসাইজড কাট — রেগুলার ফিট চাইলে এক সাইজ ছোট নিন। সঠিক মাপের জন্য যেকোনো পণ্যের সাইজ গাইড দেখুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I return or exchange? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">Can I return or exchange?</span><span class="bn-text" style="display:none">ফেরত বা এক্সচেঞ্জ করা যাবে?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</span><span class="bn-text" style="display:none">উৎপাদন ত্রুটি বা ভুল পণ্যের ক্ষেত্রে ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য। কাস্টম অর্ডার এবং ব্যবহৃত টি-শার্ট ফেরত নেওয়া হয় না। অর্ডার আইডি ও ছবি সহ হোয়াটসঅ্যাপে যোগাযোগ করুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Do you do custom/bulk orders? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">Do you do custom/bulk orders?</span><span class="bn-text" style="display:none">কাস্টম বা বাল্ক অর্ডার হয়?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.</span><span class="bn-text" style="display:none">হ্যাঁ! আমরা ১ পিস থেকেই কাস্টম ডিজাইন করি, ৫–৭ দিনে। বাল্ক অর্ডারে (১০+ পিস) বিশেষ রেটের জন্য হোয়াটসঅ্যাপে মেসেজ করুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I care for my tee? <span class="faq-chv">▼</span></div>
-        <div class="faq-a">Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.</div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How do I care for my tee?</span><span class="bn-text" style="display:none">টি-শার্ট কীভাবে যত্ন নেব?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a"><span class="en-text">Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.</span><span class="bn-text" style="display:none">ঠান্ডা পানিতে (সর্বোচ্চ ৩০°C) উল্টো করে মেশিনে ধুন। টাম্বল ড্রাই বা ব্লিচ করবেন না। ঝুলিয়ে শুকান। এতে প্রিন্ট ও কাপড় বছরের পর বছর ভালো থাকবে।</span></div>
       </div>
     </div>
 
     <div class="faq-contact rv">
-      <div class="fcp-t">Still need help?</div>
-      <p class="fcp-d">We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.</p>
+      <div class="fcp-t" data-bn="আরও সাহায্য দরকার?" data-en="Still need help?">Still need help?</div>
+      <p class="fcp-d" data-bn="আমরা হোয়াটসঅ্যাপে মিনিটের মধ্যে সাড়া দিই। ফেসবুক বা ইমেইলেও পাবেন — যেটা সুবিধা।" data-en="We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.">We respond within minutes on WhatsApp. You can also reach us on Facebook or by email — whatever works for you.</p>
       <a class="fcp-m" href="https://wa.me/8801925838830" target="_blank" rel="noopener" aria-label="WhatsApp">
         <span class="fcp-ic">📱</span>
         <div><div class="fcp-lbl">WhatsApp</div><div class="fcp-val">+880 1925-838830</div></div>
@@ -811,8 +818,8 @@
   <div class="foot-main">
     <div>
       <div class="foot-brand">Arctic <em>Shop BD</em></div>
-      <div class="foot-tag">We Make Perfect</div>
-      <p class="foot-desc">Premium oversized graphic tees, made in Dhaka. Bold designs. Premium cotton. Fast delivery across Bangladesh.</p>
+      <div class="foot-tag" data-bn="আমরা তৈরি করি পরিপূর্ণ" data-en="We Make Perfect">We Make Perfect</div>
+      <p class="foot-desc" data-bn="প্রিমিয়াম ওভারসাইজড গ্রাফিক টি-শার্ট, ঢাকায় তৈরি। সাহসী ডিজাইন। প্রিমিয়াম কটন। সারা বাংলাদেশে দ্রুত ডেলিভারি।" data-en="Premium oversized graphic tees, made in Dhaka. Bold designs. Premium cotton. Fast delivery across Bangladesh.">Premium oversized graphic tees, made in Dhaka. Bold designs. Premium cotton. Fast delivery across Bangladesh.</p>
       <div class="foot-soc">
         <a class="fsoc" href="https://facebook.com/ArcticShopBD" target="_blank" rel="noopener" aria-label="Facebook">f</a>
         <a class="fsoc" href="https://instagram.com/arcticshopbd" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
@@ -3936,6 +3943,7 @@ function chatKeydown(e) {
     ['#exit-dismiss-btn', "No thanks, I'll pay full price", 'ধন্যবাদ, পরে কিনর'],
     ['.wl-head-title', '♥ Wishlist', '♥ ওয়িশলিস্ট'],
     ['.search-hint', 'Type to search products', 'পণ্য খুঁজতে টাইপ করুন'],
+    ['.hto-wa-btn', '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Order on WhatsApp', '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> হোয়াটসঅ্যাপে অর্ডার করুন'],
   ];
 
   var currentLang = localStorage.getItem('asbd_lang') || 'en';
