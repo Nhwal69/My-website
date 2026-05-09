@@ -69,6 +69,8 @@
   
     /* ── Bilingual text switching ── */
     .faq-q .en-text, .faq-q .bn-text { pointer-events: none; }
+    /* Fix iOS Safari content-visibility click bug */
+    #faq, #about, #reviews, #footer { content-visibility: visible !important; contain-intrinsic-size: unset !important; }
     html:not(.lang-bn) .bn-text { display: none !important; }
     html.lang-bn .en-text { display: none !important; }
     html.lang-bn .bn-text { display: inline !important; font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
@@ -767,27 +769,27 @@
   <div class="faq-layout">
     <div class="faq-list" role="list">
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How do I pay?</span><span class="bn-text" style="display:none">কীভাবে পেমেন্ট করব?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">How do I pay?</span><span class="bn-text" style="display:none">কীভাবে পেমেন্ট করব?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">We accept bKash, Nagad, and Cash on Delivery (Dhaka only). After placing your order, send the amount to our number and enter the Transaction ID. Your order is confirmed once we verify payment.</span><span class="bn-text" style="display:none">আমরা বিকাশ, নগদ এবং ক্যাশ অন ডেলিভারি (শুধু ঢাকায়) গ্রহণ করি। অর্ডার দেওয়ার পর আমাদের নম্বরে টাকা পাঠান এবং ট্রানজেকশন আইডি দিন। পেমেন্ট যাচাই হলে অর্ডার নিশ্চিত হবে।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How long does delivery take?</span><span class="bn-text" style="display:none">ডেলিভারি কতদিনে আসবে?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">How long does delivery take?</span><span class="bn-text" style="display:none">ডেলিভারি কতদিনে আসবে?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">Orders are dispatched within 24 hours. Delivery within Dhaka takes 1–2 working days. Outside Dhaka: 3–5 working days. You'll receive a WhatsApp update when your order ships.</span><span class="bn-text" style="display:none">অর্ডার ২৪ ঘণ্টার মধ্যে পাঠানো হয়। ঢাকার মধ্যে ১–২ কার্যদিবস। ঢাকার বাইরে: ৩–৫ কার্যদিবস। অর্ডার শিপ হলে হোয়াটসঅ্যাপে আপডেট পাবেন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">What sizes do you offer?</span><span class="bn-text" style="display:none">কোন কোন সাইজ পাওয়া যায়?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">What sizes do you offer?</span><span class="bn-text" style="display:none">কোন কোন সাইজ পাওয়া যায়?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</span><span class="bn-text" style="display:none">আমরা S, M, L, XL এবং XXL দিই। আমাদের সব টি-শার্ট ওভারসাইজড কাট — রেগুলার ফিট চাইলে এক সাইজ ছোট নিন। সঠিক মাপের জন্য যেকোনো পণ্যের সাইজ গাইড দেখুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">Can I return or exchange?</span><span class="bn-text" style="display:none">ফেরত বা এক্সচেঞ্জ করা যাবে?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">Can I return or exchange?</span><span class="bn-text" style="display:none">ফেরত বা এক্সচেঞ্জ করা যাবে?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</span><span class="bn-text" style="display:none">উৎপাদন ত্রুটি বা ভুল পণ্যের ক্ষেত্রে ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য। কাস্টম অর্ডার এবং ব্যবহৃত টি-শার্ট ফেরত নেওয়া হয় না। অর্ডার আইডি ও ছবি সহ হোয়াটসঅ্যাপে যোগাযোগ করুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">Do you do custom/bulk orders?</span><span class="bn-text" style="display:none">কাস্টম বা বাল্ক অর্ডার হয়?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">Do you do custom/bulk orders?</span><span class="bn-text" style="display:none">কাস্টম বা বাল্ক অর্ডার হয়?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">Yes! We handle custom designs from 1 piece with a 5–7 day turnaround. For bulk orders (10+ pieces), message us on WhatsApp for a special rate.</span><span class="bn-text" style="display:none">হ্যাঁ! আমরা ১ পিস থেকেই কাস্টম ডিজাইন করি, ৫–৭ দিনে। বাল্ক অর্ডারে (১০+ পিস) বিশেষ রেটের জন্য হোয়াটসঅ্যাপে মেসেজ করুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false"><span class="en-text">How do I care for my tee?</span><span class="bn-text" style="display:none">টি-শার্ট কীভাবে যত্ন নেব?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">How do I care for my tee?</span><span class="bn-text" style="display:none">টি-শার্ট কীভাবে যত্ন নেব?</span> <span class="faq-chv">▼</span></div>
         <div class="faq-a"><span class="en-text">Machine wash cold (30°C max), inside out. Do not tumble dry or bleach. Hang dry for best results. This preserves the print and fabric for years.</span><span class="bn-text" style="display:none">ঠান্ডা পানিতে (সর্বোচ্চ ৩০°C) উল্টো করে মেশিনে ধুন। টাম্বল ড্রাই বা ব্লিচ করবেন না। ঝুলিয়ে শুকান। এতে প্রিন্ট ও কাপড় বছরের পর বছর ভালো থাকবে।</span></div>
       </div>
     </div>
