@@ -4104,6 +4104,35 @@ function replayIntro() {
 // Scripts at bottom of body — DOM already ready, run immediately
 (function bootApp() {
 
+  // ── DIAGNOSTIC: visible on-screen debug panel ─────────────
+  (function() {
+    var panel = document.createElement('div');
+    panel.id = 'arctic-debug';
+    panel.style.cssText = 'position:fixed;bottom:10px;right:10px;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:11px;padding:10px;border:1px solid #0f0;z-index:99999;max-width:320px;border-radius:6px;max-height:260px;overflow-y:auto;';
+    panel.innerHTML = '<b style="color:#ff0">🔍 Arctic Debug</b><br>';
+    document.body.appendChild(panel);
+    window._dbg = function(msg) {
+      console.log('[Arctic]', msg);
+      var line = document.createElement('div');
+      line.textContent = msg;
+      panel.appendChild(line);
+      panel.scrollTop = panel.scrollHeight;
+    };
+    window._dbgErr = function(msg) {
+      console.error('[Arctic]', msg);
+      var line = document.createElement('div');
+      line.style.color = '#f55';
+      line.textContent = '✗ ' + msg;
+      panel.appendChild(line);
+      panel.scrollTop = panel.scrollHeight;
+    };
+  })();
+
+  _dbg('bootApp started');
+  _dbg('SITE_CONFIG products: ' + (SITE_CONFIG.products ? SITE_CONFIG.products.length : 'MISSING'));
+  _dbg('State products: ' + (State.getProducts() ? State.getProducts().length : 'MISSING'));
+  _dbg('#pg exists: ' + !!document.getElementById('pg'));
+
   // Core UI init
   initLoader();
   initNavScroll();
@@ -4113,9 +4142,11 @@ function replayIntro() {
   initLang && initLang();
 
   // Load products then render grid (finally = runs on both success AND API failure)
+  _dbg('Calling loadProducts...');
   loadProducts().finally(function () {
-    buildFilters();
-    renderProds("all");
+    _dbg('loadProducts done. State products: ' + State.getProducts().length);
+    try { buildFilters(); _dbg('buildFilters OK'); } catch(e) { _dbgErr('buildFilters: ' + e.message); }
+    try { renderProds("all"); _dbg('renderProds OK. Grid innerHTML: ' + (document.getElementById('pg')||{}).innerHTML.length + ' chars'); } catch(e) { _dbgErr('renderProds: ' + e.message); }
     buildCountLabel();
     initAboutImgs();
     openModalBySlug();
