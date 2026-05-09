@@ -2620,11 +2620,17 @@ function initCheckoutProgress() {
 // ── Render all product cards into #pg ────────────────────
 function renderProds(filter) {
   filter = filter || "all";
-  var grid     = document.getElementById("pg");
+  var grid = document.getElementById("pg");
   if (!grid) return;
 
+  // Always guarantee products exist
   var products = State.getProducts();
-  var list     = filter === "all"
+  if (!products || !products.length) {
+    products = SITE_CONFIG.products.slice();
+    State.setProducts(products);
+  }
+
+  var list = filter === "all"
     ? products
     : products.filter(function (p) {
         var tags = Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(function (t) { return t.trim(); });
@@ -2633,9 +2639,24 @@ function renderProds(filter) {
 
   var h = "";
   for (var i = 0; i < list.length; i++) {
-    h += renderProductCard(list[i]);
+    try {
+      h += renderProductCard(list[i]);
+    } catch (e) {
+      console.warn("Error rendering product card:", list[i], e);
+    }
   }
+
   grid.innerHTML = h || "<div style='grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-family:\"DM Mono\",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase'>No products found</div>";
+
+  // Ensure images become visible (add loaded class)
+  grid.querySelectorAll("img").forEach(function (img) {
+    if (img.complete) {
+      img.classList.add("loaded");
+    } else {
+      img.addEventListener("load",  function () { img.classList.add("loaded"); }, { once: true });
+      img.addEventListener("error", function () { img.classList.add("loaded"); }, { once: true });
+    }
+  });
 
   // Re-apply GSAP tilt after grid re-render
   if (window.initTilt) initTilt();
@@ -3585,6 +3606,11 @@ function loadProducts() {
   // Show skeleton while loading
   showProductSkeleton(6);
 
+  // Ensure State always has at least the local config products
+  if (!State.getProducts() || !State.getProducts().length) {
+    State.setProducts(SITE_CONFIG.products.slice());
+  }
+
   // Try cache first (5-min TTL)
   var cached = getCachedProducts();
   if (cached && cached.length) {
@@ -3594,7 +3620,11 @@ function loadProducts() {
 
   return API.fetchProducts()
     .then(function (data) {
-      if (!data || !data.products || !data.products.length) return;
+      // If API returns nothing, keep local config products already in State
+      if (!data || !data.products || !data.products.length) {
+        State.setProducts(SITE_CONFIG.products.slice());
+        return;
+      }
 
       var apiMap = {};
       data.products.forEach(function (p) { apiMap[p.id] = p; });
@@ -3631,8 +3661,9 @@ function loadProducts() {
       setCachedProducts(merged);
     })
     .catch(function (err) {
-      console.warn("API unavailable — using local config products.", err);
-      // State already has SITE_CONFIG.products from initialization
+      console.warn("API unavailable — falling back to local config products.", err);
+      // Always guarantee State has products
+      State.setProducts(SITE_CONFIG.products.slice());
     });
 }
 
@@ -4171,54 +4202,5 @@ function replayIntro() {
 
 </script>
 
-
-<script>
-// ══════════════════════════════════════════════
-// PRODUCT OVERRIDE — copied verbatim from OG file
-// ══════════════════════════════════════════════
-
-// Ensure PRODUCTS var exists
-var PRODUCTS = SITE_CONFIG.products;
-
-function renderProds(f){
-f=f||"all";
-var grid=document.getElementById("pg");
-var list=f==="all"?PRODUCTS:PRODUCTS.filter(function(p){var pt=p.tags?(Array.isArray(p.tags)?p.tags:p.tags.split(",").map(function(t){return t.trim();})):[];return pt.indexOf(f)>=0;});
-var h="";
-for(var i=0;i<list.length;i++){
-var p=list[i], src=getImg(p), isC=isCustom(p);
-var sl=stockLabel(p.stock), sc=stockBadgeClass(p.stock), st=stockText(p.stock);
-var imgH=src?"<img class='pc-img' src='"+src+"' alt='"+p.name+"' loading='lazy' decoding='async'/>":"<div class='pc-art'>🛋</div>";
-var outOverlay=p.stock<=0&&!isC?"<div class='pc-out-overlay'><div class='pc-out-txt'>Out of Stock</div></div>":"";
-var addB="";
-if(isC){
-addB="<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
-} else if(p.stock>0){
-addB="<button class='pc-btn' onclick='addToCart("+p.id+",\"L\",1)'>&#9889; Order Now</button>";
-} else {
-addB="<button class='pc-btn' disabled>Out of Stock</button>";
-}
-var stockH="<div class='pc-stock'><span class='stock-badge "+sc+"'><span style='width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;vertical-align:middle;margin-right:4px'></span>"+st+"</span></div>";
-// Show exact count line
-var countLine="";
-if(p.stock>3){ countLine="<div class='pc-stock-count'>"+p.stock+" in stock</div>"; }
-else if(p.stock>0){ countLine="<div class='pc-stock-count low-count'>Only "+p.stock+" left</div>"; }
-else { countLine="<div class='pc-stock-count out-count'>Out of stock</div>"; }
-var bdg=p.badge?"<div class='pc-badge b-"+p.badge+"'>"+p.bl+"</div>":"";
-h+="<div class='pc'>";
-h+=imgH;
-h+="<div class='pc-shade'></div>";
-h+=outOverlay;
-h+=bdg;
-h+="<div class='pc-body'><div class='pc-ed'>"+p.ed+"</div><div class='pc-name'>"+p.name+"</div><div class='pc-price'>"+(p.price?"৳"+p.price.toLocaleString():"Price on Request")+"</div>";
-h+=stockH;
-h+=countLine;
-h+="<div class='pc-acts'>"+addB+"<button class='pc-qv' onclick='openModal("+p.id+")'>&#128065;</button></div></div></div>";
-}
-grid.innerHTML=h;
-}
-function fp(f,btn){ document.querySelectorAll(".fb").forEach(function(b){b.classList.remove("act");}); btn.classList.add("act"); renderProds(f); }
-
-</script>
 </body>
 </html>
