@@ -634,9 +634,9 @@ html.entered .hero-stats.a5 { animation: heroFallback .8s 3.1s ease forwards; }
 #zoom-overlay.open { opacity: 1; visibility: visible; }
 #zoom-img { max-width: 90vw; max-height: 90vh; object-fit: contain; transform: scale(0.92); transition: transform .35s cubic-bezier(.34, 1.2, .64, 1); pointer-events: none; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7); }
 #zoom-overlay.open #zoom-img { transform: scale(1); }
-#zoom-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: rgba(17, 17, 17, 0.5); font-size: 28px; cursor: pointer; line-height: 1; transition: color .2s; }
-#zoom-close:hover { color: var(--white); }
-#zoom-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: "Inter", sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(17, 17, 17, 0.3); pointer-events: none; }
+#zoom-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.9); font-size: 22px; cursor: pointer; line-height: 1; transition: background .2s, color .2s; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+#zoom-close:hover { background: rgba(255,255,255,0.25); color: #fff; }
+#zoom-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: "Inter", sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); pointer-events: none; white-space: nowrap; }
 
 /* ── SIZE GUIDE MODAL ── */
 #size-guide-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.87); z-index: 890; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
