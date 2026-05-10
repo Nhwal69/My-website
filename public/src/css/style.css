@@ -632,9 +632,9 @@ html.entered .hero-stats.a5 { animation: heroFallback .8s 3.1s ease forwards; }
 /* ── ZOOM OVERLAY ── */
 #zoom-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.96); z-index: 9200; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; cursor: zoom-out; }
 #zoom-overlay.open { opacity: 1; visibility: visible; }
-#zoom-img { max-width: 90vw; max-height: 90vh; object-fit: contain; transform: scale(0.92); transition: transform .35s cubic-bezier(.34, 1.2, .64, 1); pointer-events: none; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7); }
+#zoom-img { max-width: 90vw; max-height: 80vh; object-fit: contain; transform: scale(0.92); transition: transform .35s cubic-bezier(.34, 1.2, .64, 1); box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7); cursor: default; position: relative; z-index: 1; }
 #zoom-overlay.open #zoom-img { transform: scale(1); }
-#zoom-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.9); font-size: 22px; cursor: pointer; line-height: 1; transition: background .2s, color .2s; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+#zoom-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.9); font-size: 22px; cursor: pointer; line-height: 1; transition: background .2s, color .2s; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 #zoom-close:hover { background: rgba(255,255,255,0.25); color: #fff; }
 #zoom-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-family: "Inter", sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); pointer-events: none; white-space: nowrap; }
 

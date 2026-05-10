@@ -483,9 +483,9 @@
 
 <!-- Zoom overlay -->
 <div id="zoom-overlay" role="dialog" aria-modal="true" aria-label="Zoomed image">
-  <button id="zoom-close" aria-label="Close zoom">✕</button>
-  <img id="zoom-img" src="" alt="Product image"/>
-  <div id="zoom-hint">Click anywhere to close</div>
+  <button id="zoom-close" onclick="closeZoom()" aria-label="Close zoom">✕</button>
+  <img id="zoom-img" src="" alt="Product image" onclick="event.stopPropagation()"/>
+  <div id="zoom-hint">TAP ANYWHERE TO CLOSE</div>
 </div>
 
 <!-- AI Chat widget -->
