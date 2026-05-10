@@ -147,7 +147,7 @@ body::after {
 .nav-links a::after { content: ""; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #111; transition: width .3s; }
 .nav-links a:hover { color: #111; letter-spacing: 4px; }
 .nav-links a:hover::after { width: 100%; }
-.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-right { display: flex; align-items: center; gap: 12px; overflow: visible; }
 .nav-search-btn { background: none; border: none; color: rgba(17, 17, 17, 0.5); font-size: 18px; padding: 8px; transition: color .2s; min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; }
 .nav-search-btn:hover { color: var(--glow); }
 .nav-cart-btn {
@@ -161,8 +161,8 @@ body::after {
 .nav-cart-btn:hover::before { opacity: 1; }
 .cart-count { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: var(--glow); color: var(--ink); font-family: "Inter", sans-serif; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: transform .3s; box-shadow: 0 0 12px rgba(17, 17, 17, 0.6); }
 .cart-count.bump { transform: scale(1.5); }
-.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 8px; min-height: 44px; min-width: 44px; align-items: center; justify-content: center; }
-.hamburger span { display: block; width: 24px; height: 1.5px; background: rgba(17, 17, 17, 0.8); transition: all .3s; }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 8px; min-height: 44px; min-width: 44px; align-items: center; justify-content: center; cursor: pointer; position: relative; z-index: 10; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.hamburger span { display: block; width: 24px; height: 2px; background: rgba(17, 17, 17, 0.85); transition: all .3s; pointer-events: none; }
 .nav-wish-btn { background: none; border: none; color: var(--muted); font-size: 16px; padding: 8px; transition: color .2s; position: relative; }
 .nav-wish-btn:hover { color: var(--gold); }
 .wl-count { position: absolute; top: -6px; right: -6px; width: 17px; height: 17px; border-radius: 50%; background: var(--gold); color: var(--ink); font-family: "Inter", sans-serif; font-size: 9px; font-weight: 700; display: none; align-items: center; justify-content: center; }
@@ -426,13 +426,13 @@ html.lang-bn #lang-toggle { background: #111; color: #fff; border-color: #111; }
 .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .hero-bg-mobile { display: none; }
 .hero-bg-desktop { display: block; }
-.hero-overlay { content: ""; position: absolute; inset: 0; background: rgba(4, 8, 16, 0.65); pointer-events: none; z-index: 1; }
+.hero-overlay { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(4, 8, 16, 0.55) 0%, rgba(4, 8, 16, 0.72) 50%, rgba(4, 8, 16, 0.82) 100%); pointer-events: none; z-index: 1; }
 .hero-content { position: relative; z-index: 2; }
-.hero-ey { display: inline-flex; align-items: center; gap: 10px; font-family: "DM Mono", monospace; font-size: 9.5px; letter-spacing: 6px; text-transform: uppercase; color: rgba(17, 17, 17, 0.85); background: rgba(17, 17, 17, 0.06); border: 1px solid rgba(17, 17, 17, 0.15); padding: 8px 18px; margin-bottom: 32px; }
-.hero-h1 { font-family: "Playfair Display", serif; font-weight: 900; font-size: clamp(60px, 13vw, 160px); line-height: .9; letter-spacing: 0.08em; }
-.hero-out { font-style: italic; color: transparent; -webkit-text-stroke: 1.5px rgba(220, 240, 255, 0.5); display: block; }
-.hero-sub { font-family: "Inter", sans-serif; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: rgba(17, 17, 17, 0.5); margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-.hero-sub::before, .hero-sub::after { content: ""; width: 24px; height: 1px; background: rgba(17, 17, 17, 0.3); }
+.hero-ey { display: inline-flex; align-items: center; gap: 10px; font-family: "DM Mono", monospace; font-size: 9.5px; letter-spacing: 6px; text-transform: uppercase; color: rgba(220, 240, 255, 0.92); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(220, 240, 255, 0.3); padding: 8px 18px; margin-bottom: 32px; text-shadow: 0 1px 8px rgba(0,0,0,0.7); }
+.hero-h1 { font-family: "Playfair Display", serif; font-weight: 900; font-size: clamp(60px, 13vw, 160px); line-height: .9; letter-spacing: 0.08em; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9); }
+.hero-out { font-style: italic; color: transparent; -webkit-text-stroke: 2px rgba(220, 240, 255, 0.95); display: block; filter: drop-shadow(0 2px 12px rgba(0,80,180,0.4)); }
+.hero-sub { font-family: "Inter", sans-serif; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: rgba(220, 240, 255, 0.82); margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 12px; text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
+.hero-sub::before, .hero-sub::after { content: ""; width: 24px; height: 1px; background: rgba(220, 240, 255, 0.4); }
 .hero-btns { display: flex; gap: 16px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
 .btn-gl { background: var(--glow); color: var(--ink); font-family: "Inter", sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; padding: 18px 44px; border: none; font-weight: 800; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); box-shadow: 0 8px 32px rgba(17, 17, 17, 0.3), 0 2px 8px rgba(0, 0, 0, 0.4); transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: inline-block; will-change: transform; position: relative; overflow: hidden; }
 .btn-gl::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent); opacity: 0; transition: opacity .25s; }

@@ -75,6 +75,17 @@
     html.lang-bn .en-text { display: none !important; }
     html.lang-bn .bn-text { display: inline !important; font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
     html.lang-bn [data-bn] { font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
+    /* Ensure hero Bangla text is always readable */
+    .hero-content [data-bn], .hero-ey[data-bn], .hero-content .hero-ey,
+    .hero-content .hero-h1, .hero-content .hero-h1 span[data-bn],
+    .hero-content .hero-out[data-bn], .hero-content .hero-sub[data-bn] {
+      color: inherit;
+    }
+    html.lang-bn .hero-ey { color: rgba(220, 240, 255, 0.92) !important; }
+    html.lang-bn .hero-h1 span[data-bn] { color: #ffffff !important; text-shadow: 0 2px 20px rgba(0,0,0,0.8) !important; }
+    html.lang-bn .hero-out { -webkit-text-stroke: 2px rgba(220, 240, 255, 0.95) !important; }
+    html.lang-bn .hero-sub { color: rgba(220, 240, 255, 0.82) !important; }
+    html.lang-bn .faq-q .bn-text { color: inherit !important; }
   </style>
 
   <!-- ── Structured data (JSON-LD) ────────────────────────── -->
@@ -540,7 +551,7 @@
       <span class="cart-label">Cart</span>
       <span class="cart-count" id="cart-count">0</span>
     </button>
-    <button class="hamburger" id="ham" aria-label="Open menu" aria-expanded="false">
+    <button class="hamburger" id="ham" onclick="togMob()" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
