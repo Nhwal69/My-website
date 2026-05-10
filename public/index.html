@@ -73,18 +73,15 @@
     #faq, #about, #reviews, #footer { content-visibility: visible !important; contain-intrinsic-size: unset !important; }
     html:not(.lang-bn) .bn-text { display: none !important; }
     html.lang-bn .en-text { display: none !important; }
-    html.lang-bn .bn-text { display: inline !important; font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
-    html.lang-bn [data-bn] { font-family: "Noto Sans Bengali", "Hind Siliguri", sans-serif !important; line-height: 1.7; }
-    /* Ensure hero Bangla text is always readable */
-    .hero-content [data-bn], .hero-ey[data-bn], .hero-content .hero-ey,
-    .hero-content .hero-h1, .hero-content .hero-h1 span[data-bn],
-    .hero-content .hero-out[data-bn], .hero-content .hero-sub[data-bn] {
-      color: inherit;
-    }
-    html.lang-bn .hero-ey { color: rgba(220, 240, 255, 0.92) !important; }
-    html.lang-bn .hero-h1 span[data-bn] { color: #ffffff !important; text-shadow: 0 2px 20px rgba(0,0,0,0.8) !important; }
-    html.lang-bn .hero-out { -webkit-text-stroke: 2px rgba(220, 240, 255, 0.95) !important; }
-    html.lang-bn .hero-sub { color: rgba(220, 240, 255, 0.82) !important; }
+    html.lang-bn .bn-text { display: inline !important; font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif !important; line-height: 1.6; font-weight: 600; }
+    html.lang-bn [data-bn] { font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif !important; line-height: 1.6; }
+    /* Hide eyebrow label in all languages */
+    .hero-ey { display: none !important; }
+    /* Hero h1 in Bengali — clean, bold, readable */
+    html.lang-bn .hero-h1 { letter-spacing: 0.02em !important; line-height: 1.05 !important; }
+    html.lang-bn .hero-h1 span[data-bn] { color: #ffffff !important; font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif !important; font-weight: 700 !important; text-shadow: 0 2px 24px rgba(0,0,0,0.85) !important; }
+    html.lang-bn .hero-out { -webkit-text-stroke: 2px rgba(220, 240, 255, 0.95) !important; font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif !important; font-weight: 700 !important; }
+    html.lang-bn .hero-sub { color: rgba(220, 240, 255, 0.82) !important; font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif !important; font-weight: 400 !important; letter-spacing: 0.08em !important; }
     html.lang-bn .faq-q .bn-text { color: inherit !important; }
   </style>
 
