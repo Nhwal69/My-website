@@ -433,10 +433,11 @@ tr:hover td{background:rgba(255,255,255,0.015);}
 <script>
 // ============================================================
 //  ARCTIC SHOP BD — Admin Panel JS
-//  All API calls include the Bearer token from sessionStorage.
+//  Token is kept in-memory ONLY — never written to sessionStorage
+//  or localStorage. This means every page visit requires the password.
 // ============================================================
 
-let adminToken   = sessionStorage.getItem("arcbd_admin_token") || null;
+let adminToken   = null;   // in-memory only — cleared on every page load
 let editingId    = null;
 let allProducts  = [];
 let allOrders    = [];
@@ -453,12 +454,14 @@ function authHeaders() {
   };
 }
 
-// ── Bootstrap: if token exists, skip login screen ─────────
+// ── Bootstrap: always show login screen on every page load ─
+// (Token is never persisted, so there is nothing to restore.)
 (function init() {
-  if (adminToken) {
-    showApp();
-    loadProducts();
-  }
+  document.getElementById("login-screen").style.display = "flex";
+  document.getElementById("app").style.display          = "none";
+  // Auto-focus password field for convenience on mobile
+  const pw = document.getElementById("pw-input");
+  if (pw) setTimeout(() => pw.focus(), 100);
 })();
 
 // ── LOGIN ─────────────────────────────────────────────────
@@ -482,7 +485,8 @@ async function doLogin() {
 
     if (res.ok && data.token) {
       adminToken = data.token;
-      sessionStorage.setItem("arcbd_admin_token", adminToken);
+      // Token intentionally NOT saved to sessionStorage/localStorage
+      // so every page visit requires re-authentication.
       showApp();
       loadProducts();
     } else {
@@ -510,8 +514,7 @@ async function logout() {
       method: "POST", headers: authHeaders(),
     }).catch(() => {});
   }
-  adminToken = null;
-  sessionStorage.removeItem("arcbd_admin_token");
+  adminToken = null; // token was never persisted — just clear in-memory
   document.getElementById("app").style.display          = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("pw-input").value             = "";
@@ -520,8 +523,7 @@ async function logout() {
 
 // ── Handle 401 globally ───────────────────────────────────
 function handle401() {
-  adminToken = null;
-  sessionStorage.removeItem("arcbd_admin_token");
+  adminToken = null; // token was never persisted — just clear in-memory
   document.getElementById("app").style.display          = "none";
   document.getElementById("login-screen").style.display = "flex";
   showToast("Session expired — please log in again", "err");
