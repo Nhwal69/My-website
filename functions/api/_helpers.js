@@ -23,7 +23,7 @@ export function cors() {
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin":  "https://arcticshopbd.pages.dev",
+      "Access-Control-Allow-Origin":  "https://arctic-shop.pages.dev",
       "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type,Authorization",
       "Access-Control-Max-Age":       "86400",
