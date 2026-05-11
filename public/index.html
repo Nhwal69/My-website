@@ -4221,7 +4221,7 @@ var addB="";
 if(isC){
 addB="<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
 } else if(p.stock>0){
-addB="<button class='pc-btn' onclick='addToCart("+p.id+",\"L\",1)'>&#9889; Order Now</button>";
+addB="<button class='pc-btn' onclick='openSizePicker(event,"+p.id+")'>&#9889; Order Now</button>";
 } else {
 addB="<button class='pc-btn' disabled>Out of Stock</button>";
 }
