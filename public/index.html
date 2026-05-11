@@ -478,6 +478,23 @@
     <div class="ok-id" id="ok-id"></div>
     <div class="ok-email-note">📧 Check your inbox (and spam folder) for your order details.</div>
     <button class="ok-close" onclick="closeOK()">Continue Shopping</button>
+    <button class="ok-close" style="margin-top:8px;background:none;border-color:rgba(17,17,17,0.15);color:rgba(17,17,17,0.6)" onclick="closeOK();openOrderTracker()">🔍 Track This Order</button>
+  </div>
+</div>
+
+
+<!-- Order Tracker Modal -->
+<div id="order-track-modal" role="dialog" aria-modal="true" aria-label="Track your order">
+  <div class="ot-box">
+    <div class="ot-title">Track Your Order</div>
+    <div class="ot-sub">Enter your phone number used at checkout</div>
+    <div class="ot-input-row">
+      <input id="ot-phone" class="ot-input" type="tel" placeholder="+880 1XX-XXXXXXX" maxlength="20" inputmode="tel" autocomplete="tel" onkeydown="if(event.key==='Enter')lookupOrders()"/>
+      <button class="ot-btn" id="ot-search-btn" onclick="lookupOrders()">Search</button>
+    </div>
+    <div id="ot-results"></div>
+    <div class="ot-wa-hint">Need help? <a href="https://wa.me/8801925838830" target="_blank" rel="noopener">WhatsApp us</a> with your Order ID.</div>
+    <button class="ot-close" onclick="closeOrderTracker()">Close</button>
   </div>
 </div>
 
@@ -789,8 +806,36 @@
         <div class="faq-a"><span class="en-text">We offer S, M, L, XL, and XXL. All our tees are oversized cut — if you prefer a regular fit, size down one. Check the Size Guide in any product modal for exact measurements.</span><span class="bn-text" style="display:none">আমরা S, M, L, XL এবং XXL দিই। আমাদের সব টি-শার্ট ওভারসাইজড কাট — রেগুলার ফিট চাইলে এক সাইজ ছোট নিন। সঠিক মাপের জন্য যেকোনো পণ্যের সাইজ গাইড দেখুন।</span></div>
       </div>
       <div class="faq-item rv" role="listitem">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">Can I return or exchange?</span><span class="bn-text" style="display:none">ফেরত বা এক্সচেঞ্জ করা যাবে?</span> <span class="faq-chv">▼</span></div>
-        <div class="faq-a"><span class="en-text">We accept exchanges within 7 days for manufacturing defects or wrong items. Custom orders and used tees cannot be returned. Contact us on WhatsApp with your order ID and photos.</span><span class="bn-text" style="display:none">উৎপাদন ত্রুটি বা ভুল পণ্যের ক্ষেত্রে ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য। কাস্টম অর্ডার এবং ব্যবহৃত টি-শার্ট ফেরত নেওয়া হয় না। অর্ডার আইডি ও ছবি সহ হোয়াটসঅ্যাপে যোগাযোগ করুন।</span></div>
+        <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">What is your return &amp; exchange policy?</span><span class="bn-text" style="display:none">রিটার্ন ও এক্সচেঞ্জ পলিসি কী?</span> <span class="faq-chv">▼</span></div>
+        <div class="faq-a">
+          <span class="en-text">
+            <strong>✅ We accept exchanges within 7 days of delivery for:</strong><br>
+            • Manufacturing defects (holes, print errors, stitching faults)<br>
+            • Wrong item or wrong size delivered<br><br>
+            <strong>❌ We do not accept returns or exchanges for:</strong><br>
+            • Used, washed, or worn items<br>
+            • Custom / made-to-order pieces<br>
+            • Change of mind or size preference<br><br>
+            <strong>📋 How to claim:</strong><br>
+            1. WhatsApp us within 7 days of receiving your order<br>
+            2. Send your Order ID and clear photos of the defect/wrong item<br>
+            3. We'll confirm and arrange a replacement or store credit<br><br>
+            Delivery cost for exchange items is covered by Arctic Shop BD for verified defects.
+          </span>
+          <span class="bn-text" style="display:none">
+            <strong>✅ ডেলিভারির ৭ দিনের মধ্যে এক্সচেঞ্জ গ্রহণযোগ্য:</strong><br>
+            • উৎপাদন ত্রুটি (ছিদ্র, প্রিন্ট ভুল, সেলাই সমস্যা)<br>
+            • ভুল পণ্য বা ভুল সাইজ ডেলিভারি হলে<br><br>
+            <strong>❌ রিটার্ন বা এক্সচেঞ্জ হবে না:</strong><br>
+            • ব্যবহৃত, ধোয়া বা পরা পণ্য<br>
+            • কাস্টম/মেড-টু-অর্ডার পণ্য<br>
+            • মন পরিবর্তন বা সাইজ পছন্দের কারণে<br><br>
+            <strong>📋 দাবি করার পদ্ধতি:</strong><br>
+            ১. ডেলিভারির ৭ দিনের মধ্যে হোয়াটসঅ্যাপে মেসেজ করুন<br>
+            ২. অর্ডার আইডি ও ত্রুটির স্পষ্ট ছবি পাঠান<br>
+            ৩. আমরা নিশ্চিত করে রিপ্লেসমেন্ট বা স্টোর ক্রেডিট ব্যবস্থা করব
+          </span>
+        </div>
       </div>
       <div class="faq-item rv" role="listitem">
         <div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="tFaq(this)"><span class="en-text">Do you do custom/bulk orders?</span><span class="bn-text" style="display:none">কাস্টম বা বাল্ক অর্ডার হয়?</span> <span class="faq-chv">▼</span></div>
@@ -813,9 +858,9 @@
         <span class="fcp-ic">📘</span>
         <div><div class="fcp-lbl">Facebook</div><div class="fcp-val">ArcticShopBD</div></div>
       </a>
-      <a class="fcp-m" href="mailto:obbhack6@gmail.com" aria-label="Email">
+      <a class="fcp-m" href="https://wa.me/8801925838830" target="_blank" rel="noopener" aria-label="Message us">
         <span class="fcp-ic">✉️</span>
-        <div><div class="fcp-lbl">Email</div><div class="fcp-val">obbhack6@gmail.com</div></div>
+        <div><div class="fcp-lbl">Message Us</div><div class="fcp-val">WhatsApp anytime</div></div>
       </a>
     </div>
   </div>
@@ -851,7 +896,9 @@
         <li><a href="#about">About Us</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#reviews">Reviews</a></li>
-        <li><a href="mailto:obbhack6@gmail.com">Contact</a></li>
+        <li><a href="#faq" onclick="setTimeout(function(){document.querySelector('.faq-contact')&&document.querySelector('.faq-contact').scrollIntoView({behavior:'smooth'})},200)">Contact</a></li>
+        <li><a href="#" onclick="event.preventDefault();openOrderTracker()">Track Order</a></li>
+        <li><a href="#faq" onclick="setTimeout(function(){var q=document.querySelectorAll('.faq-q');q.forEach(function(el){if(el.textContent.indexOf('return')>-1||el.textContent.indexOf('exchange')>-1){el.scrollIntoView({behavior:'smooth',block:'center'});if(el.getAttribute('aria-expanded')!=='true')el.click();}});},300)">Returns Policy</a></li>
       </ul>
     </div>
     <div>
@@ -859,7 +906,7 @@
       <ul class="foot-links">
         <li><a href="https://wa.me/8801925838830" target="_blank" rel="noopener">📱 WhatsApp</a></li>
         <li><a href="https://facebook.com/ArcticShopBD" target="_blank" rel="noopener">📘 Facebook</a></li>
-        <li><a href="mailto:obbhack6@gmail.com">✉️ Email</a></li>
+        <li><a href="https://wa.me/8801925838830" target="_blank" rel="noopener">✉️ Message Us</a></li>
       </ul>
     </div>
   </div>
@@ -916,7 +963,7 @@ var SITE_CONFIG = {
 
   // ── Email (server-side via /api/send-email) ───────────────
   emailjs: {
-    ownerEmail: "obbhack6@gmail.com",
+    ownerEmail: "",   // set OWNER_EMAIL secret in Cloudflare Pages → Settings → Environment Variables
   },
 
   // ── Payment Numbers ───────────────────────────────────────
@@ -2679,7 +2726,7 @@ function renderProductCard(p) {
   if (isC) {
     addB = "<button class='pc-btn' style='background:var(--gold)' onclick='openCustom()'>Get Quote</button>";
   } else if (p.stock > 0) {
-    addB = "<button class='pc-btn' onclick='addToCartFromGrid(" + p.id + ")'>⚡ Order Now</button>";
+    addB = "<button class='pc-btn' onclick='openSizePicker(event," + p.id + ")'>⚡ Order Now</button>";
   } else {
     addB = "<button class='pc-btn' disabled>Out of Stock</button>";
   }
@@ -2716,9 +2763,56 @@ function renderProductCard(p) {
   );
 }
 
-// ── Add to cart from grid card (default size L) ───────────
-function addToCartFromGrid(pid) {
-  var result = State.addToCart(pid, "L", 1);
+// ── Size picker mini-popup ────────────────────────────────
+function openSizePicker(evt, pid) {
+  evt.stopPropagation();
+  var old = document.getElementById("sz-picker-pop");
+  if (old) old.remove();
+
+  var p = State.getProduct(pid);
+  if (!p || p.stock <= 0) return;
+
+  var btn  = evt.currentTarget;
+  var rect = btn.getBoundingClientRect();
+
+  var pop = document.createElement("div");
+  pop.id = "sz-picker-pop";
+  pop.setAttribute("role", "dialog");
+  pop.setAttribute("aria-label", "Select size");
+  pop.innerHTML =
+    "<div class='szp-label'>Select Size</div>" +
+    "<div class='szp-grid'>" +
+      ["S","M","L","XL","XXL"].map(function(sz) {
+        return "<button class='szp-btn' onclick='addToCartFromGrid(" + pid + ","" + sz + "")'>" + sz + "</button>";
+      }).join("") +
+    "</div>" +
+    "<button class='szp-guide' onclick='openSizeGuide();var p=document.getElementById("sz-picker-pop");if(p)p.remove()'>📏 Size Guide</button>";
+
+  pop.style.cssText =
+    "position:fixed;z-index:9999;background:#fff;border:1px solid rgba(17,17,17,0.12);" +
+    "border-radius:12px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);min-width:220px;" +
+    "left:" + Math.max(8, rect.left + rect.width/2 - 110) + "px;" +
+    "top:"  + (rect.top + window.scrollY - 10) + "px;" +
+    "transform:translateY(-100%)";
+
+  document.body.appendChild(pop);
+
+  function outsideClick(e) {
+    if (!pop.contains(e.target) && e.target !== btn) {
+      pop.remove();
+      document.removeEventListener("click", outsideClick, true);
+    }
+  }
+  setTimeout(function() { document.addEventListener("click", outsideClick, true); }, 10);
+}
+
+// ── Add to cart from grid card with chosen size ───────────
+function addToCartFromGrid(pid, size) {
+  size = size || "L";
+  var pop = document.getElementById("sz-picker-pop");
+  if (pop) pop.remove();
+
+  var result = State.addToCart(pid, size, 1);
   var p = State.getProduct(pid);
   if (!p) return;
 
@@ -2728,7 +2822,7 @@ function addToCartFromGrid(pid) {
   }
   updBadge();
   renderCart();
-  toast("✓ " + p.name + " (L) added to cart", "success");
+  toast("✓ " + p.name + " (" + size + ") added to cart", "success");
 }
 
 // ── Build filter buttons ──────────────────────────────────
@@ -3652,6 +3746,14 @@ function loadProducts() {
   var queue    = [];
   var running  = false;
   var products = SITE_CONFIG.products.filter(function (p) { return !isCustom(p); });
+  var _realOrders = [];
+
+  function loadRecentOrders() {
+    fetch("/api/orders/recent-products")
+      .then(function(r) { if (!r.ok) throw new Error("no endpoint"); return r.json(); })
+      .then(function(d) { if (d && Array.isArray(d.entries) && d.entries.length) _realOrders = d.entries; })
+      .catch(function() {});
+  }
 
   function pickProd() {
     if (products.length < 2) return products[0] || null;
@@ -3674,7 +3776,7 @@ function loadProducts() {
       "<div class='sp-av'>" + data.initials + "</div>" +
       "<div class='sp-txt'>" +
         "<div class='sp-txt-main'>" + esc(data.action) + " <strong>" + esc(data.product) + "</strong></div>" +
-        "<div class='sp-txt-meta'>" + esc(data.city) + " — Just now</div>" +
+        "<div class='sp-txt-meta'>" + esc(data.city) + " — " + esc(data.timeAgo) + "</div>" +
       "</div>" +
       "<div class='sp-dot'></div>";
     w.appendChild(el);
@@ -3687,19 +3789,21 @@ function loadProducts() {
   }
 
   function trigger() {
-    var prod = pickProd();
+    var entry = _realOrders.length ? _realOrders[Math.floor(Math.random() * _realOrders.length)] : null;
+    var prod  = entry ? { name: entry.productName } : pickProd();
     if (!prod) return;
     var name    = sp.names[Math.floor(Math.random() * sp.names.length)];
-    var city    = sp.cities[Math.floor(Math.random() * sp.cities.length)];
+    var city    = entry ? entry.city : sp.cities[Math.floor(Math.random() * sp.cities.length)];
     var action  = sp.actions[Math.floor(Math.random() * sp.actions.length)];
-    var init    = name.charAt(0).toUpperCase();
-
-    queue.push({ initials: init, action: action, product: prod.name, city: city });
+    var timeAgo = entry && entry.minutesAgo
+      ? (entry.minutesAgo < 60 ? entry.minutesAgo + " min ago" : Math.floor(entry.minutesAgo/60) + "h ago")
+      : "Just now";
+    queue.push({ initials: name.charAt(0).toUpperCase(), action: action, product: prod.name, city: city, timeAgo: timeAgo });
     if (!running) showNext();
   }
 
-  // Show notifications only after visitor enters the site (like og)
   window.addEventListener('arctic:entered', function () {
+    loadRecentOrders();
     var delays = [8000, 25000, 44000, 68000, 95000, 130000];
     delays.forEach(function (d) { setTimeout(trigger, d); });
   }, { once: true });
@@ -4206,6 +4310,70 @@ function fp(f,btn){ document.querySelectorAll(".fb").forEach(function(b){b.class
     });
 })();
 // ── INIT (skipped — handled by API loader above) ─────
+
+// ── Order Tracker ─────────────────────────────────────────
+function openOrderTracker() {
+  var modal = document.getElementById("order-track-modal");
+  if (modal) modal.classList.add("open");
+  setTimeout(function() { var inp = document.getElementById("ot-phone"); if (inp) inp.focus(); }, 150);
+}
+
+function closeOrderTracker() {
+  var modal = document.getElementById("order-track-modal");
+  if (modal) modal.classList.remove("open");
+  var results = document.getElementById("ot-results");
+  if (results) results.innerHTML = "";
+  var inp = document.getElementById("ot-phone");
+  if (inp) { inp.value = ""; inp.classList.remove("err"); }
+}
+
+function lookupOrders() {
+  var inp     = document.getElementById("ot-phone");
+  var btn     = document.getElementById("ot-search-btn");
+  var results = document.getElementById("ot-results");
+  if (!inp || !results) return;
+  var phone = inp.value.trim();
+  if (!phone) { inp.classList.add("err"); inp.focus(); return; }
+  inp.classList.remove("err");
+  btn.disabled = true; btn.textContent = "...";
+  results.innerHTML = "<div class='ot-empty'>Looking up orders…</div>";
+  fetch("/api/orders/lookup", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone: phone }),
+  })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false; btn.textContent = "Search";
+      if (data.error) { results.innerHTML = "<div class='ot-empty'>" + esc(data.error) + "</div>"; return; }
+      var orders = data.orders || [];
+      if (!orders.length) {
+        results.innerHTML = "<div class='ot-empty'>No orders found for this number.<br>Double-check the number you used at checkout.</div>";
+        return;
+      }
+      var STATUS_LABELS = { pending:"Pending", confirmed:"Confirmed", processing:"Processing", shipped:"Shipped", delivered:"Delivered", cancelled:"Cancelled", refunded:"Refunded" };
+      var h = "<div class='ot-results'>";
+      orders.forEach(function(o) {
+        var items = (o.items || []).map(function(it) { return esc(it.name) + " (" + esc(it.sz || "?") + ") × " + it.qty; }).join(", ");
+        var statusLabel = STATUS_LABELS[o.status] || o.status;
+        var date = o.created_at ? new Date(o.created_at + (o.created_at.indexOf("Z") < 0 ? "Z" : "")).toLocaleDateString("en-BD", { timeZone:"Asia/Dhaka", year:"numeric", month:"short", day:"numeric" }) : "";
+        h += "<div class='ot-card'>" +
+               "<div class='ot-card-head'><div class='ot-order-id'>" + esc(o.id) + "</div><div class='ot-status " + esc(o.status) + "'>" + esc(statusLabel) + "</div></div>" +
+               "<div class='ot-items'>" + items + "</div>" +
+               "<div class='ot-total'>৳" + (o.total ? o.total.toLocaleString() : "0") + "</div>" +
+               (date ? "<div class='ot-date'>" + date + "</div>" : "") +
+             "</div>";
+      });
+      h += "</div>";
+      results.innerHTML = h;
+    })
+    .catch(function() { btn.disabled = false; btn.textContent = "Search"; results.innerHTML = "<div class='ot-empty'>Could not connect. Please try again.</div>"; });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  var modal = document.getElementById("order-track-modal");
+  if (modal) modal.addEventListener("click", function(e) { if (e.target === modal) closeOrderTracker(); });
+});
+
 </script>
 </body>
 </html>

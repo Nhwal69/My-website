@@ -18,6 +18,13 @@ export async function onRequestPost(context) {
     return json({ error: "Email service not configured" }, 500);
   }
 
+  // OWNER_EMAIL must come from env — never from the client request
+  const ownerEmail = (env.OWNER_EMAIL || "").toLowerCase().trim();
+  if (!ownerEmail || !isValidEmail(ownerEmail)) {
+    logError("POST /api/send-email", "OWNER_EMAIL env var not set or invalid");
+    return json({ error: "Email service not configured" }, 500);
+  }
+
   // ── Rate limit: 5 emails per IP per 10 minutes ────────
   const ip      = request.headers.get("CF-Connecting-IP") || "unknown";
   const allowed = await rateLimit(env.RATE_LIMIT, "email:" + ip, 5, 600);
@@ -49,9 +56,6 @@ export async function onRequestPost(context) {
   if (!isValidEmail(custEmail)) {
     return json({ error: "Invalid customer_email" }, 400);
   }
-  if (!isValidEmail(toEmail)) {
-    return json({ error: "Invalid to_email" }, 400);
-  }
   if (!total) {
     return json({ error: "total_amount is required" }, 400);
   }
@@ -70,7 +74,7 @@ export async function onRequestPost(context) {
     bkash_trx_id:     sanitize(tp.bkash_trx_id     || "N/A"),
     nagad_trx_id:     sanitize(tp.nagad_trx_id     || "N/A"),
     order_date:       sanitize(tp.order_date       || ""),
-    to_email:         toEmail,
+    to_email:         ownerEmail,   // always from server env, not client
     reply_to:         custEmail,
   };
 

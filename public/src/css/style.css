@@ -873,3 +873,46 @@ html.lang-bn, html.lang-bn * { font-family: "Noto Sans Bengali", sans-serif !imp
 html.lang-bn .nav-brand, html.lang-bn .nav-brand-top,
 html.lang-bn .ld-title { font-family: "Noto Sans Bengali", sans-serif !important; font-style: normal !important; letter-spacing: 0 !important; }
 html.lang-bn .sh2, html.lang-bn .sl { font-style: normal !important; letter-spacing: 0 !important; }
+
+/* ── SIZE PICKER POPUP (grid card) ── */
+#sz-picker-pop { animation: szpIn 0.15s ease; }
+@keyframes szpIn { from { opacity:0; transform:translateY(calc(-100% + 8px)) } to { opacity:1; transform:translateY(-100%) } }
+.szp-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(17,17,17,0.5); margin-bottom:10px; }
+.szp-grid { display:flex; gap:6px; margin-bottom:10px; }
+.szp-btn { background:none; border:1px solid rgba(17,17,17,0.2); color:#111; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1px; padding:7px 11px; cursor:pointer; border-radius:6px; transition:all 0.15s; font-weight:500; }
+.szp-btn:hover { background:#111; color:#fff; border-color:#111; }
+.szp-guide { background:none; border:none; color:rgba(17,17,17,0.45); font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; padding:0; display:block; width:100%; text-align:center; }
+.szp-guide:hover { color:var(--glow,#111); }
+
+/* ── ORDER TRACKER MODAL ── */
+#order-track-modal { display:none; position:fixed; inset:0; z-index:8000; background:rgba(0,0,0,0.55); align-items:center; justify-content:center; padding:16px; }
+#order-track-modal.open { display:flex; }
+.ot-box { background:#fff; border-radius:16px; padding:28px 24px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; }
+.ot-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:#111; margin-bottom:4px; }
+.ot-sub { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(17,17,17,0.4); margin-bottom:20px; }
+.ot-input-row { display:flex; gap:8px; margin-bottom:16px; }
+.ot-input { flex:1; border:1px solid rgba(17,17,17,0.2); border-radius:8px; padding:11px 14px; font-family:'Inter',sans-serif; font-size:14px; color:#111; outline:none; transition:border-color 0.2s; }
+.ot-input:focus { border-color:#111; }
+.ot-input.err { border-color:#e53e3e; }
+.ot-btn { background:#111; color:#fff; border:none; border-radius:8px; padding:11px 18px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; white-space:nowrap; transition:background 0.2s; }
+.ot-btn:hover { background:#333; }
+.ot-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.ot-results { display:flex; flex-direction:column; gap:12px; }
+.ot-empty { text-align:center; padding:24px; color:rgba(17,17,17,0.4); font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1px; }
+.ot-card { border:1px solid rgba(17,17,17,0.1); border-radius:10px; padding:14px 16px; }
+.ot-card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px; }
+.ot-order-id { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; color:rgba(17,17,17,0.6); }
+.ot-status { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; padding:4px 9px; border-radius:20px; font-weight:600; }
+.ot-status.pending   { background:#fff8e1; color:#b45309; }
+.ot-status.confirmed { background:#e8f5e9; color:#2e7d32; }
+.ot-status.processing{ background:#e3f2fd; color:#1565c0; }
+.ot-status.shipped   { background:#ede7f6; color:#512da8; }
+.ot-status.delivered { background:#e8f5e9; color:#1b5e20; }
+.ot-status.cancelled { background:#fce4ec; color:#b71c1c; }
+.ot-items { font-family:'Inter',sans-serif; font-size:13px; color:rgba(17,17,17,0.7); margin-bottom:6px; line-height:1.6; }
+.ot-total { font-family:'DM Mono',monospace; font-size:11px; color:#111; font-weight:600; }
+.ot-date { font-family:'DM Mono',monospace; font-size:9px; color:rgba(17,17,17,0.35); margin-top:4px; }
+.ot-close { display:block; margin:20px auto 0; background:none; border:1px solid rgba(17,17,17,0.2); border-radius:8px; padding:9px 20px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; color:rgba(17,17,17,0.6); transition:all 0.15s; }
+.ot-close:hover { background:#111; color:#fff; border-color:#111; }
+.ot-wa-hint { text-align:center; font-family:'Inter',sans-serif; font-size:12px; color:rgba(17,17,17,0.45); margin-top:14px; }
+.ot-wa-hint a { color:var(--glow,#111); text-decoration:underline; }
