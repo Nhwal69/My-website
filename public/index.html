@@ -2769,33 +2769,44 @@ function openSizePicker(evt, pid) {
   var old = document.getElementById("sz-picker-pop");
   if (old) old.remove();
 
-  var p = State.getProduct(pid);
-  if (!p || p.stock <= 0) return;
-
   var btn  = evt.currentTarget;
   var rect = btn.getBoundingClientRect();
+  var sizes = ["S","M","L","XL","XXL"];
 
   var pop = document.createElement("div");
   pop.id = "sz-picker-pop";
-  pop.setAttribute("role", "dialog");
-  pop.setAttribute("aria-label", "Select size");
+
+  var btnsHtml = "";
+  for (var i = 0; i < sizes.length; i++) {
+    btnsHtml += "<button class='szp-btn' data-sz='" + sizes[i] + "' data-pid='" + pid + "'>" + sizes[i] + "</button>";
+  }
+
   pop.innerHTML =
     "<div class='szp-label'>Select Size</div>" +
-    "<div class='szp-grid'>" +
-      ["S","M","L","XL","XXL"].map(function(sz) {
-        return "<button class='szp-btn' onclick='addToCartFromGrid(" + pid + ","" + sz + "")'>" + sz + "</button>";
-      }).join("") +
-    "</div>" +
-    "<button class='szp-guide' onclick='openSizeGuide();var p=document.getElementById("sz-picker-pop");if(p)p.remove()'>📏 Size Guide</button>";
+    "<div class='szp-grid'>" + btnsHtml + "</div>" +
+    "<button class='szp-guide' id='szp-guide-btn'>&#128207; Size Guide</button>";
 
   pop.style.cssText =
-    "position:fixed;z-index:9999;background:#fff;border:1px solid rgba(17,17,17,0.12);" +
-    "border-radius:12px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);min-width:220px;" +
-    "left:" + Math.max(8, rect.left + rect.width/2 - 110) + "px;" +
-    "top:"  + (rect.top + window.scrollY - 10) + "px;" +
+    "position:fixed;z-index:99999;background:#fff;border:1px solid rgba(17,17,17,0.15);" +
+    "border-radius:12px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.22);min-width:220px;" +
+    "left:" + Math.max(8, Math.min(rect.left + rect.width/2 - 110, window.innerWidth - 228)) + "px;" +
+    "top:" + (rect.top - 10) + "px;" +
     "transform:translateY(-100%)";
 
   document.body.appendChild(pop);
+
+  // Wire size buttons via event delegation (avoids inline quote issues)
+  pop.querySelector(".szp-grid").addEventListener("click", function(e) {
+    var b = e.target.closest(".szp-btn");
+    if (!b) return;
+    addToCartFromGrid(parseInt(b.getAttribute("data-pid"), 10), b.getAttribute("data-sz"));
+  });
+
+  var guideBtn = pop.querySelector("#szp-guide-btn");
+  if (guideBtn) guideBtn.addEventListener("click", function() {
+    pop.remove();
+    if (typeof openSizeGuide === "function") openSizeGuide();
+  });
 
   function outsideClick(e) {
     if (!pop.contains(e.target) && e.target !== btn) {
