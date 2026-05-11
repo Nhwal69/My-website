@@ -293,7 +293,7 @@ function placeOrder() {
     toast(msg || "Could not place order. Please try again.", "error");
   }
 
-  // ── Save order to DB first, then send email (non-blocking) ──
+  // ── Save order to DB first (primary), then send email (secondary) ────
   var apiItems = cart.map(function (it) {
     return { pid: it.pid, name: it.name, sz: it.sz, qty: it.qty, price: it.price };
   });
@@ -310,14 +310,15 @@ function placeOrder() {
     status:         "pending",
   })
     .then(function () {
-      // Order saved — email is secondary, never blocks success
-      API.sendEmail(templateParams).catch(function (err) {
-        console.warn("Email notification failed (order still saved):", err);
-      });
+      // Order saved — success regardless of email outcome
       onOrderSuccess(oid);
+      // Send confirmation email as a best-effort side effect
+      API.sendEmail(templateParams).catch(function (err) {
+        console.warn("Confirmation email failed (order still placed):", err);
+      });
     })
     .catch(function (err) {
-      console.error("Order save failed:", err);
+      console.error("Order save error:", err);
       finishFail("Order could not be submitted. Please check your connection and try again.");
     });
 }
