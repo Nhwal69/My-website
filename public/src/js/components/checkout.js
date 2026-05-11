@@ -293,34 +293,31 @@ function placeOrder() {
     toast(msg || "Could not place order. Please try again.", "error");
   }
 
-  // ── Send email then save order ────────────────────────
-  API.sendEmail(templateParams)
-    .then(function (result) {
-      if (result.success) {
-        // Save order to D1 (non-blocking — email is the primary confirmation)
-        var apiItems = cart.map(function (it) {
-          return { pid: it.pid, name: it.name, sz: it.sz, qty: it.qty, price: it.price };
-        });
-        API.createOrder({
-          id:             oid,
-          name:           n,
-          phone:          p,
-          email:          e,
-          address:        fullAddress,
-          items:          apiItems,
-          total:          State.getGrandTotal(),
-          payment_method: method,
-          status:         "pending",
-        }).catch(function (err) {
-          console.warn("Order DB save failed (email still sent):", err);
-        });
-        onOrderSuccess(oid);
-      } else {
-        finishFail("Order could not be submitted. Please check your connection and try again.");
-      }
+  // ── Save order to DB first, then send email (non-blocking) ──
+  var apiItems = cart.map(function (it) {
+    return { pid: it.pid, name: it.name, sz: it.sz, qty: it.qty, price: it.price };
+  });
+
+  API.createOrder({
+    id:             oid,
+    name:           n,
+    phone:          p,
+    email:          e,
+    address:        fullAddress,
+    items:          apiItems,
+    total:          State.getGrandTotal(),
+    payment_method: method,
+    status:         "pending",
+  })
+    .then(function () {
+      // Order saved — email is secondary, never blocks success
+      API.sendEmail(templateParams).catch(function (err) {
+        console.warn("Email notification failed (order still saved):", err);
+      });
+      onOrderSuccess(oid);
     })
     .catch(function (err) {
-      console.error("Email error:", err);
+      console.error("Order save failed:", err);
       finishFail("Order could not be submitted. Please check your connection and try again.");
     });
 }
