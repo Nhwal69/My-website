@@ -39,9 +39,9 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   const { env, request } = context;
 
-  // ── IP-based rate limiting: 3 orders per hour ─────────
+  // ── IP-based rate limiting: 10 orders per hour ────────
   const ip      = request.headers.get("CF-Connecting-IP") || "unknown";
-  const allowed = await rateLimit(env.RATE_LIMIT, "order:" + ip, 3, 3600);
+  const allowed = await rateLimit(env.RATE_LIMIT, "order:" + ip, 10, 3600);
   if (!allowed) {
     return json({ error: "Too many orders submitted. Please wait before trying again." }, 429);
   }
