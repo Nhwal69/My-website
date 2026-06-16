@@ -496,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function () {
   buildTicker();
   initScrollReveal();
   initEscKey();
-  initLang && initLang();   // already IIFE but guard anyway
+  typeof initLang !== "undefined" && initLang();   // already IIFE but guard anyway
 
   // Load products then render grid (finally = runs on both success AND API failure)
   loadProducts().finally(function () {
