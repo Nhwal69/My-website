@@ -2922,7 +2922,10 @@ function renderCart() {
   f.style.display = "block";
   var h = "";
   cart.forEach(function (it) {
-    var src = it.img;
+    var src = it.img || (function () {
+      var p = State.getProduct(it.pid);
+      return (p && (p.img || p.image_url)) || null;
+    }());
     var th  = src
       ? "<img src='" + esc(src) + "' alt='" + esc(it.name) + "' loading='lazy' decoding='async'/>"
       : "<div class='ci-thumb-icon'>🛋</div>";
@@ -3230,7 +3233,10 @@ function renderWishlist() {
 
   var h = "";
   wishlist.forEach(function (it) {
-    var src = it.img;
+    var src = it.img || (function () {
+      var p = State.getProduct(it.pid);
+      return (p && (p.img || p.image_url)) || null;
+    }());
     var th  = src ? "<img src='" + esc(src) + "'/>" : "";
     h += "<div class='wl-item'>" +
            "<div class='wl-thumb'>" + th + "</div>" +
